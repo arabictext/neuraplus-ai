@@ -58,7 +58,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .btn-p{color:var(--bg);background:var(--accent);}
 .btn-p:hover{box-shadow:0 0 30px rgba(0,229,255,0.4);}
 .success-msg{display:none;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);border-radius:8px;padding:1.5rem;text-align:center;color:#34d399;font-family:'Space Mono',monospace;font-size:0.8rem;letter-spacing:0.05em;margin-top:1rem;}
-/* INFO CARDS */
 .info-title{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:700;letter-spacing:-0.03em;margin-bottom:2rem;}
 .info-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem 2rem;margin-bottom:1.2rem;transition:border-color 0.3s;display:flex;align-items:flex-start;gap:1.2rem;}
 .info-card:hover{border-color:var(--accent);}
@@ -67,6 +66,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .info-card p{font-size:0.875rem;color:var(--text-dim);line-height:1.5;}
 .info-card a{color:var(--accent);text-decoration:none;}
 .info-card a:hover{text-decoration:underline;}
+.social-btns{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:1rem;}
+.social-btn{display:flex;align-items:center;gap:0.4rem;background:var(--surface2);border:1px solid var(--border);padding:0.5rem 1rem;border-radius:6px;color:var(--text);text-decoration:none;font-size:0.82rem;transition:all 0.2s;font-family:'Space Mono',monospace;}
+.social-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+/* STATS BAR */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin:3rem 0;}
+.stat-item{background:var(--surface);padding:2.5rem 2rem;text-align:left;position:relative;transition:background 0.3s;}
+.stat-item:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:var(--border);}
+.stat-item:hover{background:var(--surface2);}
+.stat-num{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--accent);display:block;letter-spacing:-0.03em;line-height:1;margin-bottom:0.5rem;text-shadow:0 0 30px rgba(0,229,255,0.3);}
+.stat-label{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);display:block;}
+
 /* NEWSLETTER */
 .nl-section{padding:4rem 0 5rem;border-top:1px solid var(--border);}
 .nl-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:4rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;overflow:hidden;}
@@ -81,10 +92,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .fnote{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--text-muted);}
 .nl-btn{font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--bg);background:var(--accent);padding:0.9rem 2rem;border-radius:4px;border:none;cursor:pointer;transition:all 0.2s;width:100%;text-align:center;}
 .nl-btn:hover{box-shadow:0 0 30px rgba(0,229,255,0.4);}
-/* FORMSPREE NOTICE */
-.form-notice{background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.15);border-radius:8px;padding:1rem 1.2rem;margin-bottom:2rem;font-size:0.85rem;color:var(--text-dim);}
-.form-notice strong{color:var(--accent);}
-.form-notice a{color:var(--accent);text-decoration:none;}
 footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
 .flogo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--text);}
 .flinks{display:flex;gap:2rem;list-style:none;}
@@ -93,6 +100,33 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
 .fcopy{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--text-muted);}
 .fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.5s,transform 0.5s;}
 .fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* POPUP */
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all 0.4s ease;backdrop-filter:blur(6px);}
+.popup-overlay.active{opacity:1;visibility:visible;}
+.popup-box{background:var(--surface);border:1px solid var(--accent);border-radius:16px;padding:2.5rem;max-width:480px;width:90%;position:relative;transform:translateY(30px);transition:transform 0.4s ease;box-shadow:0 0 60px rgba(0,229,255,0.15);}
+.popup-overlay.active .popup-box{transform:translateY(0);}
+.popup-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--text-dim);font-size:1.5rem;cursor:pointer;line-height:1;transition:color 0.2s;}
+.popup-close:hover{color:var(--accent);}
+.popup-tag{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem;}
+.popup-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:0.5rem;line-height:1.2;}
+.popup-sub{color:var(--text-dim);font-size:0.875rem;margin-bottom:1.5rem;}
+.popup-form .form-group{margin-bottom:1rem;}
+.popup-form .form-group label{display:block;font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.4rem;}
+.popup-form .form-group input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:0.75rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;}
+.popup-form .form-group input:focus{border-color:var(--accent);}
+.popup-form .form-group input::placeholder{color:var(--text-muted);}
+.popup-checkbox{display:flex;align-items:flex-start;gap:0.75rem;margin:1rem 0 1.2rem;}
+.popup-checkbox input[type="checkbox"]{margin-top:3px;accent-color:var(--accent);width:16px;height:16px;flex-shrink:0;cursor:pointer;}
+.popup-checkbox label{font-size:0.78rem;color:var(--text-dim);line-height:1.5;cursor:pointer;}
+.popup-checkbox label a{color:var(--accent);text-decoration:none;}
+.popup-checkbox label a:hover{text-decoration:underline;}
+.popup-btn{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--bg);background:var(--accent);padding:0.85rem 2rem;border-radius:4px;border:none;cursor:pointer;transition:all 0.2s;width:100%;text-align:center;}
+.popup-btn:hover{box-shadow:0 0 30px rgba(0,229,255,0.4);}
+.popup-success{display:none;text-align:center;padding:1rem 0;}
+.popup-success h3{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--accent);margin-bottom:0.5rem;}
+.popup-success p{color:var(--text-dim);font-size:0.875rem;}
+.popup-timer{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--text-muted);text-align:center;margin-top:1rem;}
 @media(max-width:900px){
   nav{padding:0 1.5rem;}
   .nav-links{display:none;}
@@ -103,14 +137,53 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
   .nl-card{grid-template-columns:1fr;padding:2rem;gap:2rem;}
   .frow{flex-direction:column;}
   footer{padding:2rem 1.5rem;flex-direction:column;text-align:center;}
+  .stats-bar{grid-template-columns:repeat(2,1fr);}
+  .stat-item:nth-child(2)::after{display:none;}
+  .stat-num{font-size:2rem;}
 }
 </style>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TH2D2WBW"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TH2D2WBW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div id="popupContent">
+      <div class="popup-tag">🔔 Stay Connected</div>
+      <h2 class="popup-title">Get Free AI Insights Every Week</h2>
+      <p class="popup-sub">Join thousands of AI enthusiasts. Get the latest AI news, tools, and insights delivered to your inbox — free forever.</p>
+      <form class="popup-form" id="popupForm" action="https://formspree.io/f/xzdogyvo" method="POST">
+        <div class="form-group">
+          <label>Your Name *</label>
+          <input type="text" name="name" placeholder="Prashant Lalwani" required>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" name="email" placeholder="you@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" name="phone" placeholder="+91 90000 00000">
+        </div>
+        <input type="hidden" name="_subject" value="New Popup Subscriber — NeuraPulse">
+        <div class="popup-checkbox">
+          <input type="checkbox" id="popupPrivacy" required>
+          <label for="popupPrivacy">I agree to the <a href="#" target="_blank">Privacy Policy</a> and consent to receive emails from NeuraPulse. I can unsubscribe anytime.</label>
+        </div>
+        <button type="submit" class="popup-btn" id="popupSubmitBtn">Subscribe Free →</button>
+        <p class="popup-timer" id="popupTimer"></p>
+      </form>
+    </div>
+    <div class="popup-success" id="popupSuccess">
+      <h3>🎉 Thank You!</h3>
+      <p>You're now subscribed to NeuraPulse. Check your inbox for a confirmation email!</p>
+    </div>
+  </div>
+</div>
+
 <nav>
   <a href="index.html" class="logo"><span class="logo-dot"></span>NeuraPulse</a>
   <ul class="nav-links" id="navLinks">
@@ -133,24 +206,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p>Have a question, story tip, or want to write for us? We'd love to hear from you. We respond within 24-48 hours.</p>
   </div>
 
+  <!-- STATS BAR -->
+  <div class="stats-bar fade-in">
+    <div class="stat-item">
+      <span class="stat-num">200+</span>
+      <span class="stat-label">Articles Published</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">50+</span>
+      <span class="stat-label">AI Topics Covered</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">30+</span>
+      <span class="stat-label">Countries Reached</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">24/7</span>
+      <span class="stat-label">Support Available</span>
+    </div>
+  </div>
+
   <!-- CONTACT GRID -->
   <div class="contact-grid fade-in">
-
     <!-- FORM -->
     <div>
       <h2 class="form-title">Send Us a Message</h2>
       <p class="form-sub">Fill in the form below and we'll get back to you as soon as possible.</p>
-      </div>
-
-      <!-- REAL WORKING FORM via Formspree -->
       <form id="contactForm" action="https://formspree.io/f/mgongnnn" method="POST">
         <div class="form-group">
           <label for="fname">Your Name *</label>
-          <input type="text" id="fname" name="name" placeholder="Piyush Sharma" required>
+          <input type="text" id="fname" name="name" placeholder="Your full name" required>
         </div>
         <div class="form-group">
           <label for="femail">Email Address *</label>
           <input type="email" id="femail" name="email" placeholder="you@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="fphone">Phone Number</label>
+          <input type="tel" id="fphone" name="phone" placeholder="+91 90000 00000">
         </div>
         <div class="form-group">
           <label for="fsubject">Subject</label>
@@ -168,9 +261,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <label for="fmsg">Message *</label>
           <textarea id="fmsg" name="message" placeholder="Tell us what's on your mind..." required></textarea>
         </div>
-        <!-- Hidden fields for better email -->
+        <div class="popup-checkbox">
+          <input type="checkbox" id="mainPrivacy" required>
+          <label for="mainPrivacy">I agree to the <a href="#" target="_blank">Privacy Policy</a> and consent to be contacted by NeuraPulse.</label>
+        </div>
         <input type="hidden" name="_subject" value="New message from NeuraPulse contact form">
-        <input type="hidden" name="_next" value="https://neuraplus-ai.github.io/contact.html?sent=true">
         <button type="submit" class="btn btn-p" id="submitBtn">Send Message →</button>
       </form>
       <div class="success-msg" id="successMsg">✓ Message sent successfully! We'll reply within 24-48 hours.</div>
@@ -179,15 +274,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- INFO CARDS -->
     <div>
       <h2 class="info-title">Other Ways to Connect</h2>
-
       <div class="info-card">
         <span class="info-icon">📧</span>
         <div>
           <h3>Email Us Directly</h3>
-          <p>For urgent matters or partnership enquiries:<br><p>For urgent matters or partnership enquiries:<br><a href="https://mail.google.com/mail/?view=cm&to=neuraplus.ai@outlook.com" target="_blank">neuraplus.ai@outlook.com</a></p>
+          <p>For urgent matters or partnership enquiries:<br>
+          <a href="https://mail.google.com/mail/?view=cm&to=neuraplus.ai@outlook.com" target="_blank">neuraplus.ai@outlook.com</a></p>
         </div>
       </div>
-
       <div class="info-card">
         <span class="info-icon">✍️</span>
         <div>
@@ -195,15 +289,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p>Are you an AI researcher or engineer? We accept guest posts on LLMs, computer vision, AI ethics, and robotics. Send us your article idea and we'll get back to you!</p>
         </div>
       </div>
-
       <div class="info-card">
         <span class="info-icon">💰</span>
         <div>
           <h3>Sponsorship & Advertising</h3>
-          <p>Reach 32,000+ monthly AI enthusiasts. We offer newsletter sponsorships and sponsored articles. Email us to discuss rates and availability.</p>
+          <p>Reach our growing AI audience. We offer sponsored articles and backlink placements. Email us to discuss rates and availability.</p>
         </div>
       </div>
-
       <div class="info-card">
         <span class="info-icon">⏱️</span>
         <div>
@@ -211,12 +303,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p>We respond to all messages within <strong style="color:var(--accent)">24-48 hours</strong>. For urgent matters, email us directly.</p>
         </div>
       </div>
-
       <div class="info-card">
         <span class="info-icon">🌐</span>
         <div>
           <h3>Follow NeuraPulse</h3>
-          <p>Stay updated on our latest AI articles and research. Find us on <p>Stay updated on our latest AI articles and research. Find us on <a href="https://x.com/AiNeuraplus" target="_blank">Twitter/X</a> and <a href="https://www.linkedin.com/in/prashant-lalwani-361010407/" target="_blank">LinkedIn</a> for daily AI insights.</p></p>
+          <p>Stay updated on our latest AI articles and research across all platforms.</p>
+          <div class="social-btns">
+            <a href="https://x.com/AiNeuraplus" target="_blank" class="social-btn">𝕏 Twitter/X</a>
+            <a href="https://www.linkedin.com/in/prashant-lalwani-361010407/" target="_blank" class="social-btn">💼 LinkedIn</a>
+            <a href="https://www.instagram.com/neuraplus.ai/" target="_blank" class="social-btn">📸 Instagram</a>
+            <a href="https://in.pinterest.com/neuraplusai/" target="_blank" class="social-btn">📌 Pinterest</a>
+            <a href="#" target="_blank" class="social-btn">👥 Facebook</a>
+          </div>
         </div>
       </div>
     </div>
@@ -228,15 +326,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div>
         <div class="page-tag" style="margin-bottom:0.75rem">Free Newsletter</div>
         <h2>Get AI Insights Every Tuesday</h2>
-        <p>Join 4,200+ readers who get the most important AI breakthroughs, research papers, and practical insights — curated and explained clearly, delivered every Tuesday morning. Free forever.</p>
+        <p>Join our readers who get the most important AI breakthroughs, research papers, and practical insights — curated and explained clearly, delivered every Tuesday morning. Free forever.</p>
       </div>
       <div class="nl-form">
         <div class="frow">
           <input type="text" class="finput" id="nlName" placeholder="Your name" style="flex:0.7" aria-label="Name">
           <input type="email" class="finput" id="nlEmail" placeholder="you@email.com" aria-label="Email">
         </div>
+        <input type="tel" class="finput" id="nlPhone" placeholder="Phone number (optional)" aria-label="Phone">
         <button class="nl-btn" onclick="doSub(this)">Subscribe — It's Free</button>
-        <p class="fnote">✦ No spam · Unsubscribe anytime · 4,200+ readers</p>
+        <p class="fnote">✦ No spam · Unsubscribe anytime</p>
       </div>
     </div>
   </div>
@@ -263,29 +362,79 @@ document.getElementById('ham').addEventListener('click',()=>document.getElementB
 const obs=new IntersectionObserver((e)=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');obs.unobserve(en.target);}});},{threshold:0.1});
 document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
 
-// Check if form was submitted (redirect back)
-if(window.location.search.includes('sent=true')){
-  document.getElementById('contactForm').style.display='none';
-  document.getElementById('successMsg').style.display='block';
-}
-
-// Form submit feedback
+// Contact form submit
 document.getElementById('contactForm').addEventListener('submit',function(){
   const btn=document.getElementById('submitBtn');
   btn.textContent='Sending...';
   btn.style.opacity='0.7';
   btn.style.pointerEvents='none';
+  setTimeout(()=>{
+    document.getElementById('contactForm').style.display='none';
+    document.getElementById('successMsg').style.display='block';
+  },2000);
 });
 
 // Newsletter
 function doSub(b){
   const e=document.getElementById('nlEmail').value;
-  const n=document.getElementById('nlName').value;
   if(!e){alert('Please enter your email address.');return;}
   b.textContent='✓ Subscribed! Check your inbox.';
   b.style.background='#34d399';
   b.style.pointerEvents='none';
 }
+
+// POPUP LOGIC
+let popupShown=false;
+let popupInterval;
+function showPopup(){
+  if(!popupShown){
+    document.getElementById('popupOverlay').classList.add('active');
+    popupShown=true;
+  }
+}
+function closePopup(){
+  document.getElementById('popupOverlay').classList.remove('active');
+  popupShown=false;
+  clearInterval(popupInterval);
+  startPopupTimer();
+}
+function startPopupTimer(){
+  setTimeout(showPopup,300000);
+}
+startPopupTimer();
+
+// Popup form submit
+document.getElementById('popupForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const btn=document.getElementById('popupSubmitBtn');
+  btn.textContent='Sending...';
+  btn.style.opacity='0.7';
+  btn.style.pointerEvents='none';
+  const formData=new FormData(this);
+  fetch('https://formspree.io/f/xzdogyvo',{
+    method:'POST',
+    body:formData,
+    headers:{'Accept':'application/json'}
+  }).then(response=>{
+    if(response.ok){
+      document.getElementById('popupContent').style.display='none';
+      document.getElementById('popupSuccess').style.display='block';
+      setTimeout(()=>{
+        closePopup();
+        document.getElementById('popupContent').style.display='block';
+        document.getElementById('popupSuccess').style.display='none';
+        document.getElementById('popupForm').reset();
+        btn.textContent='Subscribe Free →';
+        btn.style.opacity='1';
+        btn.style.pointerEvents='auto';
+      },3000);
+    }
+  }).catch(()=>{
+    btn.textContent='Try Again';
+    btn.style.opacity='1';
+    btn.style.pointerEvents='auto';
+  });
+});
 </script>
 </body>
 </html>

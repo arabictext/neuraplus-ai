@@ -69,7 +69,8 @@ footer{border-top:1px solid var(--bd);padding:2rem 3rem;max-width:1280px;margin:
 .d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}.d4{transition-delay:.32s;}
 @keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(255,107,43,.4);}70%{box-shadow:0 0 0 14px rgba(255,107,43,0);}100%{box-shadow:0 0 0 0 rgba(255,107,43,0);}}
 .pulse{animation:pulse-ring 2.4s ease infinite;}
-</style></head>
+</style>  <link rel="stylesheet" href="/popup.css">
+</head>
   <body>
     <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TH2D2WBW"
@@ -144,4 +145,5 @@ docker compose logs -f ollama</pre></div>
 document.getElementById('hbg').addEventListener('click',function(){document.getElementById('nl').classList.toggle('open');});
 var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('v');io.unobserve(en.target);}});},{threshold:.07,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.fi,.fi-l,.fi-r,.fi-s').forEach(function(el){io.observe(el);});
-</script></body></html>
+</script>  <script src="/popup.js"></script>
+</body></html>

@@ -128,6 +128,7 @@ footer{border-top:1px solid var(--border);padding:1.8rem 3rem;max-width:1280px;m
 .chat-bubble{opacity:0;transform:translateY(10px);transition:all 0.4s ease-out}
 .chat-bubble.visible{opacity:1;transform:translateY(0)}
 </style>
+  <link rel="stylesheet" href="/popup.css">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -464,5 +465,6 @@ document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('.tool-card').forEach(c=>chatObserver.observe(c));
 });
 </script>
+  <script src="/popup.js"></script>
 </body>
 </html>

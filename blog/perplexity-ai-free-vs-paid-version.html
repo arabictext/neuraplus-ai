@@ -157,6 +157,7 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
 @media(max-width:1000px){.layout{grid-template-columns:1fr;padding:6rem 1.5rem 3rem;}.sb{display:none;}.benchmark-grid{grid-template-columns:1fr;}}
 @media(max-width:900px){nav{padding:0 1.5rem;}.nav-links{display:none;}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(5,8,16,0.98);padding:2rem;gap:1.5rem;border-bottom:1px solid var(--border);z-index:99;}.hbg{display:flex;}.rg{grid-template-columns:1fr;}footer{padding:2rem 1.5rem;flex-direction:column;text-align:center;}}
 </style>
+  <link rel="stylesheet" href="/popup.css">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -498,5 +499,6 @@ function npTyping(){var m=document.getElementById("np-msgs");var d=document.crea
 function npRmTyp(){var t=document.getElementById("np-typ");if(t)t.remove();}
 async function npSend(){var inp=document.getElementById("np-inp");var msg=inp.value.trim();if(!msg)return;npMsg(msg,false);inp.value="";npTyping();try{var r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:500,system:"You are NeuraPulse AI, expert on Perplexity AI features and pricing. Answer concisely (2-4 sentences).",messages:[{role:"user",content:msg}]})});var data=await r.json();npRmTyp();var reply=data.content&&data.content[0]?data.content[0].text:"Connection issue. Try again!";npMsg(reply,true);}catch(e){npRmTyp();npMsg("Connection issue. Explore our <a href=\"blog.html\" style=\"color:#00e5ff\">Perplexity guides</a>!",true);}}
 </script>
+  <script src="/popup.js"></script>
 </body>
 </html>

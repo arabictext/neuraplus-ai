@@ -133,6 +133,7 @@ footer{border-top:1px solid var(--border);padding:1.8rem 3rem;max-width:1280px;m
 .step-list li{counter-increment:step;position:relative;padding-left:2.5rem;margin-bottom:1rem;line-height:1.6}
 .step-list li::before{content:counter(step);position:absolute;left:0;top:0;width:1.8rem;height:1.8rem;background:var(--accent);color:#0a0e1a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700}
 </style>
+  <link rel="stylesheet" href="/popup.css">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -410,5 +411,6 @@ document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('.tool-card').forEach(card=>checkObserver.observe(card));
 });
 </script>
+  <script src="/popup.js"></script>
 </body>
 </html>

@@ -118,6 +118,7 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
 .workflow-line::after{content:'';position:absolute;top:-3px;left:0;width:8px;height:8px;background:var(--accent);border-radius:50%;animation:flowDot 2s linear infinite}
 @keyframes flowDot{0%{left:-8px;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:calc(100% - 8px);opacity:0}}
 </style>
+  <link rel="stylesheet" href="/popup.css">
 </head>
 <body>
  <!-- Google Tag Manager (noscript) -->
@@ -527,5 +528,6 @@ document.addEventListener('DOMContentLoaded',function(){
   codeBlocks.forEach(block=>observer.observe(block));
 });
 </script>
+  <script src="/popup.js"></script>
 </body>
 </html>

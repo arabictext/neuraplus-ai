@@ -100,6 +100,7 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
 /* Latency diagram styles */
 .latency-diagram{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin:2rem 0;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;text-align:center;}.ld-step{padding:1rem;}.ld-num{font-family:'Space Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--accent);display:block;margin-bottom:0.3rem;}.ld-label{font-size:0.8rem;color:var(--text-dim);}
 </style>
+  <link rel="stylesheet" href="/popup.css">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -365,5 +366,6 @@ function npTyping(){var m=document.getElementById("np-msgs");var d=document.crea
 function npRmTyp(){var t=document.getElementById("np-typ");if(t)t.remove();}
 async function npSend(){var inp=document.getElementById("np-inp");var msg=inp.value.trim();if(!msg)return;npMsg(msg,false);inp.value="";npTyping();try{var r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:500,system:"You are NeuraPulse AI, expert on Groq, real-time AI, and our blog content. Answer concisely (2-4 sentences). Be friendly and technical.",messages:[{role:"user",content:msg}]})});var data=await r.json();npRmTyp();var reply=data.content&&data.content[0]?data.content[0].text:"Connection issue. Try again!";npMsg(reply,true);}catch(e){npRmTyp();npMsg("Connection issue. Explore our <a href=\"blog.html\" style=\"color:#00e5ff\">blog</a> for Groq guides!",true);}}
 </script>
+  <script src="/popup.js"></script>
 </body>
 </html>

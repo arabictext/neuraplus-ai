@@ -134,6 +134,7 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
 .workflow-line::after{top:0;left:-3px;width:8px;height:8px;animation:flowDotV 2s linear infinite}
 @keyframes flowDotV{0%{top:-8px;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:calc(100% - 8px);opacity:0}}}
 </style>
+  <link rel="stylesheet" href="/popup.css">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -409,5 +410,6 @@ window.addEventListener('scroll',function(){var h=document.documentElement;var p
 function tFaq(el){var a=el.nextElementSibling;var ic=el.querySelector('.faq-ic');var isExpanded=el.getAttribute('aria-expanded')==='true';el.setAttribute('aria-expanded',!isExpanded);a.classList.toggle('open');ic.style.transform=a.classList.contains('open')?'rotate(45deg)':'rotate(0deg)';}
 function nlSub(b){var i=b.previousElementSibling;if(!i||!i.value){alert('Enter email!');return;}b.textContent='✓ Subscribed!';b.style.background='var(--accent2)';b.style.color='var(--bg)';b.style.pointerEvents='none';}
 </script>
+  <script src="/popup.js"></script>
 </body>
 </html>

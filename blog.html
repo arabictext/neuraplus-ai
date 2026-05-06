@@ -54,6 +54,7 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
 @media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:900px){.ph,.ctrl,.main{padding-left:1.5rem;padding-right:1.5rem;}.grid{grid-template-columns:1fr;}}
 </style>
+  <link rel="stylesheet" href="/popup.css">
 </head>
 <body>
  <!-- Google Tag Manager (noscript) -->
@@ -380,5 +381,6 @@ document.querySelectorAll('.fade').forEach(function(el){obs.observe(el);});
 function filt(cat,btn){document.querySelectorAll('.pill').forEach(function(p){p.classList.remove('active');});btn.classList.add('active');var c=0;document.querySelectorAll('.card').forEach(function(card){var d=card.dataset.cat||'';var show=(cat==='all'||d.indexOf(cat)>-1);card.style.display=show?'block':'none';if(show)c++;});document.getElementById('cl').textContent='Showing '+c+' article'+(c!==1?'s':'');}
 document.getElementById('srch').addEventListener('input',function(){var q=this.value.toLowerCase().trim();var c=0;document.querySelectorAll('.card').forEach(function(card){var t=(card.dataset.txt||'')+(card.dataset.cat||'');var show=(!q||t.indexOf(q)>-1);card.style.display=show?'block':'none';if(show)c++;});document.getElementById('cl').textContent='Showing '+c+' article'+(c!==1?'s':'');});
 </script>
+  <script src="/popup.js"></script>
 </body>
 </html>

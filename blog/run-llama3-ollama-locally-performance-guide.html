@@ -124,4 +124,5 @@ curl http://localhost:11434/api/generate -d '{
 document.getElementById('hbg').addEventListener('click',function(){document.getElementById('nl').classList.toggle('open');});
 var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('v');io.unobserve(en.target);}});},{threshold:.07,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.fi,.fi-l,.fi-r,.fi-s').forEach(function(el){io.observe(el);});
-</script></body></html>
+</script>  <script src="/popup.js"></script>
+</body></html>

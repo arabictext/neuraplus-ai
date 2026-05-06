@@ -116,6 +116,7 @@ tailwind.config = {
   .hover-lift:hover{transform:translateY(-4px);border-color:var(--cyan);}
   a{transition:color 0.2s ease;}
 </style>
+  <link rel="stylesheet" href="/popup.css">
 </head>
 <body class="min-h-screen">
    <!-- Google Tag Manager (noscript) -->
@@ -555,5 +556,6 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
+  <script src="/popup.js"></script>
 </body>
 </html>

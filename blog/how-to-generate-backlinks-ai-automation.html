@@ -67,6 +67,7 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
 @media(max-width:900px){footer{padding:2rem 1.5rem;flex-direction:column;text-align:center;}.wrap{padding:0 1.2rem;}.hero{padding:6rem 0 2rem;}}
 .fade-in{opacity:0;transform:translateY(18px);transition:opacity 0.6s,transform 0.6s;}.fade-in.vis{opacity:1;transform:none;}
 </style>
+  <link rel="stylesheet" href="/popup.css">
 </head>
 <body>
  <!-- Google Tag Manager (noscript) -->
@@ -224,5 +225,6 @@ document.getElementById('hbg').addEventListener('click',function(){document.getE
 var obs=new IntersectionObserver(function(e){e.forEach(function(en,i){if(en.isIntersecting){setTimeout(function(){en.target.classList.add('vis');},50*i);obs.unobserve(en.target);}});},{threshold:0.05});
 document.querySelectorAll('.fade-in').forEach(function(el){obs.observe(el);});
 </script>
+  <script src="/popup.js"></script>
 </body>
 </html>

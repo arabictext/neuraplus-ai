@@ -118,6 +118,7 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
 @media(max-width:1000px){.layout{grid-template-columns:1fr;padding:6rem 1.5rem 3rem;}.sidebar{display:none;}}
 @media(max-width:900px){nav{padding:0 1.5rem;}.nav-links{display:none;}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(5,8,16,0.98);padding:2rem;gap:1.5rem;border-bottom:1px solid var(--border);z-index:99;}.hamburger{display:flex;}.rg{grid-template-columns:1fr;}footer{padding:2rem 1.5rem;flex-direction:column;text-align:center;}}
 </style>
+  <link rel="stylesheet" href="/popup.css">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -349,5 +350,6 @@ document.getElementById('ham').addEventListener('click',()=>document.getElementB
 window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('pb').style.width=((h.scrollTop/(h.scrollHeight-h.clientHeight))*100)+'%';});
 function sub(b){const e=document.getElementById('se').value;if(!e){alert('Please enter email!');return;}b.textContent='✓ Subscribed!';b.style.background='#34d399';b.style.color='#050810';b.style.pointerEvents='none';}
 </script>
+  <script src="/popup.js"></script>
 </body>
 </html>

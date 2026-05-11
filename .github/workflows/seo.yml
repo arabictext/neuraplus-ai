@@ -1,45 +1,14 @@
+# This workflow has been replaced by seo-autofix.yml
+# Kept here only to prevent broken run history
+# It does nothing.
 name: Auto SEO Optimizer
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
-permissions:
-  contents: write
+  workflow_dispatch:  # manual only — no longer runs on push
 
 jobs:
-  seo-optimize:
+  deprecated:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        run: pip install beautifulsoup4 lxml htmlmin
-
-      - name: Run SEO optimizer
-        run: python seo_optimizer.py
-
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git config pull.rebase false
-          git add -A
-          if git diff --cached --quiet; then
-            echo "✅ No changes to commit."
-          else
-            git commit -m "chore: auto SEO + sitemap + robots + speed [skip ci]"
-            git pull origin main --no-rebase
-            git push origin main
-          fi
+      - name: Notice
+        run: echo "This workflow is deprecated. Use seo-autofix.yml instead."

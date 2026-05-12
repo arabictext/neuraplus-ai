@@ -1,78 +1,62 @@
-name: 🖼️ Blog Image Generator v2
+name: 🖼️ Blog Image Generator v4
 
 on:
   push:
     branches: [main, master]
     paths:
-      - "_posts/**.md"
-      - "_posts/**.mdx"
+      - "blog/**.html"
 
   workflow_dispatch:
     inputs:
       mode:
         description: "Run mode"
         required: true
-        default: "all"
+        default: "remaining"
         type: choice
         options:
-          - all
-          - new_only
+          - remaining      # only posts that still have no image (safe to re-run)
+          - all            # redo everything from scratch
 
 permissions:
   contents: write
 
 jobs:
   generate-images:
-    name: Generate Content-Relevant Images
+    name: Generate Images (Batch)
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 355    # ← GitHub max allowed (was 30, that's why it cancelled)
 
     steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
+      - name: 📥 Checkout
+        uses: actions/checkout@v4.2.2
         with:
-          fetch-depth: 0          # ← full history needed for pull/rebase
-
-      - name: 🔍 Detect new blog posts
-        id: detect
-        run: |
-          NEW_POSTS=$(git diff --name-only --diff-filter=A HEAD~1 HEAD -- '_posts/*.md' '_posts/*.mdx' 2>/dev/null | grep -v -i readme | grep -v -i index || echo "")
-          echo "new_posts=$NEW_POSTS" >> $GITHUB_OUTPUT
-
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "run_mode=${{ github.event.inputs.mode }}" >> $GITHUB_OUTPUT
-          elif [ -n "$NEW_POSTS" ]; then
-            echo "run_mode=new_only" >> $GITHUB_OUTPUT
-          else
-            echo "run_mode=all" >> $GITHUB_OUTPUT
-          fi
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🐍 Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5.4.0
         with:
           python-version: "3.11"
 
       - name: 🎨 Generate blog images
         env:
-          RUN_MODE: ${{ steps.detect.outputs.run_mode }}
-          NEW_FILE: ${{ steps.detect.outputs.new_posts }}
+          RUN_MODE: ${{ github.event.inputs.mode || 'remaining' }}
         run: python generate_blog_images.py
 
-      - name: 💾 Commit and push images
+      - name: 💾 Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add assets/images/blog/ _posts/ 2>/dev/null || true
+          git add assets/images/blog/ blog/ 2>/dev/null || true
 
           if git diff --staged --quiet; then
-            echo "✅ Nothing new to commit"
+            echo "✅ Nothing to commit"
             exit 0
           fi
 
-          git commit -m "🖼️ Add content-relevant SEO images [skip ci]"
-
-          # ── Pull remote changes first, then push ──────────────────────────
-          git pull --rebase origin $(git rev-parse --abbrev-ref HEAD)
-          git push
-          echo "✅ Images pushed!"
+          git commit -m "🖼️ Add SEO blog images [skip ci]"
+          git fetch origin
+          git rebase origin/main || git rebase origin/master
+          git push origin HEAD:main || git push origin HEAD:master
+          echo "✅ Pushed!"

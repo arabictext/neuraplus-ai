@@ -1,0 +1,107 @@
+name: Auto Hreflang & SEO
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  generate-hreflang:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Run Hreflang Generator
+        run: |
+          echo "🚀 Starting Auto Hreflang Generator..."
+          python generate_hreflang.py
+      
+      - name: Verify generated files
+        run: |
+          echo "🔍 Verifying hreflang tags..."
+          
+          if [ ! -f sitemap.xml ]; then
+            echo "❌ sitemap.xml not found!"
+            exit 1
+          fi
+          
+          if [ ! -f robots.txt ]; then
+            echo "❌ robots.txt not found!"
+            exit 1
+          fi
+          
+          HREFLANG_COUNT=$(grep -o 'hreflang=' index.html | wc -l)
+          echo "📊 Found $HREFLANG_COUNT hreflang tags in index.html"
+          
+          if [ "$HREFLANG_COUNT" -lt 10 ]; then
+            echo "❌ Expected at least 10 hreflang tags, found $HREFLANG_COUNT"
+            exit 1
+          fi
+          
+          for lang in en hi es pt fr id de zh ar ru; do
+            if grep -q "hreflang=\"$lang\"" index.html; then
+              echo "  ✅ hreflang=$lang found"
+            else
+              echo "  ❌ hreflang=$lang missing!"
+              exit 1
+            fi
+          done
+          
+          if grep -q 'hreflang="x-default"' index.html; then
+            echo "  ✅ x-default found"
+          else
+            echo "  ❌ x-default missing!"
+            exit 1
+          fi
+          
+          echo "✅ All verifications passed!"
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "✅ No changes to commit — everything is up to date"
+          else
+            git add -A
+            git commit -m "🤖 Auto: Update hreflang tags, sitemap, and robots.txt [$(date +'%Y-%m-%d %H:%M:%S')]"
+            git push
+            echo "🚀 Changes committed and pushed!"
+          fi
+      
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    needs: generate-hreflang
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

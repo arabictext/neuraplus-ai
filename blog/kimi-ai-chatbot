@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TH2D2WBW');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kimi AI Chatbot — NeuraPulse</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c12;
+    --bg2: #0d1117;
+    --surface: #111827;
+    --surface2: #1a2236;
+    --accent: #00d4ff;
+    --accent2: #00ffb3;
+    --accent3: #7c3aed;
+    --text: #e2e8f0;
+    --text-muted: #8899aa;
+    --border: rgba(0,212,255,0.12);
+    --glow: rgba(0,212,255,0.18);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 17px;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ── Animated BG grid ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridDrift 25s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes gridDrift {
+    0%   { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
+  }
+
+  /* ── Top scanning line ── */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+    animation: scanline 4s ease-in-out infinite;
+    z-index: 100;
+  }
+  @keyframes scanline {
+    0%,100% { opacity: 0; transform: translateY(0); }
+    50% { opacity: 1; }
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 64px;
+    background: rgba(8,12,18,0.85);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: #fff;
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none;
+  }
+  .nav-logo span {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); opacity:1; }
+    50%      { transform: scale(1.5); opacity:0.7; }
+  }
+
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a.active, .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .nav-cta:hover { box-shadow: 0 0 20px var(--accent); transform: translateY(-1px); }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative; z-index: 1;
+    max-width: 860px;
+    margin: 80px auto 0;
+    padding: 0 5% 60px;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,212,255,0.08);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadeSlideUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent2);
+    border-radius: 50%;
+    animation: pulse 1.5s ease infinite;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 20px;
+    animation: fadeSlideUp 0.7s 0.1s ease both;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-meta {
+    display: flex; align-items: center; gap: 20px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 40px;
+    animation: fadeSlideUp 0.7s 0.2s ease both;
+  }
+  .hero-meta .dot { width: 3px; height: 3px; background: var(--text-muted); border-radius: 50%; }
+  .hero-meta .reading-time {
+    background: rgba(124,58,237,0.15);
+    color: #a78bfa;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+  }
+
+  /* ── Article ── */
+  .article {
+    position: relative; z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 5% 120px;
+  }
+
+  /* ── Animated section divider ── */
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: 56px 0;
+    position: relative;
+    overflow: visible;
+  }
+  .section-divider::after {
+    content: '';
+    position: absolute;
+    top: -3px; left: 50%;
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--accent);
+    transform: translateX(-50%);
+  }
+
+  /* ── Paragraphs & headings ── */
+  .article p {
+    color: #c9d8e8;
+    margin-bottom: 28px;
+    font-weight: 300;
+    animation: fadeSlideUp 0.6s ease both;
+  }
+
+  .section-heading {
+    display: flex; align-items: flex-start; gap: 16px;
+    margin-bottom: 24px;
+  }
+  .section-heading .bar {
+    width: 4px;
+    min-height: 48px;
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .section-heading h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  /* ── Inline code ── */
+  code {
+    background: rgba(0,212,255,0.08);
+    border: 1px solid rgba(0,212,255,0.18);
+    color: var(--accent);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.88em;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* ── Internal links ── */
+  .article a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,212,255,0.3);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .article a:hover { color: var(--accent2); border-color: var(--accent2); }
+
+  /* ── Callout box ── */
+  .callout {
+    background: linear-gradient(135deg, rgba(0,212,255,0.06), rgba(0,255,179,0.04));
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 20px 24px;
+    margin: 32px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .callout::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -10%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(0,212,255,0.06), transparent 70%);
+    pointer-events: none;
+  }
+  .callout-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .callout p { margin-bottom: 0; color: var(--text); }
+
+  /* ── Stats row ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 36px 0;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,212,255,0.1); }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+  }
+  .stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
+
+  /* ── CTA / external link ── */
+  .external-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, var(--surface), var(--surface2));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px 36px;
+    margin-top: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .external-cta::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(0,212,255,0.1), transparent 70%);
+    pointer-events: none;
+  }
+  .external-cta::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(0,255,179,0.07), transparent 70%);
+    pointer-events: none;
+  }
+  .external-cta h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .external-cta p { color: var(--text-muted); max-width: 460px; margin-bottom: 28px; }
+  .ext-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color: #000;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    padding: 14px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; z-index: 1;
+  }
+  .ext-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,212,255,0.35);
+    border-bottom: none;
+    color: #000;
+  }
+  .ext-btn svg { width: 18px; height: 18px; }
+
+  /* ── Footer ── */
+  footer {
+    position: relative; z-index: 1;
+    text-align: center;
+    padding: 32px 5%;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Scroll animations ── */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Floating particles ── */
+  .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0;
+    animation: floatUp var(--dur) var(--delay) ease-in infinite;
+  }
+  @keyframes floatUp {
+    0%   { opacity: 0; transform: translateY(0) scale(1); }
+    10%  { opacity: 0.4; }
+    90%  { opacity: 0.1; }
+    100% { opacity: 0; transform: translateY(-100vh) scale(0.3); }
+  }
+
+  @media (max-width: 640px) {
+    .stats-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-TH2D2WBW" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- Floating particles -->
+<div class="particles" id="particles"></div>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo"><span></span>NeuraPulse</a>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#" class="active">Blog</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+  <a href="https://www.kimi.com/" target="_blank" class="nav-cta">Try Kimi AI</a>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="hero-tag">AI Research · Deep Dive</div>
+  <h1>Kimi AI Chatbot:<br><em>The Next-Gen AI</em><br>Reshaping Conversations</h1>
+  <div class="hero-meta">
+    <span>NeuraPulse Editorial</span>
+    <span class="dot"></span>
+    <span>May 20, 2026</span>
+    <span class="dot"></span>
+    <span class="reading-time">8 min read</span>
+  </div>
+</header>
+
+<!-- Article -->
+<article class="article">
+
+  <!-- Stats -->
+  <div class="stats-row reveal">
+    <div class="stat-card">
+      <span class="stat-num">2M+</span>
+      <span class="stat-label">Context Tokens</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num">K2</span>
+      <span class="stat-label">Latest Model</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num">Top 5</span>
+      <span class="stat-label">Global Benchmarks</span>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- P1 -->
+  <div class="section-heading reveal">
+    <div class="bar"></div>
+    <h2>1. What Is Kimi AI and Why Does It Matter?</h2>
+  </div>
+  <p class="reveal">
+    Kimi AI is a large language model developed by Moonshot AI, a Chinese AI research company that has rapidly ascended to the forefront of global artificial intelligence development. Unlike many of its contemporaries, Kimi was engineered from day one around a singular obsession: context length. Where GPT-4 and Gemini were originally constrained to 32K or 128K token windows, Kimi shattered those limits with a staggering 2-million-token long context window — effectively allowing users to feed it entire codebases, research libraries, or legal archives in a single prompt. To understand the full technical depth of how this was achieved, <a href="https://neuraplus-ai.github.io/blog/kimi-ai-long-context-explained.html">Kimi AI long context explained</a> breaks down the architecture in exhaustive detail, covering sparse attention mechanisms, memory-efficient inference, and the novel positional encoding strategies that make such extreme context lengths practically viable. This architectural bet has paid off enormously, catapulting Kimi into serious conversations about the best general-purpose AI assistants available to consumers and enterprises alike.
+  </p>
+
+  <div class="section-divider"></div>
+
+  <!-- P2 -->
+  <div class="section-heading reveal">
+    <div class="bar"></div>
+    <h2>2. Accessing Kimi for Free — Tiers, Limits & Hidden Value</h2>
+  </div>
+  <p class="reveal">
+    One of Kimi AI's most strategically disruptive moves has been its aggressive free tier, which grants users access to premium-grade long-context capabilities without requiring a credit card. The free plan supports a generous daily quota of queries with the full 2M token window active — a proposition that no competitor currently matches at zero cost. Power users can unlock additional throughput through Kimi's Pro subscription, but the baseline offering already demolishes what most paid plans from rival providers deliver. Whether you're a student processing entire textbooks, a developer debugging sprawling repositories, or a researcher synthesizing thousands of academic papers, the entry point has never been lower. The comprehensive guide on <a href="https://neuraplus-ai.github.io/blog/how-to-use-kimi-ai-for-free.html">how to use Kimi AI for free</a> walks through account creation, the web interface, API trial credits, file upload workflows, and exactly where the free tier ends and premium begins — essential reading before you invest time building any workflow around the platform.
+  </p>
+
+  <div class="callout reveal">
+    <div class="callout-label">⚡ Key Insight</div>
+    <p>Kimi's free tier includes the full 2-million-token context window — a capability competitors charge premium rates for. The access barrier has essentially collapsed for serious researchers and developers.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- P3 -->
+  <div class="section-heading reveal">
+    <div class="bar"></div>
+    <h2>3. Kimi K2 — Benchmarks, Architecture & Competitive Position</h2>
+  </div>
+  <p class="reveal">
+    The release of <code>Kimi K2</code> marked a paradigm shift not just for Moonshot AI but for the entire open-weights AI ecosystem. K2 is a Mixture-of-Experts (MoE) model with 1 trillion total parameters but only 32 billion active per forward pass, enabling the model to achieve reasoning performance that rivals closed frontier models while remaining computationally tractable for deployment. In <a href="https://neuraplus-ai.github.io/blog/kimi-k2-6-benchmark.html">Kimi K2 benchmark analysis</a>, the performance data is striking: K2 surpasses GPT-4o on MATH-500, outperforms Claude 3.5 Sonnet on coding tasks in HumanEval and SWE-Bench, and achieves near state-of-the-art results on MMLU and GPQA Diamond. What makes K2 particularly interesting for agentic use cases is its native tool-use training — the model was fine-tuned on an enormous corpus of function-calling trajectories, making it one of the most capable open-weight models for building autonomous AI agents that interact with APIs, browsers, and file systems. The combination of scale, efficiency, and alignment quality positions K2 not merely as a Kimi-specific asset, but as a landmark contribution to open-source AI.
+  </p>
+
+  <div class="section-divider"></div>
+
+  <!-- P4 -->
+  <div class="section-heading reveal">
+    <div class="bar"></div>
+    <h2>4. Real-World Use Cases — From Multimodal Research to Code Generation</h2>
+  </div>
+  <p class="reveal">
+    Beyond raw benchmark numbers, Kimi AI distinguishes itself through practical deployment versatility that resonates with both technical and non-technical users. For legal professionals, the platform's ability to ingest and cross-reference multiple dense contracts simultaneously — without chunking, summarization loss, or context drift — represents a qualitative leap over prior AI tools. Software engineers report significant productivity gains when using Kimi for codebase-wide refactoring tasks, where the model maintains coherent reasoning across thousands of files rather than losing context halfway through. Multimodal capabilities introduced in recent updates extend Kimi's utility further, enabling document image analysis, chart interpretation, and even complex diagram understanding. The <code>kimi-ai-chatbot</code> interface has been steadily refined with features like memory persistence across sessions, customizable system prompts, and a developer-friendly API that supports structured outputs — making it a compelling backbone for production AI applications. As enterprises increasingly seek alternatives to US-headquartered AI providers for compliance and sovereignty reasons, Kimi's Chinese origin and strong technical foundations give it a unique geopolitical edge in APAC and European markets.
+  </p>
+
+  <div class="section-divider"></div>
+
+  <!-- P5 -->
+  <div class="section-heading reveal">
+    <div class="bar"></div>
+    <h2>5. The Road Ahead — Kimi's Vision for Frontier AI</h2>
+  </div>
+  <p class="reveal">
+    Moonshot AI has been explicit about its long-term ambition: to build AGI-class systems that are both safe and broadly accessible. Kimi is the consumer face of this mission, and its trajectory suggests that the company is executing at a pace that should unsettle even well-resourced competitors. With rumored next-generation models featuring multimodal native architectures, reinforcement learning from human and AI feedback at unprecedented scale, and deepened agentic planning capabilities, the Kimi roadmap reads less like incremental iteration and more like a fundamental rethinking of what a conversational AI should be. The emphasis on long-context reasoning as a core differentiator rather than an afterthought signals a product philosophy that respects the complexity of real-world knowledge work. Whether you're evaluating Kimi as a developer building AI-native products, a researcher exploring state-of-the-art capabilities, or simply a power user seeking the most capable free AI assistant available today, the evidence consistently points to one conclusion: Kimi AI is not a regional curiosity — it is a globally significant AI system, and its best chapters are almost certainly still unwritten.
+  </p>
+
+  <!-- External CTA -->
+  <div class="external-cta reveal">
+    <h3>Experience Kimi AI Yourself</h3>
+    <p>The best way to understand Kimi's 2M-token context window, K2 reasoning, and multimodal capabilities is to use it directly. Free access. No credit card required.</p>
+    <a href="https://www.kimi.com/" target="_blank" rel="noopener noreferrer" class="ext-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+        <polyline points="15 3 21 3 21 9"/>
+        <line x1="10" y1="14" x2="21" y2="3"/>
+      </svg>
+      Launch Kimi AI — kimi.com
+    </a>
+  </div>
+
+</article>
+
+<footer>
+  <p>© 2026 NeuraPulse · AI Research & Technology Blog · All rights reserved.</p>
+</footer>
+
+<script>
+// ── Generate particles ──
+(function() {
+  const container = document.getElementById('particles');
+  const count = 18;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 3 + 1;
+    p.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      left: ${Math.random() * 100}%;
+      bottom: ${Math.random() * -20}%;
+      --dur: ${Math.random() * 12 + 8}s;
+      --delay: ${Math.random() * 10}s;
+      background: ${Math.random() > 0.5 ? '#00d4ff' : '#00ffb3'};
+    `;
+    container.appendChild(p);
+  }
+})();
+
+// ── Scroll reveal ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
 Contact: mailto:contact@neuraplus.ai
-Expires: 2027-05-25T10:04:27Z
+Expires: 2027-05-25T11:28:02Z
 Preferred-Languages: en
 Canonical: https://neuraplus-ai.github.io/.well-known/security.txt

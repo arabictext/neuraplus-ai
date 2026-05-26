@@ -1,0 +1,9 @@
+
+════════════════════════════════════════════════════════════
+  NeuraPulse Enterprise System v3.0
+  276 HTML files found
+════════════════════════════════════════════════════════════
+
+
+  Generating SEO files...
+  ✅ robots.txt · sitemap.xml · llms.txt · ai.txt · rss.xml generated

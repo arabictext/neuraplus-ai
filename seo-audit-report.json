@@ -1,8 +1,8 @@
 {
-  "generated": "2026-05-26T07:11:27Z",
-  "total_pages": 276,
-  "high": 10,
-  "med": 2,
+  "generated": "2026-05-26T07:30:23Z",
+  "total_pages": 277,
+  "high": 13,
+  "med": 5,
   "low": 228,
   "issues": [
     {
@@ -1159,6 +1159,36 @@
       "file": "blog.html",
       "issue": "Meta description too long",
       "severity": "LOW"
+    },
+    {
+      "file": "card-preview.html",
+      "issue": "Missing meta description",
+      "severity": "HIGH"
+    },
+    {
+      "file": "card-preview.html",
+      "issue": "Missing canonical tag",
+      "severity": "HIGH"
+    },
+    {
+      "file": "card-preview.html",
+      "issue": "Missing JSON-LD schema",
+      "severity": "HIGH"
+    },
+    {
+      "file": "card-preview.html",
+      "issue": "Missing og:title",
+      "severity": "MED"
+    },
+    {
+      "file": "card-preview.html",
+      "issue": "Missing og:image",
+      "severity": "MED"
+    },
+    {
+      "file": "card-preview.html",
+      "issue": "Multiple H1 tags (2)",
+      "severity": "MED"
     },
     {
       "file": "googlea8e9563d4c0c037a.html",

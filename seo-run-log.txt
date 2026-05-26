@@ -1,10 +1,10 @@
-[INFO] Found 276 HTML files to process
+[INFO] Found 277 HTML files to process
 [] =======================================================
 [PHASE] PHASE 1 — SITE AUDIT
 [] =======================================================
-[INFO] Total pages scanned : 276
-[INFO] HIGH severity issues: 10
-[INFO] MED  severity issues: 2
+[INFO] Total pages scanned : 277
+[INFO] HIGH severity issues: 13
+[INFO] MED  severity issues: 5
 [INFO] LOW  severity issues: 228
 [INFO] Audit report saved → seo-audit-report.json
 [] =======================================================
@@ -16,7 +16,7 @@
 [PHASE] PHASE 3 — TECHNICAL SEO SYSTEM
 [] =======================================================
 [INFO] robots.txt generated — all AI crawlers allowed
-[INFO] sitemap.xml generated — 276 URLs
+[INFO] sitemap.xml generated — 277 URLs
 [INFO] sitemap.html generated — human-readable
 [INFO] rss.xml generated — top 50 pages
 [INFO] llms.txt generated — AI crawler instructions
@@ -26,16 +26,16 @@
 [] =======================================================
 [PHASE] PHASE 4 — SCHEMA & META INJECTION
 [] =======================================================
-[INFO] Schema/meta injected into 1 pages
+[INFO] Schema/meta injected into 2 pages
 [] =======================================================
 [PHASE] PHASE 5 — FOOTER INJECTION (ALL PAGES)
 [] =======================================================
-[INFO] Footer injected: 1 pages · Already had footer: 275
+[INFO] Footer injected: 2 pages · Already had footer: 275
 [] =======================================================
 [PHASE] PHASE 6 — NAV — ADD GUIDE LINK
 [] =======================================================
-[INFO] Guide nav added: 0 pages · Already present: 276
+[INFO] Guide nav added: 0 pages · Already present: 277
 [] =======================================================
 [PHASE] PHASE 7 — GEO/AEO AI VISIBILITY TAGS
 [] =======================================================
-[INFO] GEO/AEO tags injected: 1 pages
+[INFO] GEO/AEO tags injected: 2 pages

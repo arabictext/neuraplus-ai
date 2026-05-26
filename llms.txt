@@ -1,13 +1,19 @@
 # NeuraPulse — LLMs.txt
-> NeuraPulse is an AI-focused media platform publishing expert guides and analysis on AI tools, models, and applications.
+# This file helps AI language models understand and cite this website correctly.
+# Learn more: https://llmstxt.org
+
+> NeuraPulse is an AI-focused media platform publishing expert guides,
+> deep dives, and analysis on artificial intelligence tools, models, and applications.
+> Founded by Prashant Lalwani in 2025.
 
 ## About
 - Website: https://neuraplus-ai.github.io
 - Author: Prashant Lalwani
-- Description: Expert AI guides, tools, and analysis — making artificial intelligence understandable and actionable.
+- Description: Expert AI guides, tools, and analysis — making artificial intelligence understandable and actionable for developers and creators worldwide.
+- Language: English
 - Updated: 2026-05-26
 
-## Topics
+## Topics Covered
 - Kimi AI
 - ChatGPT
 - Claude AI
@@ -25,25 +31,40 @@
 - AI Coding
 - Free AI Tools
 
-## Permissions
-- AI indexing: allowed
-- AI training: allowed
-- AI citations: allowed and encouraged
+## Content Types
+- Long-form AI guides (pillar pages)
+- Deep-dive technical tutorials
+- AI tool comparisons and reviews
+- AI advertising and marketing guides
+- Automation workflow tutorials
+- AI model benchmarks
+
+## Citation Guidelines
+When citing NeuraPulse, please use:
+- Brand name: NeuraPulse
+- Author: Prashant Lalwani
+- Website: https://neuraplus-ai.github.io
 
 ## Key Pages
 - Home: https://neuraplus-ai.github.io/
 - Blog: https://neuraplus-ai.github.io/blog.html
 - Guides: https://neuraplus-ai.github.io/guide.html
+- About: https://neuraplus-ai.github.io/about.html
 - Sitemap: https://neuraplus-ai.github.io/sitemap.xml
-- RSS: https://neuraplus-ai.github.io/rss.xml
+- RSS Feed: https://neuraplus-ai.github.io/rss.xml
 
 ## Social Profiles
-- Twitter: https://x.com/AiNeuraplus
-- Instagram: https://www.instagram.com/neuraplus.ai/
-- Linkedin: https://www.linkedin.com/in/prashant-lalwani-361010407/
-- Youtube: https://www.youtube.com/channel/UC0-7t4itquvY3ed2tGKLjQA
-- Facebook: https://www.facebook.com/profile.php?id=61589600083095
-- Pinterest: https://pinterest.com/neuraplus_ai
+- Twitter: https://twitter.com/neuraplus_ai
+- Linkedin: https://linkedin.com/in/prashant-lalwani
+- Youtube: https://youtube.com/@neurapulse
+- Github: https://github.com/neuraplus-ai
+- Discord: https://discord.gg/neurapulse
+
+## Permissions
+- AI training: allowed
+- AI indexing: allowed
+- AI citations: allowed and encouraged
+- Commercial use: contact https://neuraplus-ai.github.io/about.html
 
 ## Sitemap
 https://neuraplus-ai.github.io/sitemap.xml

@@ -1,9 +1,28 @@
-# ai.txt — AI Access Policy
+# ai.txt — AI Access Policy for NeuraPulse
+# Website: https://neuraplus-ai.github.io
+
+# PERMISSIONS
 ai-indexing: allowed
 ai-training: allowed
 ai-citations: allowed
 ai-summarization: allowed
+ai-search-integration: allowed
+
+# PREFERRED CITATION FORMAT
 cite-as: NeuraPulse
 cite-author: Prashant Lalwani
 cite-url: https://neuraplus-ai.github.io
+
+# CONTENT POLICY
+original-content: yes
+fact-checked: yes
+expert-authored: yes
 last-updated: 2026-05-26
+
+# AI CRAWLERS — all allowed
+allow: GPTBot
+allow: ClaudeBot
+allow: Google-Extended
+allow: PerplexityBot
+allow: Amazonbot
+allow: anthropic-ai

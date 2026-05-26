@@ -1,8 +1,8 @@
 {
-  "generated": "2026-05-26T09:02:18Z",
-  "total_pages": 277,
-  "high": 11,
-  "med": 3,
+  "generated": "2026-05-26T10:16:17Z",
+  "total_pages": 278,
+  "high": 13,
+  "med": 5,
   "low": 228,
   "issues": [
     {
@@ -659,6 +659,26 @@
       "file": "blog/how-to-post-on-reddit-without-spam-get-upvotes.html",
       "issue": "Title too long (74 chars)",
       "severity": "LOW"
+    },
+    {
+      "file": "blog/how-to-rank-in-ai-answer-engines.html",
+      "issue": "Missing canonical tag",
+      "severity": "HIGH"
+    },
+    {
+      "file": "blog/how-to-rank-in-ai-answer-engines.html",
+      "issue": "Missing JSON-LD schema",
+      "severity": "HIGH"
+    },
+    {
+      "file": "blog/how-to-rank-in-ai-answer-engines.html",
+      "issue": "Missing og:title",
+      "severity": "MED"
+    },
+    {
+      "file": "blog/how-to-rank-in-ai-answer-engines.html",
+      "issue": "Missing og:image",
+      "severity": "MED"
     },
     {
       "file": "blog/how-to-rank-website-using-ai-seo-tools.html",

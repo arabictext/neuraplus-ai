@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<!-- NP:GEO -->
+<meta name="category" content="Artificial Intelligence, Technology, AI Tools"/>
+<meta name="classification" content="AI Technology"/>
+<meta name="subject" content="Artificial Intelligence, AI Tools, Machine Learning"/>
+<meta name="coverage" content="Worldwide"/>
+<meta name="revisit-after" content="7 days"/>
+<meta name="language" content="English"/>
+<!-- AI Crawler Permissions -->
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+<!-- /NP:GEO -->
+<!-- GEO / AEO / AI Visibility Tags -->
+<meta name="author" content="Prashant Lalwani"/>
+<meta name="publisher" content="NeuraPulse"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
+<meta name="googlebot" content="index, follow"/>
+<meta name="bingbot" content="index, follow"/>
+<meta name="rating" content="general"/>
+<meta name="revisit-after" content="7 days"/>
+<meta name="language" content="English"/>
+<meta name="category" content="Artificial Intelligence, Technology, AI Tools"/>
+<meta name="classification" content="AI Technology Blog"/>
+<meta name="subject" content="Artificial Intelligence, AI Tools, Machine Learning"/>
+<meta name="coverage" content="Worldwide"/>
+<meta name="distribution" content="Global"/>
+<meta name="target" content="all"/>
+<link rel="alternate" type="application/rss+xml" title="NeuraPulse RSS" href="https://neuraplus-ai.github.io/rss.xml"/>
+<!-- End GEO/AEO Tags --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TH2D2WBW');</script><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="In 2026, the two main approaches are: using Claude Code (Anthropic's dedicated coding CLI), or building custom GitHub Actions workflows that call the Claude ..." name="description"/><meta content="Prashant Lalwani" name="author"/><meta content="index, follow" name="robots"/><meta content="How to Connect Anthropic Claude with GitHub – NeuraPlusAI Blog" property="og:title"/><link href="https://neuraplus-ai.github.io/blog/connect-anthropic-claude-github.html" rel="canonical"/><link href="../favicon.svg" rel="icon" type="image/svg+xml"/><title>How to Connect Anthropic Claude with GitHub – NeuraPlusAI Blog</title><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=Space+Mono:wght@400;700&amp;family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&amp;display=swap" rel="stylesheet"/><style>
+:root{--bg:#050810;--surface:#0c1120;--surface2:#111827;--border:#1e2d45;--accent:#00e5ff;--accent2:#7c3aed;--accent3:#f59e0b;--text:#e2e8f0;--text-dim:#64748b;--text-muted:#334155;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.85;overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:2px;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:68px;background:rgba(5,8,16,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:0.5rem;}
+.ld{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite;}@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.nav-links{display:flex;gap:2rem;list-style:none;}.nav-links a{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.2s;}.nav-links a:hover,.nav-links a.active{color:var(--accent);}
+.nav-cta{font-family:'Space Mono',monospace;font-size:0.72rem;text-transform:uppercase;color:var(--bg);background:var(--accent);padding:0.5rem 1.2rem;border-radius:4px;text-decoration:none;}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}.hbg span{display:block;width:22px;height:2px;background:var(--text-dim);border-radius:2px;}
+@media(max-width:900px){nav{padding:0 1.5rem;}.nav-links{display:none;}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(5,8,16,0.99);padding:2rem;gap:1.5rem;border-bottom:1px solid var(--border);z-index:99;}.hbg{display:flex;}}
+.wrap{max-width:800px;margin:0 auto;padding:0 2rem;}@media(max-width:600px){.wrap{padding:0 1.2rem;}}
+.hero{padding:7.5rem 0 2.5rem;}
+.bc{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:1.4rem;display:flex;align-items:center;gap:0.5rem;}.bc a{color:var(--text-dim);text-decoration:none;}.bc a:hover{color:var(--accent);}
+.tag{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.28rem 0.75rem;border-radius:3px;display:inline-block;margin-bottom:1.1rem;}
+h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.9rem,4.5vw,3rem);letter-spacing:-0.03em;line-height:1.12;margin-bottom:1.1rem;}
+.meta{display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
+.av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:0.68rem;color:#fff;flex-shrink:0;}
+.mi{display:flex;flex-direction:column;gap:0.12rem;}.mn{font-size:0.88rem;font-weight:500;}.md{font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--text-dim);}
+.mdiv{width:1px;height:26px;background:var(--border);}.ms{font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--text-dim);letter-spacing:0.06em;}
+.hero-img{width:100%;border-radius:14px;overflow:hidden;border:1px solid var(--border);margin-bottom:2.5rem;display:block;}
+article h2{font-family:'Syne',sans-serif;font-weight:700;font-size:1.5rem;letter-spacing:-0.02em;line-height:1.25;margin:2.8rem 0 0.9rem;}
+article h3{font-family:'Syne',sans-serif;font-weight:600;font-size:1.1rem;margin:2rem 0 0.65rem;color:var(--accent);}
+article p{color:#c8d4e8;margin-bottom:1.2rem;font-size:0.97rem;}
+article ul,article ol{margin:0 0 1.2rem 1.4rem;color:#c8d4e8;font-size:0.97rem;}
+article li{margin-bottom:0.55rem;}article strong{color:var(--text);font-weight:600;}
+.code-block{background:#070d1a;border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.4rem;margin:1.4rem 0;overflow-x:auto;}
+.code-block pre{font-family:'Space Mono',monospace;font-size:0.76rem;color:#94a3b8;line-height:1.75;white-space:pre-wrap;word-break:break-all;}
+.code-label{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.6rem;}
+.kw{color:#00e5ff;}.str{color:#34d399;}.cm{color:#334155;}.ky{color:#f59e0b;}
+.steps{display:flex;flex-direction:column;gap:0.9rem;margin:1.5rem 0;}
+.step{display:flex;gap:1.1rem;align-items:flex-start;}
+.sn{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:0.82rem;color:#fff;flex-shrink:0;margin-top:0.1rem;}
+.sc h4{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;margin-bottom:0.25rem;}.sc p{font-size:0.88rem;color:var(--text-dim);margin:0;}
+.callout{border-radius:0 10px 10px 0;padding:1.1rem 1.4rem;margin:1.6rem 0;border-left:3px solid var(--accent);background:rgba(0,229,255,0.04);}
+.callout.green{border-left-color:#34d399;background:rgba(52,211,153,0.04);}
+.callout.amber{border-left-color:var(--accent3);background:rgba(245,158,11,0.04);}
+.cl-label{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:0.45rem;color:var(--accent);}
+.callout.green .cl-label{color:#34d399;}.callout.amber .cl-label{color:var(--accent3);}
+.callout p{margin:0;font-size:0.9rem;color:#c8d4e8;}
+.related{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin:2.5rem 0;}
+.rl{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.9rem;}
+.related-links{display:flex;flex-direction:column;gap:0.5rem;}
+.related-links a{display:flex;align-items:center;gap:0.7rem;color:var(--text);text-decoration:none;font-size:0.9rem;font-weight:500;padding:0.55rem 0.7rem;border-radius:7px;border:none;transition:background 0.2s;}
+.related-links a:hover{background:rgba(0,229,255,0.06);}
+.related-links a .arr{font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--accent);flex-shrink:0;}
+footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:4rem;}
+.flogo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--text);}
+.flinks{display:flex;gap:2rem;list-style:none;}.flinks a{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;}.flinks a:hover{color:var(--accent);}
+.fcopy{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--text-muted);}
+@media(max-width:900px){footer{padding:2rem 1.5rem;flex-direction:column;text-align:center;}}
+.fi{opacity:0;transform:translateY(16px);transition:opacity 0.55s,transform 0.55s;}.fi.v{opacity:1;transform:none;}
+</style><link href="/popup.css" rel="stylesheet"/><meta content="In 2026, the two main approaches are: using Claude Code (Anthropic's dedicated coding CLI), or building custom GitHub Actions workflows that call the Claude ..." property="og:description"/><meta content="https://neuraplus-ai.github.io/favicon.svg" property="og:image"/><meta content="https://neuraplus-ai.github.io/blog/connect-anthropic-claude-github.html" property="og:url"/><meta content="website" property="og:type"/><meta content="summary_large_image" name="twitter:card"/><meta content="How to Connect Anthropic Claude with GitHub – NeuraPlusAI Blog" name="twitter:title"/><meta content="In 2026, the two main approaches are: using Claude Code (Anthropic's dedicated coding CLI), or building custom GitHub Actions workflows that call the Claude ..." name="twitter:description"/><meta content="https://neuraplus-ai.github.io/favicon.svg" name="twitter:image"/><meta content="AI blog, artificial intelligence, NeuraPlusAI" name="keywords"/><meta content="NeuraPlusAI" property="og:site_name"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="@neuraplus_ai" name="twitter:site"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "name": "How to Connect Anthropic Claude with GitHub \u2013 NeuraPlusAI Blog",
+  "description": "Read 'How to Connect Anthropic Claude with GitHub' on the NeuraPlusAI blog.",
+  "url": "https://neuraplus-ai.github.io/blog/connect-anthropic-claude-github.html",
+  "headline": "How to Connect Anthropic Claude with GitHub \u2013 NeuraPlusAI Blog",
+  "author": {
+    "@type": "Organization",
+    "name": "NeuraPlusAI"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "NeuraPlusAI",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://neuraplus-ai.github.io/favicon.svg"
+    }
+  }
+}</script>
+<!-- np:meta -->
+<link rel="canonical" href="https://neuraplus-ai.github.io/blog/connect-anthropic-claude-github.html"/>
+<meta property="og:title" content="How to Connect Anthropic Claude with GitHub – NeuraPlusAI Blog"/>
+<meta property="og:description" content="Expert AI guides, tools, and analysis — making artificial intelligence understandable and actionable."/>
+<meta property="og:url" content="https://neuraplus-ai.github.io/blog/connect-anthropic-claude-github.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:site_name" content="NeuraPulse"/>
+<meta property="og:image" content="https://neuraplus-ai.github.io/assets/images/logo.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="@AiNeuraplus"/>
+<meta name="twitter:title" content="How to Connect Anthropic Claude with GitHub – NeuraPlusAI Blog"/>
+<meta name="twitter:description" content="Expert AI guides, tools, and analysis — making artificial intelligence understandable and actionable."/>
+<meta name="twitter:image" content="https://neuraplus-ai.github.io/assets/images/logo.png"/>
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"/>
+<meta name="author" content="Prashant Lalwani"/>
+<meta name="publisher" content="NeuraPulse"/>
+<link rel="alternate" type="application/rss+xml" title="NeuraPulse RSS" href="https://neuraplus-ai.github.io/rss.xml"/>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://neuraplus-ai.github.io/#organization","name":"NeuraPulse","url":"https://neuraplus-ai.github.io","logo":{"@type":"ImageObject","url":"https://neuraplus-ai.github.io/assets/images/logo.png"},"description":"Expert AI guides, tools, and analysis \u2014 making artificial intelligence understandable and actionable.","foundingDate":"2025","founder":{"@type":"Person","name":"Prashant Lalwani"},"sameAs":["https://x.com/AiNeuraplus","https://www.instagram.com/neuraplus.ai/","https://www.linkedin.com/in/prashant-lalwani-361010407/","https://www.youtube.com/channel/UC0-7t4itquvY3ed2tGKLjQA","https://www.facebook.com/profile.php?id=61589600083095","https://pinterest.com/neuraplus_ai"]},{"@context":"https://schema.org","@type":"Article","@id":"https://neuraplus-ai.github.io/blog/connect-anthropic-claude-github.html#article","url":"https://neuraplus-ai.github.io/blog/connect-anthropic-claude-github.html","headline":"How to Connect Anthropic Claude with GitHub \u2013 NeuraPlusAI Blog","description":"Expert AI guides, tools, and analysis \u2014 making artificial intelligence understandable and actionable.","dateModified":"2026-05-26","datePublished":"2026-05-26","author":{"@type":"Person","name":"Prashant Lalwani","url":"https://neuraplus-ai.github.io/about.html"},"publisher":{"@id":"https://neuraplus-ai.github.io/#organization"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://neuraplus-ai.github.io/blog/connect-anthropic-claude-github.html"},"inLanguage":"en"},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://neuraplus-ai.github.io/"},{"@type":"ListItem","position":2,"name":"How to Connect Anthropic Claude with GitHub \u2013 NeuraPlusAI Blog","item":"https://neuraplus-ai.github.io/blog/connect-anthropic-claude-github.html"}]}]</script>
+<!-- /np:meta -->
+</head><body><noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-TH2D2WBW" style="display:none;visibility:hidden" width="0"></iframe></noscript><!-- NP:NAV -->
+
+<style id="np-nav-css">
+*{box-sizing:border-box;}
+#np-nav{position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:64px;background:rgba(8,12,18,.95);backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,212,255,.12);
+  font-family:'DM Sans','Space Grotesk',system-ui,sans-serif;}
+.np-logo{font-weight:800;font-size:1.18rem;color:#fff;display:flex;align-items:center;
+  gap:8px;text-decoration:none;letter-spacing:-.02em;}
+.np-logo-dot{width:8px;height:8px;background:#00d4ff;border-radius:50%;
+  box-shadow:0 0 10px #00d4ff;animation:npblink 2s ease infinite;flex-shrink:0;}
+@keyframes npblink{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.5);opacity:.7;}}
+.np-links{display:flex;gap:26px;align-items:center;}
+.np-links a{color:#8899aa;text-decoration:none;font-size:.84rem;letter-spacing:.07em;
+  text-transform:uppercase;transition:color .2s;position:relative;}
+.np-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;
+  background:#00d4ff;transform:scaleX(0);transition:transform .25s;}
+.np-links a:hover,.np-links a.np-active{color:#00d4ff;}
+.np-links a:hover::after,.np-links a.np-active::after{transform:scaleX(1);}
+.np-sub-btn{background:#00d4ff;color:#000!important;font-weight:700;font-size:.78rem;
+  letter-spacing:.07em;text-transform:uppercase;padding:8px 18px;border-radius:5px;
+  text-decoration:none;transition:box-shadow .2s,transform .2s;white-space:nowrap;border-bottom:none!important;}
+.np-sub-btn:hover{box-shadow:0 0 22px #00d4ff;transform:translateY(-1px);}
+.np-sub-btn::after{display:none!important;}
+/* HAMBURGER */
+.np-ham{display:none;flex-direction:column;gap:5px;cursor:pointer;
+  padding:7px;background:transparent;border:none;margin-left:8px;}
+.np-ham span{display:block;width:24px;height:2px;background:#8899aa;border-radius:2px;transition:all .3s;}
+.np-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.np-ham.open span:nth-child(2){opacity:0;}
+.np-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+/* MOBILE MENU */
+#np-mob{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;
+  background:rgba(8,12,18,.98);padding:20px 5% 32px;flex-direction:column;
+  gap:2px;z-index:499;overflow-y:auto;}
+#np-mob.open{display:flex;}
+#np-mob a{color:#8899aa;text-decoration:none;font-size:.95rem;letter-spacing:.07em;
+  text-transform:uppercase;padding:14px 0;border-bottom:1px solid rgba(0,212,255,.07);
+  transition:color .2s;display:block;}
+#np-mob a:hover,#np-mob a.np-active{color:#00d4ff;}
+#np-mob .np-mob-social{display:flex;gap:10px;flex-wrap:wrap;padding:20px 0 0;border-bottom:none;}
+#np-mob .np-mob-social a{border-bottom:none;padding:0;width:40px;height:40px;
+  border-radius:8px;background:#111827;border:1px solid rgba(0,212,255,.15);
+  display:flex;align-items:center;justify-content:center;color:#8899aa;transition:all .2s;}
+#np-mob .np-mob-social a:hover{border-color:#00d4ff;color:#00d4ff;}
+#np-mob .np-mob-social svg{width:17px;height:17px;fill:currentColor;}
+#np-mob .np-mob-cta{background:#00d4ff;color:#000!important;font-weight:700;
+  text-align:center;border-radius:6px;margin-top:12px;padding:14px!important;
+  border-bottom:none!important;letter-spacing:.07em;}
+@media(max-width:768px){.np-links{display:none;}.np-ham{display:flex;}}
+@media(min-width:769px){#np-mob{display:none!important;}}
+</style>
+<nav id="np-nav" role="navigation" aria-label="Main navigation" itemscope itemtype="https://schema.org/SiteNavigationElement">
+  <a href="../index.html" class="np-logo" aria-label="NeuraPulse Home">
+    <span class="np-logo-dot" aria-hidden="true"></span>NeuraPulse
+  </a>
+  <div class="np-links" role="menubar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../guide.html">Guide</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    
+    <a href="../contact.html" class="np-sub-btn" role="menuitem">Subscribe</a>
+  </div>
+  <button class="np-ham" id="np-ham-btn" aria-label="Open menu" aria-expanded="false" aria-controls="np-mob" onclick="npMenu(this)">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div id="np-mob" role="dialog" aria-label="Mobile navigation" aria-modal="false">
+  <a href="../index.html">Home</a>
+  <a href="../blog.html">Blog</a>
+  <a href="../guide.html">Guide</a>
+  <a href="../about.html">About</a>
+  <a href="../contact.html">Contact</a>
+
+  
+    <div class="np-mob-social">
+      <a href="https://x.com/AiNeuraplus" target="_blank" rel="noopener" aria-label="X">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/neuraplus.ai/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/channel/UC0-7t4itquvY3ed2tGKLjQA" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/prashant-lalwani-361010407/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=61589600083095" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="https://pinterest.com/neuraplus_ai" target="_blank" rel="noopener" aria-label="Pinterest">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+      </a>
+    </div>
+  <a href="../contact.html" class="np-mob-cta">Subscribe Free →</a>
+</div>
+<script>
+function npMenu(btn){
+  btn.classList.toggle('open');
+  btn.setAttribute('aria-expanded', btn.classList.contains('open'));
+  document.getElementById('np-mob').classList.toggle('open');
+  document.body.style.overflow = btn.classList.contains('open')?'hidden':'';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var b=document.getElementById('np-ham-btn');if(b&&b.classList.contains('open'))npMenu(b);}} );
+document.addEventListener('click',function(e){
+  var b=document.getElementById('np-ham-btn'),m=document.getElementById('np-mob');
+  if(b&&m&&b.classList.contains('open')&&!b.contains(e.target)&&!m.contains(e.target))npMenu(b);
+});
+</script>
+<!-- /NP:NAV --><main><div class="wrap"><div class="hero fi"><div class="bc"><a href="../blog.html">Blog</a><span>/</span><span>Claude AI</span></div><div class="tag" style="color:#34d399;background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);">Development · Claude + GitHub</div><h1>How to Connect Anthropic Claude with GitHub</h1>
+<img alt="How to Connect Anthropic Claude with GitHub" class="blog-hero-image" height="630" loading="lazy" src="/assets/images/blog/connect-anthropic-claude-github.jpg" style="width:100%;max-width:1200px;height:auto;border-radius:8px;margin:0 auto 2rem;display:block;" title="How to Connect Anthropic Claude with GitHub" width="1200"/>
+<div class="meta"><div class="av">PL</div><div class="mi"><div class="mn">Prashant Lalwani</div><div class="md">April 08, 2026 · 11 min read</div></div><div class="mdiv"></div><div class="ms">Dev · Claude Code · GitHub Actions</div></div><svg class="hero-img" viewbox="0 0 800 340" xmlns="http://www.w3.org/2000/svg"><defs><lineargradient id="ghbg" x1="0%" x2="100%" y1="0%" y2="100%"><stop offset="0%" stop-color="#050810"></stop><stop offset="100%" stop-color="#0a1128"></stop></lineargradient></defs><rect fill="url(#ghbg)" height="340" width="800"></rect><rect fill="rgba(30,45,69,0.5)" height="140" rx="14" stroke="rgba(100,116,139,0.4)" stroke-width="1.5" width="200" x="40" y="100"></rect><text fill="#e2e8f0" font-family="Syne,sans-serif" font-size="16" font-weight="800" text-anchor="middle" x="140" y="148">GitHub</text><text fill="#64748b" font-family="Space Mono,monospace" font-size="9" text-anchor="middle" x="140" y="170">Push · PR · Actions</text><rect fill="rgba(52,211,153,0.1)" height="22" rx="5" stroke="rgba(52,211,153,0.35)" stroke-width="1" width="150" x="65" y="188"></rect><text fill="#34d399" font-family="Space Mono,monospace" font-size="9" text-anchor="middle" x="140" y="203">on: pull_request</text><rect fill="rgba(52,211,153,0.1)" height="22" rx="5" stroke="rgba(52,211,153,0.35)" stroke-width="1" width="150" x="65" y="218"></rect><text fill="#34d399" font-family="Space Mono,monospace" font-size="9" text-anchor="middle" x="140" y="233">jobs: claude-review</text><line stroke="rgba(0,229,255,0.6)" stroke-dasharray="6,3" stroke-width="2.5" x1="244" x2="295" y1="170" y2="170"></line><polygon fill="#00e5ff" points="295,164 310,170 295,176"></polygon><text fill="#64748b" font-family="Space Mono,monospace" font-size="8" text-anchor="middle" x="275" y="158">trigger</text><rect fill="rgba(0,229,255,0.07)" height="180" rx="14" stroke="rgba(0,229,255,0.45)" stroke-width="2" width="190" x="315" y="80"></rect><text fill="#00e5ff" font-family="Syne,sans-serif" font-size="16" font-weight="800" text-anchor="middle" x="410" y="130">Claude API</text><text fill="#64748b" font-family="Space Mono,monospace" font-size="9" text-anchor="middle" x="410" y="152">claude-sonnet-4</text><rect fill="rgba(0,229,255,0.08)" height="22" rx="5" stroke="rgba(0,229,255,0.25)" stroke-width="1" width="150" x="335" y="168"></rect><text fill="#94a3b8" font-family="Space Mono,monospace" font-size="8" text-anchor="middle" x="410" y="183">ANTHROPIC_API_KEY</text><rect fill="rgba(0,229,255,0.08)" height="22" rx="5" stroke="rgba(0,229,255,0.25)" stroke-width="1" width="150" x="335" y="198"></rect><text fill="#94a3b8" font-family="Space Mono,monospace" font-size="8" text-anchor="middle" x="410" y="213">Review PR diff</text><rect fill="rgba(0,229,255,0.08)" height="22" rx="5" stroke="rgba(0,229,255,0.25)" stroke-width="1" width="150" x="335" y="228"></rect><text fill="#94a3b8" font-family="Space Mono,monospace" font-size="8" text-anchor="middle" x="410" y="243">Post comment</text><line stroke="rgba(52,211,153,0.6)" stroke-dasharray="6,3" stroke-width="2.5" x1="509" x2="558" y1="170" y2="170"></line><polygon fill="#34d399" points="558,164 573,170 558,176"></polygon><rect fill="rgba(52,211,153,0.07)" height="140" rx="14" stroke="rgba(52,211,153,0.4)" stroke-width="1.5" width="190" x="575" y="100"></rect><text fill="#34d399" font-family="Syne,sans-serif" font-size="14" font-weight="800" text-anchor="middle" x="670" y="140">Auto Review</text><text fill="#64748b" font-family="Space Mono,monospace" font-size="9" text-anchor="middle" x="670" y="160">Posted on PR</text><rect fill="rgba(52,211,153,0.1)" height="22" rx="5" stroke="rgba(52,211,153,0.3)" stroke-width="1" width="150" x="595" y="175"></rect><text fill="#34d399" font-family="Space Mono,monospace" font-size="8" text-anchor="middle" x="670" y="190">✓ Bugs detected</text><rect fill="rgba(52,211,153,0.1)" height="22" rx="5" stroke="rgba(52,211,153,0.3)" stroke-width="1" width="150" x="595" y="205"></rect><text fill="#34d399" font-family="Space Mono,monospace" font-size="8" text-anchor="middle" x="670" y="220">✓ Suggestions added</text><text fill="#e2e8f0" font-family="Syne,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="400" y="48">GitHub Actions + Claude API Integration</text><text fill="rgba(100,116,139,0.4)" font-family="Space Mono,monospace" font-size="9" letter-spacing="2" text-anchor="middle" x="400" y="316">AUTO CODE REVIEW ON EVERY PR · NEURA PULSE 2026</text></svg></div><article><p class="fi">Connecting Claude to GitHub transforms your development workflow in ways that feel like having a senior engineer reviewing every single commit. In 2026, the two main approaches are: using <strong>Claude Code</strong> (Anthropic's dedicated coding CLI), or building custom <strong>GitHub Actions workflows</strong> that call the Claude API for automated code review, documentation generation, and test writing on every pull request.</p><div class="callout fi"><div class="cl-label">Two Approaches</div><p><strong>Claude Code (CLI):</strong> Interactive coding assistant in your terminal. Directly edits files, runs commands, reads your repo. <strong>GitHub Actions + API:</strong> Automated review bot that comments on every PR, runs on push, requires no developer interaction.</p></div><h2 class="fi">Method 1 — Claude Code CLI</h2><p class="fi">Claude Code is Anthropic's official command-line tool that gives Claude direct access to your codebase. It can read files, make edits, run tests, and push commits — turning it into an agentic developer that works inside your repository.</p><div class="steps fi"><div class="step"><div class="sn">1</div><div class="sc"><h4>Install Claude Code</h4><p>Requires Node.js 18+. Run the install command from your terminal. You'll authenticate with your Anthropic API key on first launch.</p></div></div><div class="step"><div class="sn">2</div><div class="sc"><h4>Open Your Repo Directory</h4><p>Navigate to your project root and launch Claude Code. It immediately reads your file structure and understands the codebase context.</p></div></div><div class="step"><div class="sn">3</div><div class="sc"><h4>Give Natural Language Instructions</h4><p>"Review the auth module for security issues", "Write unit tests for the payment service", "Refactor this function to use async/await" — Claude makes the changes directly.</p></div></div></div><div class="code-block fi"><div class="code-label">Install Claude Code</div><pre><span class="cm"># Install globally via npm</span>
+<span class="kw">npm install</span> <span class="str">-g @anthropic-ai/claude-code</span>
+
+<span class="cm"># Launch in your project directory</span>
+<span class="kw">cd</span> my-project
+<span class="kw">claude</span>
+
+<span class="cm"># Example commands inside Claude Code</span>
+<span class="ky">&gt;</span> <span class="str">Review this PR diff for bugs and security issues</span>
+<span class="ky">&gt;</span> <span class="str">Write tests for src/api/users.js</span>
+<span class="ky">&gt;</span> <span class="str">Update the README to reflect recent changes</span></pre></div><h2 class="fi">Method 2 — GitHub Actions Auto-Review Bot</h2><p class="fi">For teams that want Claude reviewing every PR automatically without any manual steps, a GitHub Actions workflow is the answer. On every pull request, the workflow extracts the diff, sends it to Claude API, and posts the review as a PR comment — all without any developer needing to interact with Claude directly.</p><div class="code-block fi"><div class="code-label">GitHub Actions Workflow — .github/workflows/claude-review.yml</div><pre><span class="kw">name:</span> <span class="str">Claude Code Review</span>
+<span class="kw">on:</span>
+  pull_request:
+    types: [opened, synchronize]
+
+<span class="kw">jobs:</span>
+  claude-review:
+    <span class="kw">runs-on:</span> ubuntu-latest
+    <span class="kw">steps:</span>
+      - <span class="kw">uses:</span> actions/checkout@v4
+        <span class="kw">with:</span>
+          fetch-depth: 0
+
+      - <span class="kw">name:</span> Get PR diff
+        <span class="kw">run:</span> |
+          git diff origin/${{ github.base_ref }}...HEAD \
+            &gt; pr_diff.txt
+
+      - <span class="kw">name:</span> Review with Claude
+        <span class="kw">env:</span>
+          <span class="kw">ANTHROPIC_API_KEY:</span> ${{ secrets.ANTHROPIC_API_KEY }}
+        <span class="kw">run:</span> |
+          DIFF=$(cat pr_diff.txt)
+          RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "{
+              \"model\": \"claude-sonnet-4-20250514\",
+              \"max_tokens\": 1024,
+              \"messages\": [{
+                \"role\": \"user\",
+                \"content\": \"Review this PR diff for bugs, security issues, and improvements:\n\n$DIFF\"
+              }]
+            }")
+          echo "$RESPONSE" &gt; review.json
+
+      - <span class="kw">name:</span> Post review comment
+        <span class="kw">uses:</span> actions/github-script@v7
+        <span class="kw">with:</span>
+          <span class="kw">script:</span> |
+            <span class="cm">// Parse and post Claude's review as PR comment</span>
+            const review = require('./review.json');
+            const body = review.content[0].text;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo, body
+            });</pre></div><h2 class="fi">Setting Up Your API Key in GitHub Secrets</h2><div class="steps fi"><div class="step"><div class="sn">1</div><div class="sc"><h4>Get API Key</h4><p>Go to console.anthropic.com → API Keys → Create new key. Copy it immediately (shown only once).</p></div></div><div class="step"><div class="sn">2</div><div class="sc"><h4>Add to GitHub Secrets</h4><p>In your repo: Settings → Secrets and variables → Actions → New repository secret. Name it ANTHROPIC_API_KEY.</p></div></div><div class="step"><div class="sn">3</div><div class="sc"><h4>Test the Workflow</h4><p>Open a test PR with a small change. The Actions tab will show the Claude review workflow running. After completion, Claude's review appears as a comment on the PR.</p></div></div></div><div class="callout amber fi"><div class="cl-label">Cost Control Tip</div><p>Add a diff size check before calling Claude — skip the API call if the diff is less than 50 lines (trivial changes). This prevents API costs from piling up on formatting-only commits while keeping reviews on meaningful code changes.</p></div><div class="related fi"><div class="rl">→ Related Articles</div><div class="related-links"><a href="automate-blog-writing-anthropic-claude.html"><span class="arr">→</span> How to Automate Blog Writing with Anthropic Claude</a><a href="anthropic-claude-use-cases-startups.html"><span class="arr">→</span> Claude Use Cases for Startups</a><a href="anthropic-claude-pricing-free-vs-paid.html"><span class="arr">→</span> Claude Pricing: Free vs Paid Plans</a><a href="anthropic-claude-seo-content-generation.html"><span class="arr">→</span> Claude for SEO Content Generation</a></div></div></article></div></main>
+
+<style id="np-footer-css">
+#np-footer{background:#040408;border-top:1px solid #1a1a2e;padding:52px 5% 0;font-family:'Space Grotesk',system-ui,sans-serif;color:#f0f0f0;position:relative;z-index:1;overflow:hidden;}
+#np-footer::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.012) 1px,transparent 1px);background-size:54px 54px;pointer-events:none;}
+.np-fi{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;padding-bottom:40px;border-bottom:1px solid #1a1a2e;position:relative;z-index:1;}
+.np-fb a{display:flex;align-items:center;gap:9px;text-decoration:none;color:#f0f0f0;font-weight:800;font-size:1.05rem;margin-bottom:12px;}
+.np-dot{width:9px;height:9px;border-radius:50%;background:#00e5ff;box-shadow:0 0 8px #00e5ff;animation:np-pulse 2s infinite;}
+@keyframes np-pulse{0%,100%{opacity:1;box-shadow:0 0 8px #00e5ff}50%{opacity:.35;box-shadow:0 0 20px #00e5ff}}
+.np-fd{font-size:.8rem;color:#666880;line-height:1.75;max-width:270px;margin-bottom:20px;}
+.np-social{display:flex;gap:8px;flex-wrap:wrap;}
+.np-social a{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:#0e0e1a;border:1px solid #222235;color:#666880;text-decoration:none;transition:all .22s;}
+.np-social a:hover{border-color:#00e5ff;color:#00e5ff;transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,229,255,.2);}
+.np-social svg{width:14px;height:14px;fill:currentColor;}
+.np-col h4{font-size:.64rem;font-weight:700;color:#666880;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;font-family:'JetBrains Mono',monospace,sans-serif;}
+.np-col ul{list-style:none;padding:0;margin:0;}
+.np-col ul li{margin-bottom:9px;}
+.np-col ul a{color:#666880;text-decoration:none;font-size:.82rem;transition:color .18s,padding-left .18s;display:inline-block;}
+.np-col ul a:hover{color:#00e5ff;padding-left:5px;}
+.np-bottom{max-width:1160px;margin:0 auto;padding:20px 0 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:.74rem;color:#333348;position:relative;z-index:1;}
+.np-status{display:flex;align-items:center;gap:5px;font-family:monospace;font-size:.66rem;color:#666880;}
+.np-status-dot{width:6px;height:6px;border-radius:50%;background:#00ff88;animation:np-pulse 2s infinite;}
+@media(max-width:900px){.np-fi{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.np-fi{grid-template-columns:1fr;}}
+</style>
+
+<footer id="np-footer" itemscope itemtype="https://schema.org/WPFooter">
+  <div class="np-fi">
+    <div class="np-fb">
+      <a href="../index.html" aria-label="NeuraPulse Home">
+        <span class="np-dot"></span>NeuraPulse
+      </a>
+      <p class="np-fd">Expert AI guides, tools, and analysis — making artificial intelligence understandable and actionable for developers and creators worldwide.</p>
+      <div class="np-social">
+        <a href="https://twitter.com/neuraplus_ai" target="_blank" rel="noopener" title="Twitter / X">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.263 5.638 5.9-5.638zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/prashant-lalwani" target="_blank" rel="noopener" title="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://youtube.com/@neurapulse" target="_blank" rel="noopener" title="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://github.com/neuraplus-ai" target="_blank" rel="noopener" title="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        </a>
+        <a href="https://discord.gg/neurapulse" target="_blank" rel="noopener" title="Discord">
+          <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="np-col">
+      <h4>Pages</h4>
+      <ul><li><a href="../index.html">Home</a></li><li><a href="../blog.html">Blog</a></li><li><a href="../guide.html">Guide</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    </div>
+    <div class="np-col">
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../blog.html">Kimi AI Guides</a></li>
+        <li><a href="../blog.html">Gemini AI Ads</a></li>
+        <li><a href="../blog.html">AI Automation</a></li>
+        <li><a href="../blog.html">Prompt Engineering</a></li>
+        <li><a href="../blog.html">AI Models & LLMs</a></li>
+        <li><a href="../blog.html">AI SEO & GEO</a></li>
+      </ul>
+    </div>
+    <div class="np-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../sitemap.html">Sitemap</a></li>
+        <li><a href="https://twitter.com/neuraplus_ai" target="_blank" rel="noopener">Twitter / X</a></li>
+        <li><a href="https://linkedin.com/in/prashant-lalwani" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://github.com/neuraplus-ai" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://discord.gg/neurapulse" target="_blank" rel="noopener">Discord</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="np-bottom">
+    <span>© 2026 NeuraPulse · Prashant Lalwani · Est. 2025</span>
+    <div class="np-status"><span class="np-status-dot"></span>All systems operational</div>
+  </div>
+</footer>
+<script>
+document.getElementById('hbg').addEventListener('click',function(){document.getElementById('nl').classList.toggle('open');});
+var io=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting){en.target.classList.add('v');io.unobserve(en.target);}});},{threshold:0.06});
+document.querySelectorAll('.fi').forEach(function(el){io.observe(el);});
+</script><script src="/popup.js"></script><!-- NP:ENGAGE -->
+<style id="np-engage-css">
+#np-rbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:9999;background:rgba(0,212,255,.15);}
+#np-rfill{height:100%;width:0;background:linear-gradient(90deg,#00d4ff,#00ffb3,#00d4ff);background-size:200%;animation:npShimmer 2s linear infinite;transition:width .1s;}
+@keyframes npShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+#np-read-time{display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,255,.08);
+  border:1px solid rgba(0,212,255,.15);border-radius:12px;padding:4px 12px;
+  font-size:.75rem;color:#00d4ff;font-family:monospace;margin:8px 0;vertical-align:middle;}
+.np-next-box{background:linear-gradient(135deg,#111827,#0d1117);border:1px solid rgba(0,212,255,.18);
+  border-radius:12px;padding:24px 28px;margin:40px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.np-next-label{font-size:.7rem;color:#00ffb3;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:6px;}
+.np-next-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:0;}
+.np-next-btn{background:#00d4ff;color:#000;padding:10px 22px;border-radius:6px;
+  font-weight:700;font-size:.82rem;text-decoration:none;white-space:nowrap;
+  letter-spacing:.05em;transition:box-shadow .2s,transform .2s;}
+.np-next-btn:hover{box-shadow:0 0 18px #00d4ff;transform:translateY(-2px);}
+</style>
+<div id="np-rbar"><div id="np-rfill"></div></div>
+<script>
+(function(){
+  window.addEventListener('scroll',function(){
+    var h=document.body.scrollHeight-window.innerHeight;
+    document.getElementById('np-rfill').style.width=(h>0?Math.min(window.scrollY/h*100,100):0)+'%';
+  });
+  // Reading time
+  var art=document.querySelector('article,main,.article');
+  if(art){
+    var words=art.innerText.split(/\s+/).length;
+    var mins=Math.max(1,Math.round(words/220));
+    document.querySelectorAll('.np-read-time-slot').forEach(function(el){
+      el.innerHTML='<span id="np-read-time">⏱ '+mins+' min read</span>';
+    });
+  }
+  // Scroll-triggered reveal
+  var obs=new IntersectionObserver(function(e){e.forEach(function(x){
+    if(x.isIntersecting){x.target.style.opacity='1';x.target.style.transform='translateY(0)';}
+  });},{threshold:.08});
+  document.querySelectorAll('.np-reveal').forEach(function(el){
+    el.style.opacity='0';el.style.transform='translateY(22px)';
+    el.style.transition='opacity .6s ease,transform .6s ease';
+    obs.observe(el);
+  });
+})();
+</script>
+<!-- /NP:ENGAGE -->
+<!-- NP:ANALYTICS -->
+<script>
+(function(){
+  // Scroll depth tracking
+  var depths=[25,50,75,90,100],fired={};
+  window.addEventListener('scroll',function(){
+    var pct=Math.round((window.scrollY/(document.body.scrollHeight-window.innerHeight))*100);
+    depths.forEach(function(d){
+      if(pct>=d&&!fired[d]){fired[d]=true;
+        if(window.gtag)gtag('event','scroll_depth',{event_category:'engagement',event_label:d+'%',value:d});
+      }
+    });
+  });
+  // Time on page
+  var start=Date.now();
+  window.addEventListener('beforeunload',function(){
+    var sec=Math.round((Date.now()-start)/1000);
+    if(window.gtag)gtag('event','time_on_page',{event_category:'engagement',value:sec});
+    if(window.navigator.sendBeacon)navigator.sendBeacon('/api/analytics',JSON.stringify({page:location.pathname,time:sec}));
+  });
+  // Outbound link tracking
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a');
+    if(a&&a.hostname&&a.hostname!==location.hostname){
+      if(window.gtag)gtag('event','outbound_click',{event_category:'engagement',event_label:a.href});
+    }
+  });
+})();
+</script>
+<!-- /NP:ANALYTICS -->
+<!-- NP:FOOTER -->
+
+<style id="np-footer-css">
+#np-footer{position:relative;z-index:1;background:#0d1117;border-top:1px solid rgba(0,212,255,.12);
+  padding:64px 5% 0;font-family:'DM Sans','Space Grotesk',system-ui,sans-serif;}
+#np-footer::before{content:'';position:absolute;inset:0;background-image:
+  linear-gradient(rgba(0,212,255,.012) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,212,255,.012) 1px,transparent 1px);
+  background-size:54px 54px;pointer-events:none;}
+.np-fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:44px;padding-bottom:48px;border-bottom:1px solid rgba(0,212,255,.1);position:relative;z-index:1;}
+.np-fb-logo{font-weight:800;font-size:1.12rem;color:#fff;display:inline-flex;align-items:center;
+  gap:8px;text-decoration:none;margin-bottom:14px;}
+.np-fb-dot{width:8px;height:8px;background:#00d4ff;border-radius:50%;
+  box-shadow:0 0 10px #00d4ff;animation:npblink 2s ease infinite;flex-shrink:0;}
+.np-fb-desc{color:#8899aa;font-size:.85rem;line-height:1.75;max-width:260px;margin-bottom:22px;}
+.np-soc{display:flex;gap:9px;flex-wrap:wrap;}
+.np-si{width:40px;height:40px;border-radius:8px;border:1px solid rgba(0,212,255,.13);
+  display:flex;align-items:center;justify-content:center;color:#8899aa;
+  text-decoration:none;transition:all .25s;background:#111827;}
+.np-si:hover{border-color:#00d4ff;color:#00d4ff;transform:translateY(-3px);box-shadow:0 0 14px rgba(0,212,255,.25);}
+.np-si.ig:hover{border-color:#e1306c;color:#e1306c;box-shadow:0 0 14px rgba(225,48,108,.3);}
+.np-si.pin:hover{border-color:#e60023;color:#e60023;box-shadow:0 0 14px rgba(230,0,35,.3);}
+.np-si.fb:hover{border-color:#1877f2;color:#1877f2;box-shadow:0 0 14px rgba(24,119,242,.3);}
+.np-si svg{width:17px;height:17px;fill:currentColor;}
+.np-fcol h4{font-size:.8rem;font-weight:700;color:#fff;letter-spacing:.09em;
+  text-transform:uppercase;margin-bottom:16px;font-family:inherit;}
+.np-fcol ul{list-style:none;padding:0;margin:0;}
+.np-fcol ul li{margin-bottom:10px;}
+.np-fcol ul li a{color:#8899aa;text-decoration:none;font-size:.86rem;transition:color .2s,padding-left .18s;display:inline-block;}
+.np-fcol ul li a:hover{color:#00d4ff;padding-left:5px;}
+.np-fbot{max-width:1100px;margin:0 auto;padding:22px 0 28px;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:12px;position:relative;z-index:1;}
+.np-fcopy{color:#556677;font-size:.78rem;}
+.np-flinks{display:flex;gap:20px;flex-wrap:wrap;}
+.np-flinks a{color:#556677;font-size:.78rem;text-decoration:none;transition:color .2s;}
+.np-flinks a:hover{color:#00d4ff;}
+.np-fbadge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,255,.07);
+  border:1px solid rgba(0,212,255,.15);border-radius:20px;padding:4px 13px;
+  font-size:.7rem;color:#00d4ff;letter-spacing:.08em;}
+.np-fbadge::before{content:'';width:5px;height:5px;background:#00ffb3;border-radius:50%;animation:npblink 2s ease infinite;}
+@media(max-width:900px){.np-fg{grid-template-columns:1fr 1fr;}}
+@media(max-width:540px){.np-fg{grid-template-columns:1fr;}.np-fbot{flex-direction:column;text-align:center;}}
+</style>
+<footer id="np-footer" itemscope itemtype="https://schema.org/WPFooter">
+  <div class="np-fg">
+    <div>
+      <a href="../index.html" class="np-fb-logo" aria-label="NeuraPulse Home">
+        <span class="np-fb-dot" aria-hidden="true"></span>NeuraPulse
+      </a>
+      <p class="np-fb-desc">Expert AI guides, tools, and analysis — making artificial intelligence understandable and actionable.</p>
+      <div class="np-soc" itemscope itemtype="https://schema.org/Organization">
+        <meta itemprop="name" content="NeuraPulse"/>
+        <link itemprop="sameAs" href="https://x.com/AiNeuraplus"/>
+        <link itemprop="sameAs" href="https://www.instagram.com/neuraplus.ai/"/>
+        <link itemprop="sameAs" href="https://www.linkedin.com/in/prashant-lalwani-361010407/"/>
+        <link itemprop="sameAs" href="https://www.youtube.com/channel/UC0-7t4itquvY3ed2tGKLjQA"/>
+        <link itemprop="sameAs" href="https://www.facebook.com/profile.php?id=61589600083095"/>
+        <link itemprop="sameAs" href="https://pinterest.com/neuraplus_ai"/>
+        <a href="https://x.com/AiNeuraplus" target="_blank" rel="noopener" class="np-si" aria-label="X / Twitter">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/neuraplus.ai/" target="_blank" rel="noopener" class="np-si ig" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/prashant-lalwani-361010407/" target="_blank" rel="noopener" class="np-si" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/channel/UC0-7t4itquvY3ed2tGKLjQA" target="_blank" rel="noopener" class="np-si" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61589600083095" target="_blank" rel="noopener" class="np-si fb" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://pinterest.com/neuraplus_ai" target="_blank" rel="noopener" class="np-si pin" aria-label="Pinterest">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="np-fcol">
+      <h4>Guides & Topics</h4>
+      <ul>
+        <li><a href="../guide.html">AI Guides Hub</a></li>
+        <li><a href="../blog.html">AI SEO & GEO</a></li>
+        <li><a href="../blog.html">AI Advertising</a></li>
+        <li><a href="../blog.html">AI Automation</a></li>
+        <li><a href="../blog.html">Prompt Engineering</a></li>
+        <li><a href="../blog.html">AI Marketing</a></li>
+      </ul>
+    </div>
+    <div class="np-fcol">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="../about.html">About NeuraPulse</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../contact.html">Write for Us</a></li>
+        <li><a href="../contact.html">Privacy Policy</a></li>
+        <li><a href="../contact.html">Terms</a></li>
+        <li><a href="../sitemap.html">Sitemap</a></li>
+      </ul>
+    </div>
+    <div class="np-fcol">
+      <h4>Newsletter</h4>
+      <ul>
+        <li><a href="../contact.html">Subscribe Free →</a></li>
+        <li><a href="../contact.html">Weekly AI Updates</a></li>
+        <li><a href="../blog.html">Latest Articles</a></li>
+        <li><a href="../guide.html">Free Guides</a></li>
+        <li><a href="../blog.html">AI Tool Reviews</a></li>
+      </ul>
+      <div style="margin-top:16px;padding:14px;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.15);border-radius:8px;">
+        <p style="color:#8899aa;font-size:.78rem;margin-bottom:10px;">Join 4,200+ AI readers</p>
+        <a href="../contact.html" style="display:block;background:#00d4ff;color:#000;text-align:center;padding:9px;border-radius:5px;font-size:.78rem;font-weight:700;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;">Subscribe Free</a>
+      </div>
+    </div>
+  </div>
+  <div class="np-fbot">
+    <p class="np-fcopy">© 2026 NeuraPulse · Prashant Lalwani · All rights reserved</p>
+    <div class="np-flinks">
+      <a href="../sitemap.html">Sitemap</a>
+      <a href="../contact.html">Privacy</a>
+      <a href="../contact.html">Terms</a>
+      <a href="../contact.html">Cookie Policy</a>
+    </div>
+    <div class="np-fbadge">Live · AI-Powered · 2026-05-26</div>
+  </div>
+</footer>
+<!-- /NP:FOOTER -->
+</body></html>

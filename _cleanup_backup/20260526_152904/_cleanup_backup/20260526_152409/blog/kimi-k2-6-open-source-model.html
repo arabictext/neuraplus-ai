@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- NP:GEO -->
+<meta name="category" content="Artificial Intelligence, Technology, AI Tools"/>
+<meta name="classification" content="AI Technology"/>
+<meta name="subject" content="Artificial Intelligence, AI Tools, Machine Learning"/>
+<meta name="coverage" content="Worldwide"/>
+<meta name="revisit-after" content="7 days"/>
+<meta name="language" content="English"/>
+<!-- AI Crawler Permissions -->
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+<!-- /NP:GEO -->
+<!-- GEO / AEO / AI Visibility Tags -->
+<meta name="author" content="Prashant Lalwani"/>
+<meta name="publisher" content="NeuraPulse"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
+<meta name="googlebot" content="index, follow"/>
+<meta name="bingbot" content="index, follow"/>
+<meta name="rating" content="general"/>
+<meta name="revisit-after" content="7 days"/>
+<meta name="language" content="English"/>
+<meta name="category" content="Artificial Intelligence, Technology, AI Tools"/>
+<meta name="classification" content="AI Technology Blog"/>
+<meta name="subject" content="Artificial Intelligence, AI Tools, Machine Learning"/>
+<meta name="coverage" content="Worldwide"/>
+<meta name="distribution" content="Global"/>
+<meta name="target" content="all"/>
+<link rel="alternate" type="application/rss+xml" title="NeuraPulse RSS" href="https://neuraplus-ai.github.io/rss.xml"/>
+<!-- End GEO/AEO Tags -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TH2D2WBW');</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<title>Kimi K2.6 Open Source Model: Full Technical Breakdown 2026 – NeuraPulse</title>
+<meta content="Complete guide to Kimi K2.6: 1T parameter MoE architecture, 80.2% SWE-Bench, Agent Swarm 300 sub-agents, API pricing, self-hosting setup, and open source license breakdown." name="description"/>
+<meta content="kimi k2.6 open source, kimi k2.6 model, moonshot ai kimi, kimi k2.6 benchmark, kimi api" name="keywords"/>
+<meta content="Prashant Lalwani" name="author"/>
+<meta content="Kimi K2.6 Open Source Model: Full Technical Breakdown 2026 – NeuraPulse" property="og:title"/>
+<meta content="Complete guide to Kimi K2.6: 1T parameter MoE, 80.2% SWE-Bench, Agent Swarm, API pricing, and self-hosting." property="og:description"/>
+<meta content="article" property="og:type"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0a0a0a;--card:#111111;--card2:#161616;--card3:#1c1c1c;
+  --border:#222222;--border2:#2d2d2d;--text:#e2e2e2;--muted:#777777;--dim:#3a3a3a;
+  --accent:#4f8ef7;--accent2:#7cb3ff;--green:#3ecf6e;--orange:#f5a623;
+  --purple:#a78bfa;--cyan:#22d3ee;--red:#f87171;--yellow:#fbbf24;--nav-h:56px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes shimmer{0%{background-position:-400% 0}100%{background-position:400% 0}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(79,142,247,.2)}50%{box-shadow:0 0 40px rgba(79,142,247,.45)}}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+#readBar{position:fixed;top:var(--nav-h);left:0;right:0;height:2px;background:var(--border);z-index:999;}
+#readFill{height:100%;width:0%;background:linear-gradient(90deg,var(--purple),var(--accent));transition:width .12s linear;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);background:rgba(10,10,10,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);display:flex;align-items:center;padding:0 5%;gap:0;}
+.nav-logo{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1.08rem;color:#fff;text-decoration:none;letter-spacing:-.3px;margin-right:auto;}
+.nav-logo em{color:var(--accent);font-style:normal;}
+.nav-links{display:flex;gap:28px;list-style:none;margin-right:28px;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.84rem;font-weight:500;transition:color .2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{background:var(--accent);color:#fff;padding:7px 18px;border-radius:6px;text-decoration:none;font-size:.8rem;font-weight:700;transition:opacity .2s;white-space:nowrap;}
+.nav-cta:hover{opacity:.85;}
+
+.page-body{margin-top:var(--nav-h);}
+
+.breadcrumb{padding:14px 5%;max-width:1200px;margin:0 auto;font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.breadcrumb a{color:var(--muted);text-decoration:none;}
+.breadcrumb a:hover{color:var(--text);}
+.breadcrumb-sep{color:var(--border2);}
+
+.art-header{max-width:780px;margin:0 auto;padding:24px 5% 0;}
+.cat-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.25);color:var(--purple);font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:18px;}
+.cat-badge .live{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite;}
+.art-title{font-size:clamp(1.9rem,3.8vw,2.8rem);font-weight:900;line-height:1.12;letter-spacing:-1px;color:#fff;margin-bottom:20px;}
+.art-title .hl{background:linear-gradient(90deg,var(--purple),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+.art-hero{max-width:780px;margin:0 auto;padding:0 5%;}
+.art-hero-img{width:100%;border-radius:10px;height:320px;background:linear-gradient(135deg,#0d0a1e 0%,#110d24 50%,#0a0d1e 100%);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-bottom:0;}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(167,139,250,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,.05) 1px,transparent 1px);background-size:36px 36px;}
+.hero-glow{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;}
+.hero-text-wrap{position:relative;z-index:2;text-align:center;}
+.hero-big-txt{font-family:'JetBrains Mono',monospace;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;color:#fff;letter-spacing:-2px;line-height:1;margin-bottom:12px;}
+.hero-big-txt .hp{color:var(--purple);}
+.hero-big-txt .ha{color:var(--accent2);}
+.hero-sub-txt{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);letter-spacing:2.5px;text-transform:uppercase;}
+.hero-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+.hero-chip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:var(--text);padding:5px 14px;border-radius:20px;font-size:.72rem;font-weight:600;font-family:'JetBrains Mono',monospace;}
+
+.art-meta{max-width:780px;margin:0 auto;padding:0 5%;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:18px;padding-bottom:18px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-top:20px;font-size:.8rem;color:var(--muted);}
+.meta-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--accent));display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;color:#fff;flex-shrink:0;}
+.meta-author{font-weight:700;color:var(--text);}
+.meta-sep{color:var(--border2);}
+.meta-tag{background:var(--card2);border:1px solid var(--border2);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:600;padding:2px 8px;border-radius:3px;}
+
+.art-layout{max-width:1200px;margin:32px auto 0;padding:0 5% 80px;display:grid;grid-template-columns:1fr 292px;gap:52px;align-items:start;}
+.art-main{min-width:0;}
+.art-sidebar{position:sticky;top:calc(var(--nav-h) + 16px);}
+
+.art-body p{color:#b8b8b8;margin-bottom:1.5em;font-size:1rem;line-height:1.85;}
+.art-body p strong{color:#e2e2e2;font-weight:700;}
+.art-body h2{font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-.3px;margin:2.6em 0 .75em;padding-left:14px;border-left:3px solid var(--purple);scroll-margin-top:calc(var(--nav-h) + 20px);}
+.art-body h2.b{border-left-color:var(--accent);}
+.art-body h2.g{border-left-color:var(--green);}
+.art-body h2.o{border-left-color:var(--orange);}
+.art-body h2.c{border-left-color:var(--cyan);}
+.art-body h3{font-size:1.05rem;font-weight:700;color:#e2e2e2;margin:1.8em 0 .5em;}
+.art-body ul,.art-body ol{margin:.7em 0 1.4em 1.3em;color:#b8b8b8;}
+.art-body li{margin-bottom:.5em;line-height:1.75;}
+.art-body li::marker{color:var(--purple);}
+.art-body em{color:var(--muted);font-style:italic;}
+
+/* INTERNAL LINKS */
+.ilink{color:var(--accent2);text-decoration:none;font-weight:600;position:relative;padding-bottom:1px;background:linear-gradient(90deg,var(--accent),var(--cyan),var(--accent));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;transition:opacity .2s;}
+.ilink:hover{opacity:.85;animation:shimmer 1.2s linear infinite;}
+.ilink::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--accent),var(--cyan));background-size:200%;transform:scaleX(0);transform-origin:left;transition:transform .3s ease;}
+.ilink:hover::after{transform:scaleX(1);}
+
+/* CALLOUT */
+.callout{background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.2);border-radius:8px;padding:18px 22px;margin:1.8em 0;}
+.callout-label{font-family:'JetBrains Mono',monospace;font-size:.63rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--yellow);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+.callout p{margin:0;color:#bbb;font-size:.94rem;line-height:1.8;}
+.callout.purple{background:rgba(167,139,250,.06);border-color:rgba(167,139,250,.2);}
+.callout.purple .callout-label{color:var(--purple);}
+.callout.green{background:rgba(62,207,110,.06);border-color:rgba(62,207,110,.2);}
+.callout.green .callout-label{color:var(--green);}
+.callout.red{background:rgba(248,113,113,.05);border-color:rgba(248,113,113,.18);}
+.callout.red .callout-label{color:var(--red);}
+.callout.blue{background:rgba(79,142,247,.06);border-color:rgba(79,142,247,.2);}
+.callout.blue .callout-label{color:var(--accent2);}
+
+/* RELATED READ */
+.related-read{background:var(--card);border:1px solid var(--border2);border-left:3px solid var(--purple);border-radius:0 8px 8px 0;padding:16px 20px;margin:1.8em 0;}
+.related-read-label{font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.related-read h4{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:6px;}
+.related-read p{margin:0 0 10px;font-size:.85rem;color:var(--muted);}
+.related-read a{color:var(--accent2);text-decoration:none;font-size:.82rem;font-weight:600;}
+.related-read a:hover{text-decoration:underline;}
+
+/* STAT STRIP */
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin:1.8em 0;}
+.stat-cell{background:var(--card);padding:16px;text-align:center;transition:background .2s;}
+.stat-cell:hover{background:var(--card2);}
+.stat-num{font-family:'JetBrains Mono',monospace;font-size:1.55rem;font-weight:900;color:#fff;display:block;line-height:1;}
+.stat-num.blue{color:var(--accent2);}
+.stat-num.green{color:var(--green);}
+.stat-num.orange{color:var(--orange);}
+.stat-num.purple{color:var(--purple);}
+.stat-lbl{font-size:.68rem;color:var(--muted);margin-top:6px;display:block;line-height:1.4;}
+
+/* BENCH */
+.bench-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:1.6em 0;}
+.bench-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;transition:border-color .2s;}
+.bench-card:hover{border-color:var(--border2);}
+.bench-model{font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:4px;}
+.bench-val{font-family:'JetBrains Mono',monospace;font-size:1.9rem;font-weight:900;color:#fff;line-height:1;}
+.bench-sub{font-size:.7rem;color:var(--muted);margin-top:4px;}
+.bench-bar{height:3px;background:var(--card3);border-radius:2px;margin-top:10px;overflow:hidden;}
+.bench-fill{height:100%;border-radius:2px;width:0%;transition:width 1.2s ease;}
+.fill-b{background:linear-gradient(90deg,var(--accent),var(--cyan));}
+.fill-g{background:linear-gradient(90deg,var(--green),#16a34a);}
+.fill-o{background:linear-gradient(90deg,var(--orange),#e08000);}
+.fill-p{background:linear-gradient(90deg,var(--purple),var(--accent));}
+
+/* COMP TABLE */
+.comp-table{width:100%;border-collapse:collapse;margin:1.6em 0;font-size:.86rem;}
+.comp-table th{background:var(--card2);color:var(--muted);text-align:left;padding:11px 14px;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;border-bottom:1px solid var(--border2);}
+.comp-table td{padding:11px 14px;border-bottom:1px solid var(--border);color:#aaa;vertical-align:top;}
+.comp-table tr:hover td{background:rgba(79,142,247,.02);}
+.td-win{color:var(--green);font-weight:700;}
+.td-lose{color:var(--dim);}
+
+/* PRICE TABLE */
+.price-table{width:100%;border-collapse:collapse;margin:1.6em 0;font-size:.85rem;}
+.price-table th{background:var(--card2);color:var(--muted);padding:11px 14px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;border-bottom:1px solid var(--border2);}
+.price-table td{padding:11px 14px;border-bottom:1px solid var(--border);color:#aaa;}
+.price-table tr:hover td{background:rgba(79,142,247,.02);}
+.p-win{color:var(--green);font-weight:700;}
+
+/* STEP CARDS */
+.step-list{display:flex;flex-direction:column;gap:12px;margin:1.6em 0;}
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s,transform .2s;}
+.step-card:hover{border-color:var(--border2);transform:translateX(3px);}
+.step-card.g-accent{border-left:3px solid var(--green);}
+.step-card.r-accent{border-left:3px solid var(--red);}
+.step-num{width:32px;height:32px;flex-shrink:0;border-radius:7px;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.22);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:800;color:var(--purple);}
+.step-num.g{background:rgba(62,207,110,.1);border-color:rgba(62,207,110,.22);color:var(--green);}
+.step-num.r{background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.2);color:var(--red);}
+.step-content h4{font-size:.92rem;font-weight:700;color:#e2e2e2;margin-bottom:4px;}
+.step-content p{font-size:.85rem;color:var(--muted);margin:0;line-height:1.65;}
+.step-content p strong{color:#bbb;}
+
+/* SWARM VIS */
+.swarm-vis{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:28px;margin:1.8em 0;text-align:center;}
+.swarm-title{font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.swarm-ring{position:relative;width:260px;height:260px;margin:0 auto 16px;}
+.swarm-core{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--accent));display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:800;color:#fff;z-index:2;animation:glow 3s ease-in-out infinite;}
+.swarm-stats{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;}
+.swarm-stat .val{font-family:'JetBrains Mono',monospace;font-size:1.35rem;font-weight:800;color:#fff;display:block;}
+.swarm-stat .lbl{font-size:.68rem;color:var(--muted);display:block;}
+
+/* CTX BARS */
+.ctx-vis{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;margin:1.8em 0;}
+.ctx-title{font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;text-align:center;}
+.ctx-bars-row{display:flex;align-items:flex-end;gap:16px;justify-content:center;height:140px;margin-bottom:14px;}
+.ctx-bar-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;max-width:80px;}
+.ctx-bar-outer{width:100%;background:var(--card3);border-radius:5px 5px 0 0;display:flex;flex-direction:column;justify-content:flex-end;height:100%;position:relative;}
+.ctx-bar-inner{width:100%;border-radius:5px 5px 0 0;height:0;transition:height 1.4s ease;position:relative;}
+.ctx-bar-inner .ctx-val{position:absolute;bottom:calc(100%+5px);left:0;right:0;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:800;color:#fff;}
+.ctx-bar-lbl{font-size:.68rem;color:var(--muted);text-align:center;line-height:1.3;}
+
+/* CODE */
+.code-wrap{background:#050505;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.4em 0;}
+.code-top{background:var(--card2);border-bottom:1px solid var(--border);padding:9px 14px;display:flex;align-items:center;gap:7px;}
+.code-dots{display:flex;gap:5px;}
+.code-dot{width:10px;height:10px;border-radius:50%;}
+.code-lang{font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-left:auto;}
+.code-body{padding:16px 18px;font-family:'JetBrains Mono',monospace;font-size:.76rem;line-height:1.8;color:#7c9cbf;overflow-x:auto;}
+.code-body .cm{color:#333;}.code-body .kw{color:#c084fc;}.code-body .str{color:#86efac;}.code-body .num{color:#fb923c;}.code-body .fn{color:var(--accent2);}
+
+/* FAQ */
+.faq-wrap{margin:1.6em 0;}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-btn{width:100%;background:none;border:none;text-align:left;padding:15px 0;cursor:pointer;color:var(--text);font-family:'Inter',sans-serif;font-size:.93rem;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:10px;transition:color .2s;}
+.faq-btn:hover{color:#fff;}
+.faq-icon{font-size:1.1rem;color:var(--muted);flex-shrink:0;transition:transform .25s;}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--purple);}
+.faq-ans{display:none;padding:2px 0 15px;font-size:.88rem;color:var(--muted);line-height:1.75;}
+.faq-item.open .faq-ans{display:block;}
+
+/* SHARE */
+.share-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 22px;margin:2.4em 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.share-box h3{font-size:.88rem;font-weight:700;color:#fff;flex:1;}
+.sh-btn{padding:7px 16px;border-radius:6px;font-size:.73rem;font-weight:700;text-decoration:none;font-family:'JetBrains Mono',monospace;transition:opacity .2s,transform .2s;display:inline-block;}
+.sh-btn:hover{opacity:.85;transform:translateY(-1px);}
+.sh-x{background:#e7e7e7;color:#000;}.sh-li{background:#0a66c2;color:#fff;}.sh-wa{background:#25d366;color:#fff;}
+
+/* RELATED */
+.rel-grid{display:flex;flex-direction:column;gap:10px;margin:1.6em 0;}
+.rel-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;transition:border-color .2s,transform .2s;}
+.rel-card:hover{border-color:var(--purple);transform:translateX(3px);}
+.rel-icon{width:38px;height:38px;flex-shrink:0;border-radius:7px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.18);display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.rel-cat{font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--purple);display:block;margin-bottom:2px;}
+.rel-title{font-size:.86rem;font-weight:700;color:var(--text);line-height:1.3;}
+.rel-arr{margin-left:auto;color:var(--muted);flex-shrink:0;transition:transform .2s,color .2s;}
+.rel-card:hover .rel-arr{transform:translateX(3px);color:var(--purple);}
+
+/* SIDEBAR */
+.sb-block{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:14px;}
+.sb-title{font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.toc-list{list-style:none;}
+.toc-list li{margin-bottom:5px;}
+.toc-list a{color:var(--muted);text-decoration:none;font-size:.81rem;display:block;padding:5px 10px;border-left:2px solid var(--border);border-radius:0 4px 4px 0;transition:all .2s;}
+.toc-list a:hover,.toc-list a.active{color:#fff;border-left-color:var(--purple);background:rgba(167,139,250,.07);transform:translateX(2px);}
+.sb-newsletter{background:linear-gradient(135deg,rgba(167,139,250,.1),rgba(79,142,247,.07));border:1px solid rgba(167,139,250,.22);border-radius:8px;padding:20px;margin-bottom:14px;}
+.sb-newsletter h3{font-size:.95rem;font-weight:800;color:#fff;margin-bottom:7px;}
+.sb-newsletter p{font-size:.78rem;color:var(--muted);margin-bottom:14px;line-height:1.55;}
+.sb-newsletter a{display:block;background:var(--purple);color:#fff;text-align:center;padding:9px;border-radius:6px;text-decoration:none;font-size:.8rem;font-weight:700;transition:opacity .2s;}
+.sb-newsletter a:hover{opacity:.85;}
+.sb-links-list{list-style:none;}
+.sb-links-list li{border-bottom:1px solid var(--border);padding:9px 0;}
+.sb-links-list li:last-child{border-bottom:none;}
+.sb-links-list a{color:var(--muted);text-decoration:none;font-size:.8rem;font-weight:600;display:block;line-height:1.4;transition:color .2s;}
+.sb-links-list a:hover{color:var(--text);}
+.sb-link-cat{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--purple);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:2px;}
+
+footer{background:#050505;border-top:1px solid var(--border);padding:48px 5% 28px;}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:24px;}
+.footer-logo{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1.05rem;color:#fff;margin-bottom:10px;display:block;text-decoration:none;}
+.footer-logo em{color:var(--accent);font-style:normal;}
+.footer-desc{font-size:.8rem;color:var(--muted);line-height:1.65;max-width:300px;}
+.footer-col h4{font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px;}
+.footer-col ul{list-style:none;}
+.footer-col ul li{margin-bottom:8px;}
+.footer-col ul a{color:var(--muted);text-decoration:none;font-size:.8rem;transition:color .2s;}
+.footer-col ul a:hover{color:var(--text);}
+.footer-bottom{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:.74rem;color:var(--dim);}
+
+@media(max-width:900px){.art-layout{grid-template-columns:1fr;}.art-sidebar{display:none;}.stat-strip{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.bench-grid{grid-template-columns:1fr;}.footer-inner{grid-template-columns:1fr;}.nav-links{display:none;}.hero-chips{display:none;}.stat-strip{grid-template-columns:1fr 1fr;}}
+</style>
+<meta content="https://neuraplus-ai.github.io/favicon.svg" property="og:image"/><meta content="NeuraPulse" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="@neuraplus_ai" name="twitter:site"/><meta content="https://neuraplus-ai.github.io/favicon.svg" name="twitter:image"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Kimi K2.6 Open Source Model: Full Technical Breakdown 2026",
+  "description": "Complete guide to Kimi K2.6: 1T parameter MoE architecture, 80.2% SWE-Bench, Agent Swarm 300 sub-agents, API pricing, self-hosting setup, and open source license breakdown.",
+  "url": "https://neuraplus-ai.github.io/blog/kimi-k2-6-open-source-model.html",
+  "datePublished": "2026-05-20",
+  "dateModified": "2026-05-20",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Prashant Lalwani",
+    "url": "https://neuraplus-ai.github.io/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "NeuraPulse",
+    "url": "https://neuraplus-ai.github.io/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://neuraplus-ai.github.io/favicon.svg"
+    }
+  },
+  "image": "https://neuraplus-ai.github.io/favicon.svg",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://neuraplus-ai.github.io/blog/kimi-k2-6-open-source-model.html"
+  }
+}</script><link rel="canonical" href="https://neuraplus-ai.github.io/blog/kimi-k2-6-open-source-model.html"/>
+<!-- np:meta -->
+<link rel="canonical" href="https://neuraplus-ai.github.io/blog/kimi-k2-6-open-source-model.html"/>
+<meta property="og:title" content="Kimi K2.6 Open Source Model: Full Technical Breakdown 2026 – NeuraPulse"/>
+<meta property="og:description" content="Expert AI guides, tools, and analysis — making artificial intelligence understandable and actionable."/>
+<meta property="og:url" content="https://neuraplus-ai.github.io/blog/kimi-k2-6-open-source-model.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:site_name" content="NeuraPulse"/>
+<meta property="og:image" content="https://neuraplus-ai.github.io/assets/images/logo.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="@AiNeuraplus"/>
+<meta name="twitter:title" content="Kimi K2.6 Open Source Model: Full Technical Breakdown 2026 – NeuraPulse"/>
+<meta name="twitter:description" content="Expert AI guides, tools, and analysis — making artificial intelligence understandable and actionable."/>
+<meta name="twitter:image" content="https://neuraplus-ai.github.io/assets/images/logo.png"/>
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"/>
+<meta name="author" content="Prashant Lalwani"/>
+<meta name="publisher" content="NeuraPulse"/>
+<link rel="alternate" type="application/rss+xml" title="NeuraPulse RSS" href="https://neuraplus-ai.github.io/rss.xml"/>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://neuraplus-ai.github.io/#organization","name":"NeuraPulse","url":"https://neuraplus-ai.github.io","logo":{"@type":"ImageObject","url":"https://neuraplus-ai.github.io/assets/images/logo.png"},"description":"Expert AI guides, tools, and analysis \u2014 making artificial intelligence understandable and actionable.","foundingDate":"2025","founder":{"@type":"Person","name":"Prashant Lalwani"},"sameAs":["https://x.com/AiNeuraplus","https://www.instagram.com/neuraplus.ai/","https://www.linkedin.com/in/prashant-lalwani-361010407/","https://www.youtube.com/channel/UC0-7t4itquvY3ed2tGKLjQA","https://www.facebook.com/profile.php?id=61589600083095","https://pinterest.com/neuraplus_ai"]},{"@context":"https://schema.org","@type":"Article","@id":"https://neuraplus-ai.github.io/blog/kimi-k2-6-open-source-model.html#article","url":"https://neuraplus-ai.github.io/blog/kimi-k2-6-open-source-model.html","headline":"Kimi K2.6 Open Source Model: Full Technical Breakdown 2026 \u2013 NeuraPulse","description":"Expert AI guides, tools, and analysis \u2014 making artificial intelligence understandable and actionable.","dateModified":"2026-05-26","datePublished":"2026-05-26","author":{"@type":"Person","name":"Prashant Lalwani","url":"https://neuraplus-ai.github.io/about.html"},"publisher":{"@id":"https://neuraplus-ai.github.io/#organization"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://neuraplus-ai.github.io/blog/kimi-k2-6-open-source-model.html"},"inLanguage":"en"},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://neuraplus-ai.github.io/"},{"@type":"ListItem","position":2,"name":"Kimi K2.6 Open Source Model: Full Technical Breakdown 2026 \u2013 NeuraPulse","item":"https://neuraplus-ai.github.io/blog/kimi-k2-6-open-source-model.html"}]}]</script>
+<!-- /np:meta -->
+</head>
+<body>
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-TH2D2WBW" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<div id="readBar"><div id="readFill"></div></div>
+<!-- NP:NAV -->
+
+<style id="np-nav-css">
+*{box-sizing:border-box;}
+#np-nav{position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:64px;background:rgba(8,12,18,.95);backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,212,255,.12);
+  font-family:'DM Sans','Space Grotesk',system-ui,sans-serif;}
+.np-logo{font-weight:800;font-size:1.18rem;color:#fff;display:flex;align-items:center;
+  gap:8px;text-decoration:none;letter-spacing:-.02em;}
+.np-logo-dot{width:8px;height:8px;background:#00d4ff;border-radius:50%;
+  box-shadow:0 0 10px #00d4ff;animation:npblink 2s ease infinite;flex-shrink:0;}
+@keyframes npblink{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.5);opacity:.7;}}
+.np-links{display:flex;gap:26px;align-items:center;}
+.np-links a{color:#8899aa;text-decoration:none;font-size:.84rem;letter-spacing:.07em;
+  text-transform:uppercase;transition:color .2s;position:relative;}
+.np-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;
+  background:#00d4ff;transform:scaleX(0);transition:transform .25s;}
+.np-links a:hover,.np-links a.np-active{color:#00d4ff;}
+.np-links a:hover::after,.np-links a.np-active::after{transform:scaleX(1);}
+.np-sub-btn{background:#00d4ff;color:#000!important;font-weight:700;font-size:.78rem;
+  letter-spacing:.07em;text-transform:uppercase;padding:8px 18px;border-radius:5px;
+  text-decoration:none;transition:box-shadow .2s,transform .2s;white-space:nowrap;border-bottom:none!important;}
+.np-sub-btn:hover{box-shadow:0 0 22px #00d4ff;transform:translateY(-1px);}
+.np-sub-btn::after{display:none!important;}
+/* HAMBURGER */
+.np-ham{display:none;flex-direction:column;gap:5px;cursor:pointer;
+  padding:7px;background:transparent;border:none;margin-left:8px;}
+.np-ham span{display:block;width:24px;height:2px;background:#8899aa;border-radius:2px;transition:all .3s;}
+.np-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.np-ham.open span:nth-child(2){opacity:0;}
+.np-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+/* MOBILE MENU */
+#np-mob{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;
+  background:rgba(8,12,18,.98);padding:20px 5% 32px;flex-direction:column;
+  gap:2px;z-index:499;overflow-y:auto;}
+#np-mob.open{display:flex;}
+#np-mob a{color:#8899aa;text-decoration:none;font-size:.95rem;letter-spacing:.07em;
+  text-transform:uppercase;padding:14px 0;border-bottom:1px solid rgba(0,212,255,.07);
+  transition:color .2s;display:block;}
+#np-mob a:hover,#np-mob a.np-active{color:#00d4ff;}
+#np-mob .np-mob-social{display:flex;gap:10px;flex-wrap:wrap;padding:20px 0 0;border-bottom:none;}
+#np-mob .np-mob-social a{border-bottom:none;padding:0;width:40px;height:40px;
+  border-radius:8px;background:#111827;border:1px solid rgba(0,212,255,.15);
+  display:flex;align-items:center;justify-content:center;color:#8899aa;transition:all .2s;}
+#np-mob .np-mob-social a:hover{border-color:#00d4ff;color:#00d4ff;}
+#np-mob .np-mob-social svg{width:17px;height:17px;fill:currentColor;}
+#np-mob .np-mob-cta{background:#00d4ff;color:#000!important;font-weight:700;
+  text-align:center;border-radius:6px;margin-top:12px;padding:14px!important;
+  border-bottom:none!important;letter-spacing:.07em;}
+@media(max-width:768px){.np-links{display:none;}.np-ham{display:flex;}}
+@media(min-width:769px){#np-mob{display:none!important;}}
+</style>
+<nav id="np-nav" role="navigation" aria-label="Main navigation" itemscope itemtype="https://schema.org/SiteNavigationElement">
+  <a href="../index.html" class="np-logo" aria-label="NeuraPulse Home">
+    <span class="np-logo-dot" aria-hidden="true"></span>NeuraPulse
+  </a>
+  <div class="np-links" role="menubar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../guide.html">Guide</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    
+    <a href="../contact.html" class="np-sub-btn" role="menuitem">Subscribe</a>
+  </div>
+  <button class="np-ham" id="np-ham-btn" aria-label="Open menu" aria-expanded="false" aria-controls="np-mob" onclick="npMenu(this)">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div id="np-mob" role="dialog" aria-label="Mobile navigation" aria-modal="false">
+  <a href="../index.html">Home</a>
+  <a href="../blog.html">Blog</a>
+  <a href="../guide.html">Guide</a>
+  <a href="../about.html">About</a>
+  <a href="../contact.html">Contact</a>
+
+  
+    <div class="np-mob-social">
+      <a href="https://x.com/AiNeuraplus" target="_blank" rel="noopener" aria-label="X">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/neuraplus.ai/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/channel/UC0-7t4itquvY3ed2tGKLjQA" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/prashant-lalwani-361010407/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=61589600083095" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="https://pinterest.com/neuraplus_ai" target="_blank" rel="noopener" aria-label="Pinterest">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+      </a>
+    </div>
+  <a href="../contact.html" class="np-mob-cta">Subscribe Free →</a>
+</div>
+<script>
+function npMenu(btn){
+  btn.classList.toggle('open');
+  btn.setAttribute('aria-expanded', btn.classList.contains('open'));
+  document.getElementById('np-mob').classList.toggle('open');
+  document.body.style.overflow = btn.classList.contains('open')?'hidden':'';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var b=document.getElementById('np-ham-btn');if(b&&b.classList.contains('open'))npMenu(b);}} );
+document.addEventListener('click',function(e){
+  var b=document.getElementById('np-ham-btn'),m=document.getElementById('np-mob');
+  if(b&&m&&b.classList.contains('open')&&!b.contains(e.target)&&!m.contains(e.target))npMenu(b);
+});
+</script>
+<!-- /NP:NAV -->
+<div class="page-body">
+<div class="breadcrumb">
+<a href="../index.html">Home</a><span class="breadcrumb-sep">›</span>
+<a href="../blog.html">Blog</a><span class="breadcrumb-sep">›</span>
+<span>AI Tools</span>
+</div>
+<div class="art-header reveal">
+<div class="cat-badge"><span class="live"></span>AI Tools</div>
+<h1 class="art-title">Kimi K2.6: The <span class="hl">Open Source Model</span> That Beat Frontier Coding in 2026</h1>
+<img alt="Kimi K2.6 Open Source Model: Full Technical Breakdown 2026" class="blog-hero-image" height="630" loading="lazy" src="/assets/images/blog/kimi-k2-6-open-source-model.jpg" style="width:100%;max-width:1200px;height:auto;border-radius:8px;margin:0 auto 2rem;display:block;" title="Kimi K2.6 Open Source Model: Full Technical Breakdown 2026" width="1200"/>
+</div>
+<div class="art-hero reveal">
+<div class="art-hero-img">
+<div class="hero-grid-bg"></div>
+<div class="hero-glow" style="width:380px;height:380px;background:rgba(167,139,250,.1);top:-80px;right:-60px;"></div>
+<div class="hero-glow" style="width:240px;height:240px;background:rgba(79,142,247,.07);bottom:-40px;left:-20px;"></div>
+<div class="hero-text-wrap">
+<div class="hero-big-txt"><span class="hp">KIMI</span> <span class="ha">K2.6</span></div>
+<div class="hero-sub-txt">Open Source · 1T MoE · April 20, 2026</div>
+<div class="hero-chips">
+<span class="hero-chip">80.2% SWE-Bench ✓</span>
+<span class="hero-chip">300 Agent Swarm</span>
+<span class="hero-chip">$0.60/M tokens</span>
+<span class="hero-chip">Modified MIT</span>
+</div>
+</div>
+</div>
+</div>
+<div class="art-meta reveal">
+<div class="meta-av">PL</div>
+<span class="meta-author">Prashant Lalwani</span>
+<span class="meta-sep">·</span>
+<span>2026-05-20</span>
+<span class="meta-sep">·</span>
+<span>NeuraPulse</span>
+<span class="meta-sep">·</span>
+<span>18 min read</span>
+<span class="meta-sep">·</span>
+<span class="meta-tag">Open Source</span>
+<span class="meta-tag">MoE Architecture</span>
+<span class="meta-tag">Benchmarks</span>
+<span class="meta-tag">API</span>
+</div>
+<div class="art-layout">
+<main class="art-main">
+<div class="art-body">
+<p class="reveal">On April 20, 2026, Moonshot AI released Kimi K2.6 — and the open-source AI landscape changed overnight. The numbers were not incremental. They were the kind that shift how the entire industry thinks about what open-weight models can achieve without a closed lab's compute budget.</p>
+<p class="reveal"><strong>The headline: 80.2% on SWE-Bench Verified</strong> — the gold-standard real-world coding benchmark — making K2.6 the top open-weight model on the leaderboard and tying GPT-5.5 on SWE-Bench Pro. At $0.60 per million input tokens, it costs roughly one-quarter of Claude Opus. And it's fully open-source under a Modified MIT License. This is the complete breakdown of everything you need to know about K2.6 before deploying it.</p>
+<div class="callout reveal">
+<div class="callout-label">⚡ Release Context · April 20, 2026</div>
+<p>K2.6 is the fourth major Kimi release: K2 (July 2025) → K2.5 (January 2026) → K2.6 (April 2026). Each has narrowed the gap with closed frontier models. K2.6 is the first open-weight model to genuinely tie GPT-5.5 on a real-world coding benchmark. <strong>Important: the kimi-k2 series is officially discontinued May 25, 2026.</strong> K2.6 is the only supported branch going forward.</p>
+</div>
+<!-- ARCHITECTURE -->
+<h2 class="b reveal" id="architecture">Architecture: What Makes K2.6 Different</h2>
+<p class="reveal">Kimi K2.6 is built on a <strong>Mixture-of-Experts (MoE)</strong> architecture — the same foundational approach as GPT-4 and Gemini 1.5 Pro, but with a larger expert pool and a specialised training curriculum focused on coding and agentic tasks. Understanding the architecture explains both the performance and the cost advantage.</p>
+<div class="stat-strip reveal">
+<div class="stat-cell">
+<span class="stat-num purple">1T</span>
+<span class="stat-lbl">Total Parameters (MoE)</span>
+</div>
+<div class="stat-cell">
+<span class="stat-num blue">32B</span>
+<span class="stat-lbl">Active Per Token</span>
+</div>
+<div class="stat-cell">
+<span class="stat-num green">256K</span>
+<span class="stat-lbl">Context Window (tokens)</span>
+</div>
+<div class="stat-cell">
+<span class="stat-num orange">384</span>
+<span class="stat-lbl">Experts Per Layer</span>
+</div>
+</div>
+<p class="reveal">The MoE design means that despite having 1 trillion total parameters, only 32 billion are activated per token — giving K2.6 both the knowledge capacity of a 1T dense model and the inference efficiency of a 32B model. This is the primary reason it can run at $0.60/M input tokens while matching closed frontier models on coding tasks. The <a class="ilink" href="kimi-ai-long-context-explained.html">256K token context window</a> — double ChatGPT's 128K — is a further architectural advantage for large codebase and multi-document tasks.</p>
+<p class="reveal">K2.6 is also natively multimodal: it accepts text, code, images, and documents as input. This is what enables its <a class="ilink" href="kimi-ai-website-generation.html">website generation from screenshots and design mockups</a> — you can upload a Figma frame and get working HTML/CSS back.</p>
+<!-- AGENT SWARM -->
+<h2 class="g reveal" id="agent-swarm">Agent Swarm: K2.6's Defining Capability</h2>
+<p class="reveal">Agent Swarm is K2.6's headline agentic architecture — and it is a genuine architectural change, not a prompting trick. It enables K2.6 to decompose complex tasks into parallel sub-agent workstreams, coordinate their outputs, and synthesise a coherent final result.</p>
+<div class="swarm-vis reveal" id="swarmVis">
+<div class="swarm-title">Agent Swarm Architecture · Kimi K2.6 · April 2026</div>
+<div class="swarm-ring" id="swarmRing"><!-- built by JS --></div>
+<div class="swarm-stats">
+<div class="swarm-stat"><span class="val" style="color:var(--purple);">300</span><span class="lbl">Max Sub-Agents</span></div>
+<div class="swarm-stat"><span class="val" style="color:var(--green);">4,000</span><span class="lbl">Coordinated Steps</span></div>
+<div class="swarm-stat"><span class="val" style="color:var(--orange);">12h</span><span class="lbl">Max Autonomous Run</span></div>
+<div class="swarm-stat"><span class="val" style="color:var(--accent2);">3×</span><span class="lbl">More vs K2.5</span></div>
+</div>
+</div>
+<p class="reveal">K2.5 capped at 100 sub-agents and 1,500 steps. K2.6 triples both to <strong>300 sub-agents and 4,000 coordinated steps.</strong> This isn't merely a bigger number — it enables qualitatively different task decomposition. A task that would cause K2.5 to lose coherence after 50 steps can now be reliably completed end-to-end. Moonshot's reference benchmark shows K2.6 sustaining a 12-hour autonomous coding session making over 4,000 tool calls without producing contradictory output across sub-agents.</p>
+<div class="callout green reveal">
+<div class="callout-label">🔬 Real-World Agent Swarm Use Cases</div>
+<p>Agent Swarm is what powers <a class="ilink" href="kimi-ai-website-generation.html">K2.6's full-stack website generation</a>: one sub-agent handles API design, one handles front-end components, one handles database schema, one handles tests — all running in parallel, outputs synthesised into a coherent codebase. No other open-weight model offers this depth of agentic orchestration.</p>
+</div>
+<!-- BENCHMARKS -->
+<h2 class="o reveal" id="benchmarks">Complete Benchmark Results: Honest Numbers</h2>
+<p class="reveal">K2.6 leads on coding and agentic tasks. Closed models retain leads on science reasoning and hard maths. Here is the complete picture without cherry-picking:</p>
+<table class="comp-table reveal">
+<thead>
+<tr><th>Benchmark</th><th>Kimi K2.6</th><th>GPT-5.5</th><th>Claude Opus 4.7</th><th>What It Tests</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>SWE-Bench Verified</strong></td><td class="td-win">80.2% ✓</td><td>~79%</td><td>~78%</td><td>Real GitHub issue resolution</td></tr>
+<tr><td>AA Intelligence Index</td><td class="td-win">54 (best open) ✓</td><td>60</td><td>58</td><td>Composite intelligence score</td></tr>
+<tr><td>Terminal-Bench 2.0</td><td class="td-win">66.7% ✓</td><td>~65%</td><td>~64%</td><td>Autonomous execution tasks</td></tr>
+<tr><td>BrowseComp</td><td>86.3%</td><td class="td-win">~88% ✓</td><td>~87%</td><td>Web browsing + comprehension</td></tr>
+<tr><td>GPQA-Diamond</td><td>90.5%</td><td class="td-win">92.8% ✓</td><td>91.2%</td><td>Grad-level science reasoning</td></tr>
+<tr><td>AIME 2026</td><td>96.4%</td><td class="td-win">99.2% ✓</td><td>97.8%</td><td>Math olympiad problems</td></tr>
+<tr><td>Code Arena WebDev Elo</td><td class="td-win">1,529 (Rank 6/67) ✓</td><td>~1,560</td><td>~1,545</td><td>Human-preference coding eval</td></tr>
+<tr><td>Inference Speed</td><td class="td-win">58.6 t/s ✓</td><td>~50 t/s</td><td>~45 t/s</td><td>Tokens/sec on official API</td></tr>
+</tbody>
+</table>
+<div class="bench-grid reveal">
+<div class="bench-card">
+<div class="bench-model">SWE-Bench Verified · #1 Open</div>
+<div class="bench-val">80.2%</div>
+<div class="bench-sub">Real-world GitHub issue resolution</div>
+<div class="bench-bar"><div class="bench-fill fill-g" data-w="80"></div></div>
+</div>
+<div class="bench-card">
+<div class="bench-model">AA Intelligence Index</div>
+<div class="bench-val">54</div>
+<div class="bench-sub">Highest open-weight, 3pts from frontier</div>
+<div class="bench-bar"><div class="bench-fill fill-p" data-w="54"></div></div>
+</div>
+<div class="bench-card">
+<div class="bench-model">Code Arena WebDev Elo</div>
+<div class="bench-val">1,529</div>
+<div class="bench-sub">Rank 6 of 67 models globally</div>
+<div class="bench-bar"><div class="bench-fill fill-b" data-w="88"></div></div>
+</div>
+<div class="bench-card">
+<div class="bench-model">Terminal-Bench 2.0</div>
+<div class="bench-val">66.7%</div>
+<div class="bench-sub">Autonomous execution — state-of-the-art</div>
+<div class="bench-bar"><div class="bench-fill fill-o" data-w="67"></div></div>
+</div>
+</div>
+<!-- RELATED BOX -->
+<div class="related-read reveal">
+<div class="related-read-label">📖 Related Reading</div>
+<h4><a href="../blog/kimi-ai-chatbot.html" class="np-ilink" title="Kimi AI – NeuraPulse">Kimi AI</a> Website Generation: Build Full Sites From a Prompt</h4>
+<p>How K2.6's Coding-Driven Design turns prompts into production-ready animated websites — step by step.</p>
+<a href="kimi-ai-website-generation.html">Read Article →</a>
+</div>
+<!-- PRICING -->
+<h2 class="reveal" id="pricing">Pricing: The Economics That Change Everything</h2>
+<p class="reveal">This is where the K2.6 story becomes most compelling for teams running AI in production. It is not just competitively priced — it is structurally cheaper in a way that changes what is economically viable to build. At $0.60/M input tokens versus Claude Opus 4.7's $15.00/M, you can afford to run agent pipelines that would be financially impossible with closed models. See all <a class="ilink" href="how-to-use-kimi-ai-free.html">6 ways to access Kimi for free</a> in our dedicated guide.</p>
+<table class="price-table reveal">
+<thead>
+<tr><th>Model</th><th>Input ($/M)</th><th>Output ($/M)</th><th>Context</th><th>vs K2.6</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Kimi K2.6</strong></td><td class="p-win">$0.60 ✓</td><td class="p-win">$2.50–$3.00 ✓</td><td>256K</td><td>—</td></tr>
+<tr><td>GPT-5.5</td><td>$5.00–$10.00</td><td>$15.00–$30.00</td><td>128K</td><td>8–10× costlier</td></tr>
+<tr><td>Claude Opus 4.7</td><td>$15.00</td><td>$75.00</td><td>200K</td><td>25× costlier</td></tr>
+<tr><td>Claude Sonnet 4.6</td><td>$3.00</td><td>$15.00</td><td>200K</td><td>5× costlier</td></tr>
+<tr><td>GPT-4o</td><td>$2.50</td><td>$10.00</td><td>128K</td><td>4× costlier</td></tr>
+<tr><td>Cloudflare (free tier)</td><td class="p-win">Free (10K neurons/day)</td><td class="p-win">Free</td><td>256K</td><td class="p-win">Free ✓</td></tr>
+</tbody>
+</table>
+<div class="callout purple reveal">
+<div class="callout-label">💰 Real Production Cost Comparison</div>
+<p>A team processing 100 million tokens/month through coding agents — PR reviews, test generation, codebase analysis — pays approximately <strong>$600/month with K2.6 vs $15,000/month with Claude Opus</strong>. That $14,400/month difference changes what you can afford to automate entirely.</p>
+</div>
+<!-- OPEN SOURCE -->
+<h2 class="c reveal" id="open-source">Open Source License: What It Actually Allows</h2>
+<p class="reveal">K2.6 is released under a <strong>Modified MIT License</strong> — critically more permissive than many "open-source" AI releases that quietly restrict commercial use. Here is precisely what the licence allows and where the single restriction lies:</p>
+<div class="step-list reveal">
+<div class="step-card g-accent">
+<div class="step-num g">✓</div>
+<div class="step-content">
+<h4>Commercial Use — Allowed for Most</h4>
+<p>You can use K2.6 weights in commercial SaaS, internal tools, client products, and API services without attribution or licensing fees — for most organisations.</p>
+</div>
+</div>
+<div class="step-card g-accent">
+<div class="step-num g">✓</div>
+<div class="step-content">
+<h4>Self-Hosting — Fully Allowed</h4>
+<p>Download weights from Hugging Face (<strong>moonshotai/Kimi-K2.6</strong>), deploy on your own infrastructure using vLLM, SGLang, or llama.cpp. Zero per-token cost, full data privacy, no dependency on Moonshot's API.</p>
+</div>
+</div>
+<div class="step-card g-accent">
+<div class="step-num g">✓</div>
+<div class="step-content">
+<h4>Fine-Tuning — Fully Allowed</h4>
+<p>Fine-tune K2.6 on your own domain data — legal, medical, finance, proprietary codebase. Derivative models and fine-tuned checkpoints are permitted under the Modified MIT terms.</p>
+</div>
+</div>
+<div class="step-card r-accent">
+<div class="step-num r">!</div>
+<div class="step-content">
+<h4>Attribution Required at Scale Only</h4>
+<p>The <em>modified</em> part: attribution ("Kimi K2.6 by Moonshot AI") is required only for platforms exceeding <strong>100 million monthly active users</strong> OR <strong>$20 million monthly revenue</strong>. Below those thresholds, no attribution required whatsoever.</p>
+</div>
+</div>
+</div>
+<!-- SELF-HOSTING -->
+<h2 class="reveal" id="self-hosting">Self-Hosting: Hardware Requirements &amp; Setup</h2>
+<p class="reveal">Self-hosting gives you zero per-token cost, complete data sovereignty, and unlimited inference. The hardware requirements are serious, but there are practical paths for different resource levels:</p>
+<div class="callout red reveal">
+<div class="callout-label">⚠️ Hardware Reality Check</div>
+<p>Full K2.6 model requires approximately <strong>250GB+ combined VRAM + RAM</strong> for INT4-quantized inference (running at ~32B activation cost). Non-quantized needs ~600GB+. Most individuals use community quantized versions via Unsloth or llama.cpp. Recommended production: <strong>vLLM or SGLang with tensor parallelism</strong> across multiple H100 80GB GPUs.</p>
+</div>
+<div class="code-wrap reveal">
+<div class="code-top">
+<div class="code-dots">
+<div class="code-dot" style="background:#f87171;"></div>
+<div class="code-dot" style="background:#fbbf24;"></div>
+<div class="code-dot" style="background:#4ade80;"></div>
+</div>
+<span class="code-lang">Setup Guide</span>
+</div>
+<div class="code-body">
+<span class="cm"># ── OPTION A: vLLM (Production — Recommended) ──</span>
+pip install vllm
+
+vllm serve moonshotai/Kimi-K2.6 \
+  --tensor-parallel-size <span class="num">8</span> \
+  --max-model-len <span class="num">131072</span> \
+  --quantization awq \
+  --gpu-memory-utilization <span class="num">0.95</span>
+<span class="cm"># ── OPTION B: llama.cpp (Local, Quantized ~350GB) ──</span>
+huggingface-cli download unsloth/Kimi-K2.6-GGUF \
+  --include <span class="str">"*Q4_K_M*"</span> --local-dir ./kimi-k2.6
+
+./llama-server --model ./kimi-k2.6/Kimi-K2.6-Q4_K_M.gguf \
+  --ctx-size <span class="num">131072</span> --n-gpu-layers <span class="num">999</span> --port <span class="num">8080</span>
+<span class="cm"># ── OPTION C: Kimi API (OpenAI-compatible) ──</span>
+<span class="kw">from</span> openai <span class="kw">import</span> OpenAI
+
+client = OpenAI(
+  base_url=<span class="str">"https://api.moonshot.cn/v1"</span>,
+  api_key=<span class="str">"YOUR_KIMI_API_KEY"</span>
+)
+response = client.chat.completions.create(
+  model=<span class="str">"kimi-k2.6"</span>,
+  messages=[{<span class="str">"role"</span>:<span class="str">"user"</span>,<span class="str">"content"</span>:<span class="str">"Your prompt here"</span>}]
+)
+  </div>
+</div>
+<!-- CONTEXT WINDOW -->
+<h2 class="g reveal" id="context-window">The 256K Context Window Advantage</h2>
+<p class="reveal">K2.6's 256K token context window is double <a href="../blog/will-chatgpt-show-ads-2026.html" class="np-ilink" title="ChatGPT – NeuraPulse">ChatGPT</a>'s 128K limit. In practice, this means K2.6 can hold entire codebases, full contract bundles, or multi-hour conversation histories in a single request — enabling the kinds of complex, <a class="ilink" href="kimi-ai-website-generation.html">large-scale website and app generation tasks</a> that would require chunking workarounds on shorter-context models. Explore the full implications in our guide: <a class="ilink" href="kimi-ai-long-context-explained.html">Kimi AI Long Context Explained</a>.</p>
+<div class="ctx-vis reveal">
+<div class="ctx-title">Context Window Comparison (tokens)</div>
+<div class="ctx-bars-row">
+<div class="ctx-bar-wrap">
+<div class="ctx-bar-outer">
+<div class="ctx-bar-inner" data-h="100" style="background:linear-gradient(180deg,var(--purple),#7c3aed);">
+<span class="ctx-val">256K</span>
+</div>
+</div>
+<div class="ctx-bar-lbl">Kimi K2.6</div>
+</div>
+<div class="ctx-bar-wrap">
+<div class="ctx-bar-outer">
+<div class="ctx-bar-inner" data-h="78" style="background:linear-gradient(180deg,var(--orange),#ea580c);">
+<span class="ctx-val">200K</span>
+</div>
+</div>
+<div class="ctx-bar-lbl">Claude Opus</div>
+</div>
+<div class="ctx-bar-wrap">
+<div class="ctx-bar-outer">
+<div class="ctx-bar-inner" data-h="50" style="background:linear-gradient(180deg,#10a37f,#059669);">
+<span class="ctx-val">128K</span>
+</div>
+</div>
+<div class="ctx-bar-lbl">GPT-5.5</div>
+</div>
+<div class="ctx-bar-wrap">
+<div class="ctx-bar-outer">
+<div class="ctx-bar-inner" data-h="50" style="background:linear-gradient(180deg,var(--accent),#2563eb);">
+<span class="ctx-val">128K</span>
+</div>
+</div>
+<div class="ctx-bar-lbl">GPT-4o</div>
+</div>
+</div>
+<p style="font-size:.72rem;color:var(--muted);text-align:center;margin:0;">256K tokens ≈ 200,000 words · full novel · entire mid-sized codebase</p>
+</div>
+<!-- CONTROVERSY -->
+<h2 class="o reveal" id="controversy">Controversy &amp; Competitive Context</h2>
+<div class="callout red reveal">
+<div class="callout-label">⚠️ Context 1: Data Distillation Accusation</div>
+<p>In February 2026, Anthropic publicly accused Moonshot AI (with DeepSeek and MiniMax) of using fraudulent accounts to generate Claude conversations for training data distillation. Moonshot has neither confirmed nor denied this. It remains unresolved. If your organisation has strict AI supply-chain compliance requirements, this is worth factoring into your evaluation.</p>
+</div>
+<div class="callout blue reveal">
+<div class="callout-label">📌 Context 2: Cursor Partnership Disclosure</div>
+<p>In March 2026, Cursor — a $50B code editor — was found to be using Kimi K2.5 as the underlying model for its Composer 2 feature without initial disclosure. Co-founder Aman Sanger confirmed: <em>"It was a miss to not mention the Kimi base in our blog from the start."</em> Now a disclosed partnership. That a $50B company chose a Chinese open-source model for its flagship coding feature tells you everything about K2.6's real-world quality ceiling.</p>
+</div>
+<!-- FAQ -->
+<h2 class="reveal" id="faq">Frequently Asked Questions</h2>
+<div class="faq-wrap reveal">
+<div class="faq-item">
+<button class="faq-btn">What makes Kimi K2.6 different from K2.5?<span class="faq-icon">+</span></button>
+<div class="faq-ans">K2.6 is a significant architectural upgrade: Agent Swarm tripled (100 → 300 sub-agents, 1,500 → 4,000 steps), over 50% improvement on Next.js front-end benchmarks per Cloudflare data, improved long-horizon coding reliability, and the new Coding-Driven Design capability for <a class="ilink" href="kimi-ai-website-generation.html">website generation from prompts and images</a>. K2.5 was already competitive; K2.6 is the model that genuinely matches frontier closed models on coding benchmarks.</div>
+</div>
+<div class="faq-item">
+<button class="faq-btn">Is Kimi K2.6 truly open source?<span class="faq-icon">+</span></button>
+<div class="faq-ans">Yes, with one nuance. Weights are on Hugging Face under a Modified MIT License permitting commercial use, self-hosting, and fine-tuning for most organisations. Attribution is only required for platforms exceeding 100M monthly active users or $20M monthly revenue. This is considerably more permissive than many "open" AI models that quietly restrict commercial use.</div>
+</div>
+<div class="faq-item">
+<button class="faq-btn">Can Kimi K2.6 replace Claude Code or Cursor?<span class="faq-icon">+</span></button>
+<div class="faq-ans">On raw benchmark performance, K2.6 ties GPT-5.5 and is within range of Claude Opus on coding tasks — the model capability is there. The tool-layer integrations (Claude Code's computer use, Cursor's editor UX) are separate from the underlying model. Many developers now use K2.6 via OpenRouter or Cloudflare as a drop-in replacement at significantly lower cost, accepting minor trade-offs in tooling polish. See our full <a class="ilink" href="kimi-ai-vs-chatgpt-for-coding.html">Kimi vs ChatGPT coding comparison</a>.</div>
+</div>
+<div class="faq-item">
+<button class="faq-btn">How do I access Kimi K2.6 for free?<span class="faq-icon">+</span></button>
+<div class="faq-ans">Six working methods: kimi.com web chat, Kimi mobile app, Cloudflare Workers AI free tier (~2–5M tokens/day), OpenRouter free credits, NVIDIA NIM free credits, and self-hosting. Full setup steps for all six in our guide: <a class="ilink" href="how-to-use-kimi-ai-free.html">How to Use Kimi AI for Free</a>.</div>
+</div>
+<div class="faq-item">
+<button class="faq-btn">When is kimi-k2 (older) being discontinued?<span class="faq-icon">+</span></button>
+<div class="faq-ans">The kimi-k2 series is officially discontinued on <strong>May 25, 2026</strong>. Moonshot AI has advised all users to migrate to model ID <code>kimi-k2.6</code> in their API calls before that date. K2.6 is the only supported branch going forward.</div>
+</div>
+</div>
+<!-- SHARE -->
+<div class="share-box reveal">
+<h3>Found this useful? Share it! 🚀</h3>
+<a class="sh-btn sh-x" href="https://twitter.com/intent/tweet?text=Kimi+K2.6+Open+Source+Model+2026&amp;url=kimi-k2-6-open-source-model.html&amp;via=NeuraPulseAI">Twitter/X</a>
+<a class="sh-btn sh-li" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=kimi-k2-6-open-source-model.html">LinkedIn</a>
+<a class="sh-btn sh-wa" href="https://wa.me/?text=Read+on+NeuraPulse:+kimi-k2-6-open-source-model.html">WhatsApp</a>
+</div>
+<!-- RELATED -->
+<h2 class="reveal" style="border-left-color:var(--cyan);">More Articles You Will Love</h2>
+<div class="rel-grid reveal">
+<a class="rel-card" href="kimi-ai-website-generation.html">
+<div class="rel-icon">🌐</div>
+<div><span class="rel-cat">AI Tools</span><span class="rel-title">Kimi AI Website Generation: Build Full Sites From a Single Prompt</span></div>
+<span class="rel-arr">→</span>
+</a>
+<a class="rel-card" href="kimi-ai-vs-chatgpt-for-coding.html">
+<div class="rel-icon">⚡</div>
+<div><span class="rel-cat">AI Tools</span><span class="rel-title">Kimi AI vs ChatGPT for Coding in 2026: Which One Wins?</span></div>
+<span class="rel-arr">→</span>
+</a>
+<a class="rel-card" href="how-to-use-kimi-ai-free.html">
+<div class="rel-icon">🆓</div>
+<div><span class="rel-cat">AI Tools</span><span class="rel-title">How to Use Kimi AI for Free in 2026: 6 Working Methods</span></div>
+<span class="rel-arr">→</span>
+</a>
+<a class="rel-card" href="kimi-ai-long-context-explained.html">
+<div class="rel-icon">📄</div>
+<div><span class="rel-cat">AI Tools</span><span class="rel-title">Kimi AI Long Context Explained: How 256K Tokens Changes Everything</span></div>
+<span class="rel-arr">→</span>
+</a>
+</div>
+</div>
+</main>
+<aside class="art-sidebar">
+<div class="sb-block">
+<div class="sb-title">Table of Contents</div>
+<ul class="toc-list">
+<li><a href="#architecture">Architecture Deep Dive</a></li>
+<li><a href="#agent-swarm">Agent Swarm Explained</a></li>
+<li><a href="#benchmarks">Full Benchmarks</a></li>
+<li><a href="#pricing">API Pricing</a></li>
+<li><a href="#open-source">Open Source License</a></li>
+<li><a href="#self-hosting">Self-Hosting Setup</a></li>
+<li><a href="#context-window">256K Context Window</a></li>
+<li><a href="#controversy">Controversy Context</a></li>
+<li><a href="#faq">FAQs</a></li>
+</ul>
+</div>
+<div class="sb-newsletter">
+<h3>Weekly AI Insights</h3>
+<p>Join 4,200+ readers. Every Tuesday. Free.</p>
+<a href="../contact.html">Subscribe Free →</a>
+</div>
+<div class="sb-block">
+<div class="sb-title">All Articles</div>
+<ul class="sb-links-list">
+<li><a href="kimi-ai-website-generation.html"><span class="sb-link-cat">AI Tools</span>Kimi AI Website Generation</a></li>
+<li><a href="kimi-ai-vs-chatgpt-for-coding.html"><span class="sb-link-cat">AI Tools</span>Kimi AI vs ChatGPT for Coding</a></li>
+<li><a href="how-to-use-kimi-ai-free.html"><span class="sb-link-cat">AI Tools</span>How to Use Kimi AI for Free</a></li>
+<li><a href="kimi-ai-long-context-explained.html"><span class="sb-link-cat">AI Tools</span>Kimi AI Long Context Explained</a></li>
+<li><a href="kimi-k2-6-benchmark.html"><span class="sb-link-cat">AI Tools</span>Kimi K2.6 Benchmark Analysis</a></li>
+<li><a href="make-blogs-with-ai-2026.html"><span class="sb-link-cat">AI Tools</span>Make Blogs with AI in 2026</a></li>
+</ul>
+</div>
+</aside>
+</div>
+</div>
+
+
+<style id="np-footer-css">
+#np-footer{background:#040408;border-top:1px solid #1a1a2e;padding:52px 5% 0;font-family:'Space Grotesk',system-ui,sans-serif;color:#f0f0f0;position:relative;z-index:1;overflow:hidden;}
+#np-footer::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.012) 1px,transparent 1px);background-size:54px 54px;pointer-events:none;}
+.np-fi{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;padding-bottom:40px;border-bottom:1px solid #1a1a2e;position:relative;z-index:1;}
+.np-fb a{display:flex;align-items:center;gap:9px;text-decoration:none;color:#f0f0f0;font-weight:800;font-size:1.05rem;margin-bottom:12px;}
+.np-dot{width:9px;height:9px;border-radius:50%;background:#00e5ff;box-shadow:0 0 8px #00e5ff;animation:np-pulse 2s infinite;}
+@keyframes np-pulse{0%,100%{opacity:1;box-shadow:0 0 8px #00e5ff}50%{opacity:.35;box-shadow:0 0 20px #00e5ff}}
+.np-fd{font-size:.8rem;color:#666880;line-height:1.75;max-width:270px;margin-bottom:20px;}
+.np-social{display:flex;gap:8px;flex-wrap:wrap;}
+.np-social a{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:#0e0e1a;border:1px solid #222235;color:#666880;text-decoration:none;transition:all .22s;}
+.np-social a:hover{border-color:#00e5ff;color:#00e5ff;transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,229,255,.2);}
+.np-social svg{width:14px;height:14px;fill:currentColor;}
+.np-col h4{font-size:.64rem;font-weight:700;color:#666880;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;font-family:'JetBrains Mono',monospace,sans-serif;}
+.np-col ul{list-style:none;padding:0;margin:0;}
+.np-col ul li{margin-bottom:9px;}
+.np-col ul a{color:#666880;text-decoration:none;font-size:.82rem;transition:color .18s,padding-left .18s;display:inline-block;}
+.np-col ul a:hover{color:#00e5ff;padding-left:5px;}
+.np-bottom{max-width:1160px;margin:0 auto;padding:20px 0 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:.74rem;color:#333348;position:relative;z-index:1;}
+.np-status{display:flex;align-items:center;gap:5px;font-family:monospace;font-size:.66rem;color:#666880;}
+.np-status-dot{width:6px;height:6px;border-radius:50%;background:#00ff88;animation:np-pulse 2s infinite;}
+@media(max-width:900px){.np-fi{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.np-fi{grid-template-columns:1fr;}}
+</style>
+
+<footer id="np-footer" itemscope itemtype="https://schema.org/WPFooter">
+  <div class="np-fi">
+    <div class="np-fb">
+      <a href="../index.html" aria-label="NeuraPulse Home">
+        <span class="np-dot"></span>NeuraPulse
+      </a>
+      <p class="np-fd">Expert AI guides, tools, and analysis — making artificial intelligence understandable and actionable for developers and creators worldwide.</p>
+      <div class="np-social">
+        <a href="https://twitter.com/neuraplus_ai" target="_blank" rel="noopener" title="Twitter / X">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.263 5.638 5.9-5.638zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/prashant-lalwani" target="_blank" rel="noopener" title="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://youtube.com/@neurapulse" target="_blank" rel="noopener" title="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://github.com/neuraplus-ai" target="_blank" rel="noopener" title="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        </a>
+        <a href="https://discord.gg/neurapulse" target="_blank" rel="noopener" title="Discord">
+          <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="np-col">
+      <h4>Pages</h4>
+      <ul><li><a href="../index.html">Home</a></li><li><a href="../blog.html">Blog</a></li><li><a href="../guide.html">Guide</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    </div>
+    <div class="np-col">
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../blog.html">Kimi AI Guides</a></li>
+        <li><a href="../blog.html">Gemini AI Ads</a></li>
+        <li><a href="../blog.html">AI Automation</a></li>
+        <li><a href="../blog.html">Prompt Engineering</a></li>
+        <li><a href="../blog.html">AI Models & LLMs</a></li>
+        <li><a href="../blog.html">AI SEO & GEO</a></li>
+      </ul>
+    </div>
+    <div class="np-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../sitemap.html">Sitemap</a></li>
+        <li><a href="https://twitter.com/neuraplus_ai" target="_blank" rel="noopener">Twitter / X</a></li>
+        <li><a href="https://linkedin.com/in/prashant-lalwani" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://github.com/neuraplus-ai" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://discord.gg/neurapulse" target="_blank" rel="noopener">Discord</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="np-bottom">
+    <span>© 2026 NeuraPulse · Prashant Lalwani · Est. 2025</span>
+    <div class="np-status"><span class="np-status-dot"></span>All systems operational</div>
+  </div>
+</footer>
+
+<script>
+// READING BAR
+window.addEventListener('scroll', () => {
+  const s = window.scrollY;
+  const h = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('readFill').style.width = (h > 0 ? (s/h)*100 : 0) + '%';
+  document.querySelectorAll('h2[id]').forEach(h2 => {
+    if (h2.getBoundingClientRect().top <= 90) {
+      document.querySelectorAll('.toc-list a').forEach(a => a.classList.remove('active'));
+      const a = document.querySelector(`.toc-list a[href="#${h2.id}"]`);
+      if (a) a.classList.add('active');
+    }
+  });
+});
+
+// REVEAL
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 40);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// BENCH BARS
+const bObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.bench-fill').forEach(f => { f.style.width = (f.dataset.w || 0) + '%'; });
+      bObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.bench-grid').forEach(el => bObs.observe(el));
+
+// CTX BARS
+const cObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.ctx-bar-inner').forEach(b => {
+        b.style.height = (b.dataset.h || 0) + '%';
+      });
+      cObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.ctx-bars-row').forEach(el => cObs.observe(el));
+
+// FAQ
+document.querySelectorAll('.faq-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    document.querySelectorAll('.faq-item.open').forEach(o => { if (o !== item) o.classList.remove('open'); });
+    item.classList.toggle('open');
+  });
+});
+
+// SMOOTH TOC SCROLL
+document.querySelectorAll('.toc-list a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) window.scrollTo({ top: el.offsetTop - 76, behavior: 'smooth' });
+  });
+});
+
+// SWARM VIS
+function buildSwarm() {
+  const ring = document.getElementById('swarmRing');
+  if (!ring) return;
+  const size = 260;
+  const cx = size/2, cy = size/2, r = cx - 26;
+  const agents = ['FE','BE','DB','API','CSS','Test','Git','Doc','CI','UX','Auth','Sec'];
+  const colors = ['var(--purple)','var(--accent2)','var(--green)','var(--orange)','var(--cyan)','var(--yellow)'];
+
+  // center
+  const core = document.createElement('div');
+  core.className = 'swarm-core';
+  core.textContent = 'K2.6';
+  ring.appendChild(core);
+
+  agents.forEach((lbl, i) => {
+    const angle = (i / agents.length) * Math.PI * 2 - Math.PI / 2;
+    const ax = cx + r * Math.cos(angle), ay = cy + r * Math.sin(angle);
+    const color = colors[i % colors.length];
+
+    // line
+    const line = document.createElement('div');
+    const len = r - 6;
+    line.style.cssText = `position:absolute;top:${cy}px;left:${cx}px;width:${len}px;height:1px;background:linear-gradient(90deg,${color}40,transparent);transform:rotate(${angle * 180/Math.PI}deg);transform-origin:0 50%;`;
+    ring.appendChild(line);
+
+    // node
+    const node = document.createElement('div');
+    node.style.cssText = `position:absolute;width:34px;height:34px;border-radius:50%;background:var(--card2);border:1px solid ${color};display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.52rem;font-weight:700;color:${color};left:${ax-17}px;top:${ay-17}px;animation:pulse ${1.4 + i*0.12}s infinite;`;
+    node.textContent = lbl;
+    ring.appendChild(node);
+  });
+}
+buildSwarm();
+</script>
+<!-- NP:ENGAGE -->
+<style id="np-engage-css">
+#np-rbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:9999;background:rgba(0,212,255,.15);}
+#np-rfill{height:100%;width:0;background:linear-gradient(90deg,#00d4ff,#00ffb3,#00d4ff);background-size:200%;animation:npShimmer 2s linear infinite;transition:width .1s;}
+@keyframes npShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+#np-read-time{display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,255,.08);
+  border:1px solid rgba(0,212,255,.15);border-radius:12px;padding:4px 12px;
+  font-size:.75rem;color:#00d4ff;font-family:monospace;margin:8px 0;vertical-align:middle;}
+.np-next-box{background:linear-gradient(135deg,#111827,#0d1117);border:1px solid rgba(0,212,255,.18);
+  border-radius:12px;padding:24px 28px;margin:40px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.np-next-label{font-size:.7rem;color:#00ffb3;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:6px;}
+.np-next-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:0;}
+.np-next-btn{background:#00d4ff;color:#000;padding:10px 22px;border-radius:6px;
+  font-weight:700;font-size:.82rem;text-decoration:none;white-space:nowrap;
+  letter-spacing:.05em;transition:box-shadow .2s,transform .2s;}
+.np-next-btn:hover{box-shadow:0 0 18px #00d4ff;transform:translateY(-2px);}
+</style>
+<div id="np-rbar"><div id="np-rfill"></div></div>
+<script>
+(function(){
+  window.addEventListener('scroll',function(){
+    var h=document.body.scrollHeight-window.innerHeight;
+    document.getElementById('np-rfill').style.width=(h>0?Math.min(window.scrollY/h*100,100):0)+'%';
+  });
+  // Reading time
+  var art=document.querySelector('article,main,.article');
+  if(art){
+    var words=art.innerText.split(/\s+/).length;
+    var mins=Math.max(1,Math.round(words/220));
+    document.querySelectorAll('.np-read-time-slot').forEach(function(el){
+      el.innerHTML='<span id="np-read-time">⏱ '+mins+' min read</span>';
+    });
+  }
+  // Scroll-triggered reveal
+  var obs=new IntersectionObserver(function(e){e.forEach(function(x){
+    if(x.isIntersecting){x.target.style.opacity='1';x.target.style.transform='translateY(0)';}
+  });},{threshold:.08});
+  document.querySelectorAll('.np-reveal').forEach(function(el){
+    el.style.opacity='0';el.style.transform='translateY(22px)';
+    el.style.transition='opacity .6s ease,transform .6s ease';
+    obs.observe(el);
+  });
+})();
+</script>
+<!-- /NP:ENGAGE -->
+<!-- NP:ANALYTICS -->
+<script>
+(function(){
+  // Scroll depth tracking
+  var depths=[25,50,75,90,100],fired={};
+  window.addEventListener('scroll',function(){
+    var pct=Math.round((window.scrollY/(document.body.scrollHeight-window.innerHeight))*100);
+    depths.forEach(function(d){
+      if(pct>=d&&!fired[d]){fired[d]=true;
+        if(window.gtag)gtag('event','scroll_depth',{event_category:'engagement',event_label:d+'%',value:d});
+      }
+    });
+  });
+  // Time on page
+  var start=Date.now();
+  window.addEventListener('beforeunload',function(){
+    var sec=Math.round((Date.now()-start)/1000);
+    if(window.gtag)gtag('event','time_on_page',{event_category:'engagement',value:sec});
+    if(window.navigator.sendBeacon)navigator.sendBeacon('/api/analytics',JSON.stringify({page:location.pathname,time:sec}));
+  });
+  // Outbound link tracking
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a');
+    if(a&&a.hostname&&a.hostname!==location.hostname){
+      if(window.gtag)gtag('event','outbound_click',{event_category:'engagement',event_label:a.href});
+    }
+  });
+})();
+</script>
+<!-- /NP:ANALYTICS -->
+<!-- NP:FOOTER -->
+
+<style id="np-footer-css">
+#np-footer{position:relative;z-index:1;background:#0d1117;border-top:1px solid rgba(0,212,255,.12);
+  padding:64px 5% 0;font-family:'DM Sans','Space Grotesk',system-ui,sans-serif;}
+#np-footer::before{content:'';position:absolute;inset:0;background-image:
+  linear-gradient(rgba(0,212,255,.012) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,212,255,.012) 1px,transparent 1px);
+  background-size:54px 54px;pointer-events:none;}
+.np-fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:44px;padding-bottom:48px;border-bottom:1px solid rgba(0,212,255,.1);position:relative;z-index:1;}
+.np-fb-logo{font-weight:800;font-size:1.12rem;color:#fff;display:inline-flex;align-items:center;
+  gap:8px;text-decoration:none;margin-bottom:14px;}
+.np-fb-dot{width:8px;height:8px;background:#00d4ff;border-radius:50%;
+  box-shadow:0 0 10px #00d4ff;animation:npblink 2s ease infinite;flex-shrink:0;}
+.np-fb-desc{color:#8899aa;font-size:.85rem;line-height:1.75;max-width:260px;margin-bottom:22px;}
+.np-soc{display:flex;gap:9px;flex-wrap:wrap;}
+.np-si{width:40px;height:40px;border-radius:8px;border:1px solid rgba(0,212,255,.13);
+  display:flex;align-items:center;justify-content:center;color:#8899aa;
+  text-decoration:none;transition:all .25s;background:#111827;}
+.np-si:hover{border-color:#00d4ff;color:#00d4ff;transform:translateY(-3px);box-shadow:0 0 14px rgba(0,212,255,.25);}
+.np-si.ig:hover{border-color:#e1306c;color:#e1306c;box-shadow:0 0 14px rgba(225,48,108,.3);}
+.np-si.pin:hover{border-color:#e60023;color:#e60023;box-shadow:0 0 14px rgba(230,0,35,.3);}
+.np-si.fb:hover{border-color:#1877f2;color:#1877f2;box-shadow:0 0 14px rgba(24,119,242,.3);}
+.np-si svg{width:17px;height:17px;fill:currentColor;}
+.np-fcol h4{font-size:.8rem;font-weight:700;color:#fff;letter-spacing:.09em;
+  text-transform:uppercase;margin-bottom:16px;font-family:inherit;}
+.np-fcol ul{list-style:none;padding:0;margin:0;}
+.np-fcol ul li{margin-bottom:10px;}
+.np-fcol ul li a{color:#8899aa;text-decoration:none;font-size:.86rem;transition:color .2s,padding-left .18s;display:inline-block;}
+.np-fcol ul li a:hover{color:#00d4ff;padding-left:5px;}
+.np-fbot{max-width:1100px;margin:0 auto;padding:22px 0 28px;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:12px;position:relative;z-index:1;}
+.np-fcopy{color:#556677;font-size:.78rem;}
+.np-flinks{display:flex;gap:20px;flex-wrap:wrap;}
+.np-flinks a{color:#556677;font-size:.78rem;text-decoration:none;transition:color .2s;}
+.np-flinks a:hover{color:#00d4ff;}
+.np-fbadge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,255,.07);
+  border:1px solid rgba(0,212,255,.15);border-radius:20px;padding:4px 13px;
+  font-size:.7rem;color:#00d4ff;letter-spacing:.08em;}
+.np-fbadge::before{content:'';width:5px;height:5px;background:#00ffb3;border-radius:50%;animation:npblink 2s ease infinite;}
+@media(max-width:900px){.np-fg{grid-template-columns:1fr 1fr;}}
+@media(max-width:540px){.np-fg{grid-template-columns:1fr;}.np-fbot{flex-direction:column;text-align:center;}}
+</style>
+<footer id="np-footer" itemscope itemtype="https://schema.org/WPFooter">
+  <div class="np-fg">
+    <div>
+      <a href="../index.html" class="np-fb-logo" aria-label="NeuraPulse Home">
+        <span class="np-fb-dot" aria-hidden="true"></span>NeuraPulse
+      </a>
+      <p class="np-fb-desc">Expert AI guides, tools, and analysis — making artificial intelligence understandable and actionable.</p>
+      <div class="np-soc" itemscope itemtype="https://schema.org/Organization">
+        <meta itemprop="name" content="NeuraPulse"/>
+        <link itemprop="sameAs" href="https://x.com/AiNeuraplus"/>
+        <link itemprop="sameAs" href="https://www.instagram.com/neuraplus.ai/"/>
+        <link itemprop="sameAs" href="https://www.linkedin.com/in/prashant-lalwani-361010407/"/>
+        <link itemprop="sameAs" href="https://www.youtube.com/channel/UC0-7t4itquvY3ed2tGKLjQA"/>
+        <link itemprop="sameAs" href="https://www.facebook.com/profile.php?id=61589600083095"/>
+        <link itemprop="sameAs" href="https://pinterest.com/neuraplus_ai"/>
+        <a href="https://x.com/AiNeuraplus" target="_blank" rel="noopener" class="np-si" aria-label="X / Twitter">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/neuraplus.ai/" target="_blank" rel="noopener" class="np-si ig" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/prashant-lalwani-361010407/" target="_blank" rel="noopener" class="np-si" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/channel/UC0-7t4itquvY3ed2tGKLjQA" target="_blank" rel="noopener" class="np-si" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61589600083095" target="_blank" rel="noopener" class="np-si fb" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://pinterest.com/neuraplus_ai" target="_blank" rel="noopener" class="np-si pin" aria-label="Pinterest">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="np-fcol">
+      <h4>Guides & Topics</h4>
+      <ul>
+        <li><a href="../guide.html">AI Guides Hub</a></li>
+        <li><a href="../blog.html">AI SEO & GEO</a></li>
+        <li><a href="../blog.html">AI Advertising</a></li>
+        <li><a href="../blog.html">AI Automation</a></li>
+        <li><a href="../blog.html">Prompt Engineering</a></li>
+        <li><a href="../blog.html">AI Marketing</a></li>
+      </ul>
+    </div>
+    <div class="np-fcol">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="../about.html">About NeuraPulse</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../contact.html">Write for Us</a></li>
+        <li><a href="../contact.html">Privacy Policy</a></li>
+        <li><a href="../contact.html">Terms</a></li>
+        <li><a href="../sitemap.html">Sitemap</a></li>
+      </ul>
+    </div>
+    <div class="np-fcol">
+      <h4>Newsletter</h4>
+      <ul>
+        <li><a href="../contact.html">Subscribe Free →</a></li>
+        <li><a href="../contact.html">Weekly AI Updates</a></li>
+        <li><a href="../blog.html">Latest Articles</a></li>
+        <li><a href="../guide.html">Free Guides</a></li>
+        <li><a href="../blog.html">AI Tool Reviews</a></li>
+      </ul>
+      <div style="margin-top:16px;padding:14px;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.15);border-radius:8px;">
+        <p style="color:#8899aa;font-size:.78rem;margin-bottom:10px;">Join 4,200+ AI readers</p>
+        <a href="../contact.html" style="display:block;background:#00d4ff;color:#000;text-align:center;padding:9px;border-radius:5px;font-size:.78rem;font-weight:700;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;">Subscribe Free</a>
+      </div>
+    </div>
+  </div>
+  <div class="np-fbot">
+    <p class="np-fcopy">© 2026 NeuraPulse · Prashant Lalwani · All rights reserved</p>
+    <div class="np-flinks">
+      <a href="../sitemap.html">Sitemap</a>
+      <a href="../contact.html">Privacy</a>
+      <a href="../contact.html">Terms</a>
+      <a href="../contact.html">Cookie Policy</a>
+    </div>
+    <div class="np-fbadge">Live · AI-Powered · 2026-05-26</div>
+  </div>
+</footer>
+<!-- /NP:FOOTER -->
+</body>
+</html>

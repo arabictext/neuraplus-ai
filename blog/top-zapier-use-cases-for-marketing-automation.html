@@ -214,7 +214,7 @@ document.querySelectorAll('.faq-q').forEach(function(btn){btn.addEventListener('
 var obs=new IntersectionObserver(function(e){e.forEach(function(en,i){if(en.isIntersecting){setTimeout(function(){en.target.classList.add('vis');},60*i);obs.unobserve(en.target);}});},{threshold:0.05});
 document.querySelectorAll('.fade').forEach(function(el){obs.observe(el);});</script><script src="/popup.js"></script>
 
-
+<style>.fade,.fade.vis{opacity:1!important;transform:translateY(0)!important;}</style>
 
 <style id="np-footer-css">
 #np-footer{background:#040408;border-top:1px solid #1a1a2e;padding:52px 5% 0;font-family:'Space Grotesk',system-ui,sans-serif;color:#f0f0f0;position:relative;z-index:1;overflow:hidden;}

@@ -1,19 +1,9 @@
-# NeuraPulse Cleanup — One-time automatic workflow
-# Place this file at: .github/workflows/neurapulse-cleanup.yml
-#
-# HOW TO TRIGGER:
-#   Go to your GitHub repo → Actions tab → "NeuraPulse Cleanup"
-#   → Click "Run workflow" → Click green "Run workflow" button
-#
-# It will:
-#   1. Run neurapulse_cleanup.py on all 285+ pages
-#   2. Commit the cleaned files back to your repo automatically
-#   3. Upload cleanup-log.txt so you can see what was removed
-
 name: NeuraPulse Cleanup
 
 on:
-  workflow_dispatch:  # Only runs when YOU click the button — never auto
+  push:
+    paths:
+      - 'run-cleanup.txt'
 
 permissions:
   contents: write
@@ -21,32 +11,23 @@ permissions:
 jobs:
   cleanup:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Run cleanup script
+      - name: Run Cleanup Script
         run: python neurapulse_cleanup.py
-
-      - name: Upload cleanup log as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: cleanup-log
-          path: cleanup-log.txt
 
       - name: Commit cleaned files
         run: |
           git config user.email "cleanup@neurapulse.ai"
           git config user.name "NeuraPulse Cleanup Bot"
           git add -A
-          git diff --staged --quiet && echo 'Nothing to commit — already clean!' || git commit -m '[bot] Remove all NeuraPulse injected code from all pages [skip ci]'
+          git diff --staged --quiet && echo "Already clean!" || git commit -m "[bot] Remove all NeuraPulse injected code [skip ci]"
           git push origin HEAD

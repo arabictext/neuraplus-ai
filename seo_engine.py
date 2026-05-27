@@ -359,13 +359,22 @@ class MetaParser(HTMLParser):
         if self._in_title: self.title += data
 
 # ══════════════════════════════════════════════════════
-# PHASE 1 — FIX BLACK PAGES: INJECT NAV + FOOTER
+# FADE FIX — forces .fade elements visible
+# Injected into every page <head> as a safety fallback.
+# The JS IntersectionObserver adds .vis on scroll,
+# but if it fails, this CSS ensures content is NEVER
+# permanently invisible.
+# ══════════════════════════════════════════════════════
+FADE_FIX = """<style id="np-fade-fix">.fade,.fade.vis{opacity:1!important;transform:translateY(0)!important;}</style>"""
+
+# ══════════════════════════════════════════════════════
+# PHASE 1 — FIX BLACK PAGES: NAV + FOOTER + FADE FIX
 # ══════════════════════════════════════════════════════
 def phase1_nav_footer(files):
     log("="*55, "")
-    log("PHASE 1 — NAV + FOOTER INJECTION", "PHASE")
+    log("PHASE 1 — NAV + FOOTER + FADE FIX", "PHASE")
     log("="*55, "")
-    nav_added = nav_skip = footer_added = footer_skip = 0
+    nav_added = nav_skip = footer_added = footer_skip = fade_fixed = 0
 
     for f in files:
         try:
@@ -373,6 +382,17 @@ def phase1_nav_footer(files):
         except: continue
         changed = False
 
+        # ── FADE FIX — remove any manual inline version, inject proper one ──
+        INLINE_FADE = re.compile(r'<style>\s*\.fade[^<]{0,80}opacity:1!important[^<]*?</style>', re.IGNORECASE)
+        html, _n = INLINE_FADE.subn('', html)
+        if _n: changed = True
+
+        if 'class="fade"' in html or "class='fade'" in html:
+            if 'np-fade-fix' not in html:
+                if "</head>" in html:
+                    html = html.replace("</head>", FADE_FIX + "\n</head>", 1)
+                    changed = True
+                    fade_fixed += 1
         # ── NAV ──
         # Check if a real nav exists (not just the empty comment left by cleanup)
         has_real_nav = bool(re.search(r'<nav\b[^>]*>', html, re.IGNORECASE))
@@ -414,8 +434,9 @@ def phase1_nav_footer(files):
         if changed:
             f.write_text(html, encoding="utf-8")
 
-    log(f"Nav injected: {nav_added} pages · Already had nav: {nav_skip}")
-    log(f"Footer added: {footer_added} pages · Already had footer: {footer_skip}")
+    log(f"Fade fix injected : {fade_fixed} pages")
+    log(f"Nav injected      : {nav_added} pages · Already had nav: {nav_skip}")
+    log(f"Footer added      : {footer_added} pages · Already had footer: {footer_skip}")
 
 # ══════════════════════════════════════════════════════
 # PHASE 2 — SEO META, SCHEMA, CANONICAL

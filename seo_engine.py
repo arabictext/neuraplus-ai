@@ -365,7 +365,7 @@ class MetaParser(HTMLParser):
 # but if it fails, this CSS ensures content is NEVER
 # permanently invisible.
 # ══════════════════════════════════════════════════════
-FADE_FIX = """<style id="np-fade-fix">.fade,.fade.vis{opacity:1!important;transform:translateY(0)!important;}</style>"""
+FADE_FIX = """<style>.fade,.fade.vis{opacity:1!important;transform:translateY(0)!important;}</style>"""
 
 # ══════════════════════════════════════════════════════
 # PHASE 1 — FIX BLACK PAGES: NAV + FOOTER + FADE FIX
@@ -383,12 +383,9 @@ def phase1_nav_footer(files):
         changed = False
 
         # ── FADE FIX — remove any manual inline version, inject proper one ──
-        INLINE_FADE = re.compile(r'<style>\s*\.fade[^<]{0,80}opacity:1!important[^<]*?</style>', re.IGNORECASE)
-        html, _n = INLINE_FADE.subn('', html)
-        if _n: changed = True
 
         if 'class="fade"' in html or "class='fade'" in html:
-            if 'np-fade-fix' not in html:
+            if 'opacity:1!important;transform:translateY(0)!important' not in html:
                 if "</head>" in html:
                     html = html.replace("</head>", FADE_FIX + "\n</head>", 1)
                     changed = True

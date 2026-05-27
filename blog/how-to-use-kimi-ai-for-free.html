@@ -139,6 +139,21 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
 <meta name="twitter:description" content="Step-by-step guide to using Kimi AI for free—web access, API tricks, quota optimization, and legitimate workarounds. No credit card required."/>
 <meta name="twitter:image" content="https://neuraplus-ai.github.io/assets/logo.png"/>
 
+<!-- NP:FADE-FIX -->
+<style id="np-fade-fix">
+  /* Prevent black pages: force .fade elements visible immediately.
+     IntersectionObserver animations still work on top of this. */
+  .fade {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: none !important;
+  }
+  .fade.vis {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+</style>
+<!-- /NP:FADE-FIX -->
 </head>
 <body>
 <!-- NP:NAV -->

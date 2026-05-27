@@ -246,6 +246,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="twitter:description" content="Why Free AI Tools Are Reshaping Web Development in 2026 The landscape of web development has undergone a seismic shift in 2026, driven by the proliferation o..."/>
 <meta name="twitter:image" content="https://neuraplus-ai.github.io/assets/logo.png"/>
 
+<!-- NP:FADE-FIX -->
+<style id="np-fade-fix">
+  /* Prevent black pages: force .fade elements visible immediately.
+     IntersectionObserver animations still work on top of this. */
+  .fade {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: none !important;
+  }
+  .fade.vis {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+</style>
+<!-- /NP:FADE-FIX -->
 </head>
 <body>
 <!-- NP:NAV -->

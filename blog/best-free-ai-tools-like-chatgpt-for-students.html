@@ -147,6 +147,21 @@ li{margin:.5rem 0;color:#c8c8e0}
 @media(max-width:600px){.nav-links{display:none}h2{font-size:1.3rem}.tc-head{flex-direction:column;align-items:flex-start}}
 </style>
 <meta content="https://neuraplus-ai.github.io/favicon.svg" property="og:image"/><meta content="https://neuraplus-ai.github.io/favicon.svg" name="twitter:image"/>
+<!-- NP:FADE-FIX -->
+<style id="np-fade-fix">
+  /* Prevent black pages: force .fade elements visible immediately.
+     IntersectionObserver animations still work on top of this. */
+  .fade {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: none !important;
+  }
+  .fade.vis {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+</style>
+<!-- /NP:FADE-FIX -->
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->

@@ -146,6 +146,21 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
 <meta content="https://neuraplus-ai.github.io/og-default.jpg" name="twitter:image"/>
 <meta content="NeuraPulse" property="og:site_name"/><meta content="@neuraplus_ai" name="twitter:site"/>
 
+<!-- NP:FADE-FIX -->
+<style id="np-fade-fix">
+  /* Prevent black pages: force .fade elements visible immediately.
+     IntersectionObserver animations still work on top of this. */
+  .fade {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: none !important;
+  }
+  .fade.vis {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+</style>
+<!-- /NP:FADE-FIX -->
 </head>
 <body>
 <!-- NP:NAV -->

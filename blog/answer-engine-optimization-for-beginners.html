@@ -160,6 +160,120 @@ aside{position:sticky;top:84px;height:fit-content;display:flex;flex-direction:co
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Answer Engine Optimization (AEO)?","acceptedAnswer":{"@type":"Answer","text":"Answer Engine Optimization (AEO) is the practice of structuring web content so it gets extracted and cited directly by AI-powered answer engines like ChatGPT Search, Perplexity, Google Gemini, and Claude. Unlike traditional SEO which targets ranked link positions, AEO targets inclusion in synthesized AI answers."}},{"@type":"Question","name":"Is AEO the same as SEO?","acceptedAnswer":{"@type":"Answer","text":"AEO and SEO share many signals — technical crawlability, quality content, and structured data — but differ in their end goal. SEO targets ranked positions on results pages. AEO targets extraction into AI-generated direct answers. AEO requires direct-answer formatting, entity authority, and schema markup that pure SEO does not mandate."}},{"@type":"Question","name":"How quickly can a beginner see results from AEO?","acceptedAnswer":{"@type":"Answer","text":"Most beginners implementing AEO see their first AI citations within 3–8 weeks of completing a full implementation, provided their site passes crawl accessibility checks for all major AI bots. Perplexity re-indexes qualifying pages within hours; ChatGPT Search typically cycles every 7–14 days."}}]}
 ]
 </script>
+<!-- NP:UNIVERSAL-FIX-V2 -->
+<style id="np-universal-fix">
+/* ── FIX 1: BLACK SCREEN (.fade AND .reveal both fixed) ── */
+.fade,
+.reveal,
+.fade-up,
+.animate,
+[data-animate],
+[data-reveal] {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.55s ease, transform 0.55s ease !important;
+}
+.fade.vis, .fade.in,
+.reveal.vis, .reveal.in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* ── FIX 2: IMAGE LAYOUT SHIFT / JUMPING ── */
+.blog-hero-image,
+img[loading="lazy"] {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+  background: #0c1120;
+  border-radius: 8px;
+  margin: 0 auto 2rem;
+  max-width: 1200px;
+}
+
+/* ── FIX 3: BENCHMARK BARS FALLBACK (show at full width) ── */
+.bfill {
+  width: var(--w, 80%) !important;
+  transition: width 1.2s ease !important;
+}
+.context-fill {
+  width: var(--w, 80%) !important;
+}
+
+/* ── FIX 4: SCROLL PADDING (content not hidden behind sticky nav) ── */
+html {
+  scroll-padding-top: 80px;
+}
+
+/* ── FIX 5: NAV Z-INDEX ── */
+#np-nav { z-index: 500 !important; }
+#np-mob { z-index: 499 !important; }
+</style>
+<script>
+/* NeuraPulse Universal Fix JS v2 */
+(function(){
+  function npFix(){
+    /* 1. Reveal all hidden elements */
+    var sel = '.reveal,.fade,.fade-up,.animate';
+    var els = document.querySelectorAll(sel);
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            e.target.classList.add('in','vis');
+            obs.unobserve(e.target);
+          }
+        });
+      },{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
+      els.forEach(function(el){obs.observe(el);});
+      /* Emergency fallback: show ALL content after 800ms */
+      setTimeout(function(){
+        document.querySelectorAll(sel).forEach(function(el){
+          el.classList.add('in','vis');
+        });
+      },800);
+    } else {
+      els.forEach(function(el){el.classList.add('in','vis');});
+    }
+
+    /* 2. Fix broken images — replace with placeholder */
+    document.querySelectorAll('img').forEach(function(img){
+      img.addEventListener('error',function(){
+        if(!this.dataset.errFixed){
+          this.dataset.errFixed = '1';
+          this.src = 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&h=630&fit=crop';
+        }
+      });
+    });
+
+    /* 3. Fix benchmark bars */
+    setTimeout(function(){
+      document.querySelectorAll('.bfill[data-w]').forEach(function(b){
+        b.style.width = b.getAttribute('data-w') + '%';
+      });
+    },600);
+
+    /* 4. Fix stat counters showing 0 */
+    setTimeout(function(){
+      document.querySelectorAll('[data-target]').forEach(function(el){
+        if(el.textContent === '0' || el.textContent.trim() === ''){
+          el.textContent = el.getAttribute('data-target');
+        }
+      });
+    },1000);
+  }
+
+  /* Run on DOM ready */
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', npFix);
+  } else {
+    npFix();
+  }
+})();
+</script>
+<!-- /NP:UNIVERSAL-FIX-V2 -->
 </head>
 <body>
 

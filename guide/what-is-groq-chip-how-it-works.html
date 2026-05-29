@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Is the Groq Chip and How Does It Work? Complete 2026 Guide – NeuraPulse</title>
+  <meta name="description" content="The definitive guide to the Groq chip — LPU architecture, why it runs LLMs up to 10× faster than GPUs, on-chip SRAM, real benchmarks, and how to use the free Groq API right now." />
+  <meta name="author" content="Prashant Lalwani" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="NeuraPulse" />
+  <meta property="og:title" content="What Is the Groq Chip and How Does It Work? Complete 2026 Guide" />
+  <meta property="og:description" content="The definitive guide to the Groq chip — LPU architecture, why it runs LLMs 10× faster than GPUs, and how to use the free Groq API." />
+  <meta property="og:url" content="https://neuraplus-ai.github.io/blog/what-is-groq-chip-how-it-works.html" />
+  <meta property="og:image" content="https://neuraplus-ai.github.io/assets/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@neuraplus_ai" />
+  <link rel="canonical" href="https://neuraplus-ai.github.io/blog/what-is-groq-chip-how-it-works.html" />
+  <link rel="icon" href="https://neuraplus-ai.github.io/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    :root {
+      --bg:       #070a12;
+      --bg2:      #0b0f1c;
+      --surface:  #0f1525;
+      --surface2: #141c30;
+      --border:   rgba(0,229,255,0.09);
+      --border-h: rgba(0,229,255,0.28);
+      --cyan:     #00e5ff;
+      --cyan-dim: rgba(0,229,255,0.10);
+      --cyan-soft:rgba(0,229,255,0.06);
+      --text:     #dde3f0;
+      --text-mid: #7a85a0;
+      --text-dim: #3a4260;
+      --font-h:   'Syne', sans-serif;
+      --font-b:   'DM Sans', sans-serif;
+      --r:        10px;
+      --r-sm:     6px;
+      --ease:     cubic-bezier(.4,0,.2,1);
+    }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: var(--font-b); font-size: 16px;
+      line-height: 1.65; min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: var(--font-b); cursor: pointer; }
+    body::after {
+      content: ''; position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.018) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── NAV ── */
+    .np-nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(7,10,18,0.92);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .np-nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 32px; height: 58px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 20px;
+    }
+    .np-logo { font-family: var(--font-h); font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text); flex-shrink: 0; }
+    .np-logo span { color: var(--cyan); }
+    .np-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+    .np-links a { padding: 6px 13px; border-radius: var(--r-sm); font-size: 0.83rem; font-weight: 500; color: var(--text-mid); transition: color .2s var(--ease), background .2s var(--ease); }
+    .np-links a:hover { color: var(--text); background: var(--surface2); }
+    .np-links a.active { color: var(--cyan); }
+    .np-sub { background: transparent; border: 1px solid var(--cyan); color: var(--cyan) !important; font-size: 0.78rem !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; letter-spacing: 0.04em; transition: background .2s var(--ease) !important; flex-shrink: 0; }
+    .np-sub:hover { background: var(--cyan-dim) !important; }
+    .np-ham { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
+    .np-ham span { display: block; width: 22px; height: 2px; background: var(--text-mid); border-radius: 2px; transition: .2s var(--ease); }
+    .np-ham.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .np-ham.open span:nth-child(2) { opacity: 0; }
+    .np-ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .np-mob { display: none; flex-direction: column; background: var(--bg2); border-bottom: 1px solid var(--border); padding: 12px 24px 20px; gap: 2px; }
+    .np-mob.open { display: flex; }
+    .np-mob a { padding: 10px 12px; border-radius: 8px; font-size: 0.88rem; color: var(--text-mid); font-weight: 500; transition: color .2s, background .2s; }
+    .np-mob a:hover { color: var(--text); background: var(--surface2); }
+    @media (max-width: 768px) { .np-links, .np-sub { display: none; } .np-ham { display: flex; } }
+
+    /* ── LAYOUT ── */
+    .blog-wrap {
+      max-width: 1200px; margin: 0 auto;
+      padding: 64px 32px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 56px;
+      align-items: start;
+    }
+    @media (max-width: 960px) { .blog-wrap { grid-template-columns: 1fr; } .sidebar { display: none; } }
+    @media (max-width: 700px) { .blog-wrap { padding: 40px 20px 56px; } }
+
+    /* ── ARTICLE HERO ── */
+    .art-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 24px; }
+    .art-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--text-dim); }
+    .art-cat { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,229,255,0.22); background: var(--cyan-dim); border-radius: 4px; padding: 3px 9px; }
+    .art-live { display: flex; align-items: center; gap: 5px; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); }
+    .art-live .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 6px var(--cyan); animation: blink 2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.35} }
+    .art-h1 { font-family: var(--font-h); font-size: clamp(1.9rem, 4vw, 2.9rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--text); margin: 18px 0 22px; }
+    .art-h1 .hl { color: var(--cyan); }
+    .art-deck { font-size: 1rem; font-weight: 300; color: var(--text-mid); line-height: 1.75; margin-bottom: 28px; max-width: 720px; }
+    .art-meta-bar { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; padding: 16px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+    .art-meta-item { font-size: 0.73rem; color: var(--text-dim); letter-spacing: 0.04em; }
+    .art-meta-item strong { color: var(--text-mid); font-weight: 500; }
+
+    /* ── STAT BAR ── */
+    .stat-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1px; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin-bottom: 48px; }
+    .stat-cell { background: var(--surface); padding: 18px 20px; text-align: center; }
+    .stat-val { font-family: var(--font-h); font-size: 1.6rem; font-weight: 800; color: var(--cyan); display: block; line-height: 1; letter-spacing: -0.03em; }
+    .stat-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-top: 5px; display: block; }
+
+    /* ── PROSE ── */
+    .prose { max-width: 100%; }
+    .prose h2 {
+      font-family: var(--font-h); font-size: 1.45rem; font-weight: 800;
+      letter-spacing: -0.025em; color: var(--text); line-height: 1.2;
+      margin: 52px 0 18px; padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+    .prose h3 {
+      font-family: var(--font-h); font-size: 1.08rem; font-weight: 700;
+      letter-spacing: -0.015em; color: var(--text); line-height: 1.3;
+      margin: 32px 0 12px;
+    }
+    .prose p { margin-bottom: 20px; font-size: 0.95rem; font-weight: 300; color: var(--text-mid); line-height: 1.78; }
+    .prose p strong { color: var(--text); font-weight: 600; }
+    .prose a { color: var(--cyan); border-bottom: 1px solid rgba(0,229,255,0.25); transition: border-color .2s; }
+    .prose a:hover { border-color: var(--cyan); }
+    .prose ul, .prose ol { margin: 0 0 22px 0; padding-left: 24px; }
+    .prose li { font-size: 0.93rem; font-weight: 300; color: var(--text-mid); line-height: 1.72; margin-bottom: 8px; }
+    .prose li strong { color: var(--text); font-weight: 600; }
+    .prose hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: var(--surface); border: 1px solid var(--border-h);
+      border-left: 3px solid var(--cyan);
+      border-radius: var(--r); padding: 22px 24px;
+      margin: 28px 0;
+      position: relative; overflow: hidden;
+    }
+    .callout::before { content: ''; position: absolute; top: 0; right: 0; width: 120px; height: 100%; background: radial-gradient(ellipse at right, rgba(0,229,255,0.04), transparent); pointer-events: none; }
+    .callout-label { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; display: block; }
+    .callout p { margin: 0; font-size: 0.9rem; color: var(--text-mid); }
+
+    /* ── INTERNAL LINK CARD ── */
+    .ilink {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 20px 22px;
+      margin: 28px 0; display: flex; align-items: center;
+      gap: 18px; transition: border-color .2s, background .2s;
+      position: relative; overflow: hidden;
+    }
+    .ilink::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, var(--cyan), transparent); opacity: 0; transition: opacity .2s; }
+    .ilink:hover { border-color: var(--border-h); background: var(--surface); }
+    .ilink:hover::before { opacity: 1; }
+    .ilink-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .ilink-body { flex: 1; }
+    .ilink-tag { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); margin-bottom: 5px; display: block; }
+    .ilink-title { font-family: var(--font-h); font-size: 0.92rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .ilink-desc { font-size: 0.78rem; color: var(--text-dim); margin-top: 4px; }
+    .ilink-arrow { font-size: 0.8rem; font-weight: 700; color: var(--cyan); flex-shrink: 0; letter-spacing: 0.06em; }
+
+    /* ── BENCHMARK TABLE ── */
+    .bench-wrap { overflow-x: auto; margin: 28px 0; border-radius: var(--r); border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; background: var(--surface); }
+    thead { background: var(--surface2); }
+    th { font-family: var(--font-h); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-mid); padding: 14px 20px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    td { font-size: 0.85rem; color: var(--text-mid); padding: 13px 20px; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: var(--surface2); }
+    .td-highlight { color: var(--cyan); font-weight: 600; font-family: var(--font-h); }
+    .td-badge { display: inline-block; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; background: var(--cyan); color: var(--bg); padding: 2px 7px; border-radius: 3px; margin-left: 6px; }
+
+    /* ── STEP CARDS ── */
+    .steps { display: flex; flex-direction: column; gap: 16px; margin: 28px 0; }
+    .step { display: flex; gap: 18px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 22px 22px; transition: background .2s; }
+    .step:hover { background: var(--surface2); }
+    .step-num { font-family: var(--font-h); font-size: 1.4rem; font-weight: 800; color: var(--cyan); line-height: 1; flex-shrink: 0; min-width: 32px; }
+    .step-body { flex: 1; }
+    .step-title { font-family: var(--font-h); font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 7px; }
+    .step-desc { font-size: 0.85rem; color: var(--text-mid); font-weight: 300; line-height: 1.65; margin: 0; }
+    .step-code { display: inline-block; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 0.78rem; color: var(--cyan); font-family: monospace; margin-top: 8px; }
+
+    /* ── FAQ ── */
+    .faq { margin: 28px 0; }
+    .faq-item { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin-bottom: 10px; }
+    .faq-q { background: var(--surface); padding: 18px 22px; font-family: var(--font-h); font-size: 0.93rem; font-weight: 700; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .faq-q:hover { background: var(--surface2); }
+    .faq-icon { font-size: 1rem; color: var(--cyan); transition: transform .25s var(--ease); flex-shrink: 0; }
+    .faq-a { display: none; padding: 0 22px 18px; background: var(--surface); font-size: 0.88rem; color: var(--text-mid); font-weight: 300; line-height: 1.7; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 78px; display: flex; flex-direction: column; gap: 20px; }
+    .scard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 22px 20px; }
+    .scard-title { font-family: var(--font-h); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .toc-list a { font-size: 0.8rem; color: var(--text-dim); padding: 5px 8px; border-radius: 5px; display: block; transition: color .2s, background .2s; }
+    .toc-list a:hover, .toc-list a.active { color: var(--cyan); background: var(--cyan-soft); }
+    .related-list { display: flex; flex-direction: column; gap: 12px; }
+    .related-item { display: flex; gap: 10px; align-items: flex-start; }
+    .related-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+    .related-title { font-size: 0.78rem; color: var(--text-mid); font-weight: 500; line-height: 1.4; transition: color .2s; }
+    .related-item:hover .related-title { color: var(--cyan); }
+    .related-cat { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); display: block; margin-bottom: 3px; }
+
+    /* ── CTA INLINE ── */
+    .cta-inline { background: var(--surface); border: 1px solid var(--border-h); border-radius: var(--r); padding: 32px 28px; margin: 44px 0; position: relative; overflow: hidden; text-align: center; }
+    .cta-inline::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
+    .cta-inline h3 { font-family: var(--font-h); font-size: 1.2rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+    .cta-inline p { font-size: 0.85rem; color: var(--text-mid); margin-bottom: 18px; font-weight: 300; }
+    .cta-btn { display: inline-block; background: transparent; border: 1px solid var(--cyan); color: var(--cyan); font-family: var(--font-b); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 11px 28px; border-radius: 20px; transition: background .2s, color .2s; }
+    .cta-btn:hover { background: var(--cyan); color: var(--bg); }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 36px 32px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .footer-logo { font-family: var(--font-h); font-size: 1rem; font-weight: 800; color: var(--text); }
+    .footer-logo span { color: var(--cyan); }
+    .footer-nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-nav a { font-size: 0.78rem; color: var(--text-dim); transition: color .2s; }
+    .footer-nav a:hover { color: var(--text-mid); }
+    .footer-copy { font-size: 0.73rem; color: var(--text-dim); }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb { max-width: 1200px; margin: 0 auto; padding: 18px 32px 0; display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--text-dim); flex-wrap: wrap; }
+    .breadcrumb a { color: var(--text-dim); transition: color .2s; }
+    .breadcrumb a:hover { color: var(--cyan); }
+    .breadcrumb span { color: var(--text-mid); }
+    @media (max-width: 700px) { .breadcrumb { padding: 14px 20px 0; } }
+
+    /* ── SCROLL TOP ── */
+    #np-top { position: fixed; bottom: 24px; right: 24px; width: 38px; height: 38px; background: var(--surface2); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--text-mid); opacity: 0; transition: opacity .2s; z-index: 999; cursor: pointer; }
+    #np-top.show { opacity: 1; }
+    #np-top:hover { color: var(--cyan); border-color: var(--border-h); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .art-eyebrow { animation: fadeUp .4s ease both; }
+    .art-h1      { animation: fadeUp .4s .07s ease both; }
+    .art-deck    { animation: fadeUp .4s .13s ease both; }
+    .art-meta-bar{ animation: fadeUp .4s .17s ease both; }
+  </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What Is the Groq Chip and How Does It Work? Complete 2026 Guide",
+  "description": "The definitive guide to the Groq chip — LPU architecture, why it runs LLMs up to 10× faster than GPUs, on-chip SRAM, real benchmarks, and how to use the free Groq API.",
+  "url": "https://neuraplus-ai.github.io/blog/what-is-groq-chip-how-it-works.html",
+  "datePublished": "2026-05-29",
+  "dateModified": "2026-05-29",
+  "author": { "@type": "Person", "name": "Prashant Lalwani", "url": "https://neuraplus-ai.github.io/about.html" },
+  "publisher": { "@type": "Organization", "name": "NeuraPulse", "url": "https://neuraplus-ai.github.io", "logo": { "@type": "ImageObject", "url": "https://neuraplus-ai.github.io/assets/logo.png" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://neuraplus-ai.github.io/blog/what-is-groq-chip-how-it-works.html" },
+  "about": [{ "@type": "Thing", "name": "Groq LPU" }, { "@type": "Thing", "name": "AI Inference" }, { "@type": "Thing", "name": "Language Processing Unit" }],
+  "isPartOf": { "@type": "WebSite", "name": "NeuraPulse", "url": "https://neuraplus-ai.github.io" }
+}
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="np-nav" id="np-nav" role="navigation" aria-label="Main navigation">
+  <div class="np-nav-inner">
+    <a href="../index.html" class="np-logo">Neura<span>Pulse</span></a>
+    <ul class="np-links" role="list">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../blog.html" class="active">Blog</a></li>
+      <li><a href="../guide.html">Guide</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <a href="../contact.html" class="np-sub">Subscribe Free →</a>
+    <button class="np-ham" id="np-ham" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="np-mob" id="np-mob">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../guide.html">Guide</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../contact.html" style="color:var(--cyan);margin-top:8px;font-weight:600;">Subscribe Free →</a>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>›</span>
+  <a href="../guide.html">Guides</a>
+  <span>›</span>
+  <span style="color:var(--text-mid);">What Is the Groq Chip</span>
+</nav>
+
+<!-- MAIN -->
+<div class="blog-wrap">
+  <!-- ARTICLE -->
+  <main>
+    <div class="art-eyebrow">
+      <span class="art-cat">AI Models</span>
+      <span class="art-live"><span class="dot"></span>Updated May 2026</span>
+    </div>
+
+    <h1 class="art-h1">What Is the <span class="hl">Groq Chip</span> and<br>How Does It Work?</h1>
+    <p class="art-deck">The definitive pillar guide to Groq AI — what the LPU architecture is, why it runs large language models up to 10× faster than any GPU, how on-chip SRAM eliminates the memory bottleneck, real-world benchmark data, and a step-by-step walkthrough on using the free Groq API right now.</p>
+
+    <div class="art-meta-bar" role="list">
+      <span class="art-meta-item" role="listitem">✍️ <strong>Prashant Lalwani</strong></span>
+      <span class="art-meta-item" role="listitem">⏱ <strong>18 min read</strong></span>
+      <span class="art-meta-item" role="listitem">🔖 <strong>6 Chapters</strong></span>
+      <span class="art-meta-item" role="listitem">📅 <strong>May 2026</strong></span>
+      <span class="art-meta-item" role="listitem">🏷️ AI Models · Inference · Hardware</span>
+    </div>
+
+    <!-- STAT BAR -->
+    <div class="stat-bar" role="list">
+      <div class="stat-cell" role="listitem"><span class="stat-val">750+</span><span class="stat-label">Tokens / sec</span></div>
+      <div class="stat-cell" role="listitem"><span class="stat-val">10×</span><span class="stat-label">Faster than GPU</span></div>
+      <div class="stat-cell" role="listitem"><span class="stat-val">&lt;1s</span><span class="stat-label">First-token latency</span></div>
+      <div class="stat-cell" role="listitem"><span class="stat-val">Free</span><span class="stat-label">API tier available</span></div>
+    </div>
+
+    <!-- ═══════════════════════════════ PROSE ═══════════════════════════════ -->
+    <article class="prose" id="article-body">
+
+      <!-- INTRO -->
+      <p>If you have used any modern AI chatbot, you already know that speed matters. Waiting two or three seconds for the first word to appear, then watching the rest trickle out at human reading pace, breaks the experience. <strong>Groq exists to solve that problem at the hardware level</strong> — not by writing faster software, but by building a completely new kind of chip designed from scratch around the needs of large language models.</p>
+
+      <p>This pillar guide covers everything: what the Groq chip is, the engineering decisions behind the Language Processing Unit (LPU) architecture, how it eliminates the bottleneck that slows every GPU-based inference system, and how you can start using the Groq API today — for free — to see the difference yourself.</p>
+
+      <div class="callout">
+        <span class="callout-label">📌 Guide Structure</span>
+        <p>This guide has 6 chapters. Read it top-to-bottom for the full picture, or jump to any chapter using the table of contents on the right. Each section links to deeper companion guides where relevant.</p>
+      </div>
+
+      <!-- CHAPTER 1 -->
+      <h2 id="ch1">Chapter 1 — What Is Groq? (Company &amp; Mission)</h2>
+
+      <p>Groq (stylized without the 'e', distinct from Google's Grok search feature) is a Silicon Valley semiconductor company founded in 2016 by former Google Brain engineers. The company's singular focus is <strong>AI inference speed</strong> — not AI training, not general compute, not graphics. Inference is the act of running a finished AI model to generate outputs, and it is the bottleneck that matters most once a model is deployed to millions of users.</p>
+
+      <p>Groq's thesis was simple and radical: GPUs were designed for graphics and repurposed for AI. They are generalist chips. A chip designed only for AI inference, with no compromises for other workloads, could be dramatically faster. That chip became the <strong>Language Processing Unit (LPU)</strong>.</p>
+
+      <p>Today, Groq operates <strong>GroqCloud</strong> — a public API platform where any developer can run open-source models like Llama 3, Mixtral, and Gemma at LPU speed. The speed is not theoretical: independent benchmarks consistently place GroqCloud at 10–18× the output token speed of equivalent GPU-based API endpoints.</p>
+
+      <!-- INTERNAL LINK 1 -->
+      <a href="https://neuraplus-ai.github.io/blog/groq-ai-explained-in-simple-terms.html" class="ilink" aria-label="Read: Groq AI Explained in Simple Terms">
+        <span class="ilink-icon">🔗</span>
+        <div class="ilink-body">
+          <span class="ilink-tag">Related Guide · Beginner Explanation</span>
+          <div class="ilink-title">Groq AI Explained in Simple Terms</div>
+          <div class="ilink-desc">No jargon, no prerequisites — the clearest beginner-friendly breakdown of what Groq actually is and why it matters in 2026.</div>
+        </div>
+        <span class="ilink-arrow">Read →</span>
+      </a>
+
+      <!-- CHAPTER 2 -->
+      <h2 id="ch2">Chapter 2 — The GPU Bottleneck Groq Was Built to Solve</h2>
+
+      <p>To understand why Groq is fast, you first need to understand why GPUs are slow for inference. This is not an insult to GPUs — they are extraordinary chips for training AI models. The problem is structural, and it comes down to <strong>memory bandwidth</strong>.</p>
+
+      <h3>How GPU Inference Works</h3>
+      <p>A GPU stores model weights in DRAM (external memory). During inference, every single forward pass through the network requires the GPU to load those weights from DRAM into its compute cores, run the calculation, and then move on. For a 70-billion-parameter model, that means moving hundreds of gigabytes of data on every generation step. The GPU's compute cores sit idle, waiting for data to arrive — a condition engineers call being <strong>memory-bandwidth-bound</strong>.</p>
+
+      <p>The gap between how fast a GPU can compute and how fast it can move data from memory has a name: the <strong>roofline gap</strong>. In modern LLM inference, this gap is the primary limiter. More GPU cores do not help. The bottleneck is the pipe, not the engine.</p>
+
+      <h3>Why This Gets Worse at Scale</h3>
+      <p>The situation is compounded by <strong>batching</strong>. GPU inference systems maximize hardware utilization by grouping many user requests into a single batch and processing them together. This hides the memory latency behind a wall of computation. The tradeoff: individual users experience high latency. The GPU is efficient on average, but your specific query waits for a batch to fill before it is processed.</p>
+
+      <div class="callout">
+        <span class="callout-label">💡 Key Insight</span>
+        <p>GPU inference bottleneck = weights in slow external DRAM + batching delay. Groq's solution eliminates both by keeping all model weights in fast on-chip SRAM and processing requests with deterministic, zero-wait scheduling.</p>
+      </div>
+
+      <!-- CHAPTER 3 -->
+      <h2 id="ch3">Chapter 3 — The LPU Architecture Explained</h2>
+
+      <p>The Language Processing Unit (LPU) is Groq's answer to the GPU bottleneck. It makes three fundamental architectural bets that, taken together, produce the speed numbers that have made Groq famous.</p>
+
+      <h3>Bet 1 — On-Chip SRAM Instead of External DRAM</h3>
+      <p>The Groq LPU stores model weights in <strong>SRAM directly on the chip</strong>, not in external DRAM. SRAM is 20–100× faster than DRAM in terms of access latency. The tradeoff is cost and die area — SRAM is expensive to produce at scale. Groq accepts this tradeoff entirely. The result: zero external memory bandwidth bottleneck. The compute cores never wait for data to arrive from off-chip.</p>
+
+      <p>For reference, the Groq LPU has approximately <strong>230 MB of on-chip SRAM</strong> per chip. Larger models are distributed across multiple chips using a high-speed interconnect. A cluster of 8 LPU chips can hold a 70B-parameter model entirely on-chip.</p>
+
+      <h3>Bet 2 — Deterministic Execution (No Dynamic Scheduling)</h3>
+      <p>GPUs use a dynamic scheduler: at runtime, the chip decides which operations to run, when, on which cores. This flexibility is what makes GPUs useful for diverse workloads. It also introduces unpredictable latency — operations can stall, wait, or reorder depending on memory state.</p>
+
+      <p>Groq's LPU uses a <strong>compiler-determined, statically scheduled execution model</strong>. The compiler pre-calculates every operation, every data movement, and every timing down to the clock cycle — before the chip even turns on. At inference time, the chip executes that pre-compiled plan with no dynamic decisions whatsoever. This is called <strong>deterministic execution</strong>. The result: every token generation takes exactly the same time, every time. No variance, no tail latency spikes.</p>
+
+      <h3>Bet 3 — Single-Threaded Massive Parallelism</h3>
+      <p>Rather than running many independent threads simultaneously (the GPU model), each Groq LPU chip operates as a <strong>single, massively wide SIMD (Single Instruction, Multiple Data) processor</strong>. Every compute element executes the exact same instruction at the same time on different data. This matches the mathematical structure of transformer attention and matrix multiplication perfectly — the operations that dominate LLM inference.</p>
+
+      <!-- INTERNAL LINK 2 -->
+      <a href="https://neuraplus-ai.github.io/blog/how-the-groq-chip-works-step-by-step.html" class="ilink" aria-label="Read: How the Groq Chip Works Step by Step">
+        <span class="ilink-icon">🔗</span>
+        <div class="ilink-body">
+          <span class="ilink-tag">Related Guide · Technical Deep Dive</span>
+          <div class="ilink-title">How the Groq Chip Works — Step by Step</div>
+          <div class="ilink-desc">A detailed technical walkthrough of LPU execution: compiler scheduling, SRAM data flow, attention computation, and chip-to-chip interconnect for multi-chip models.</div>
+        </div>
+        <span class="ilink-arrow">Read →</span>
+      </a>
+
+      <!-- CHAPTER 4 -->
+      <h2 id="ch4">Chapter 4 — Real-World Benchmarks: Groq vs GPU</h2>
+
+      <p>Claims about speed are common in AI hardware marketing. Here is what independent benchmarks and public data actually show when you compare GroqCloud against the major GPU-based inference APIs running equivalent models.</p>
+
+      <div class="bench-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Model</th>
+              <th>Output Tokens/sec</th>
+              <th>First Token Latency</th>
+              <th>Pricing (per 1M tokens)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color:var(--cyan)">GroqCloud</strong></td>
+              <td>Llama 3 70B</td>
+              <td class="td-highlight">750–800 <span class="td-badge">Fastest</span></td>
+              <td class="td-highlight">&lt;300ms</td>
+              <td>~$0.59 input / $0.79 output</td>
+            </tr>
+            <tr>
+              <td>Together AI</td>
+              <td>Llama 3 70B</td>
+              <td>60–90</td>
+              <td>~600ms</td>
+              <td>~$0.90 / $0.90</td>
+            </tr>
+            <tr>
+              <td>Fireworks AI</td>
+              <td>Llama 3 70B</td>
+              <td>70–110</td>
+              <td>~700ms</td>
+              <td>~$0.90 / $0.90</td>
+            </tr>
+            <tr>
+              <td>OpenAI (GPT-4o)</td>
+              <td>GPT-4o</td>
+              <td>80–120</td>
+              <td>~500ms</td>
+              <td>$5.00 / $15.00</td>
+            </tr>
+            <tr>
+              <td>Anthropic</td>
+              <td>Claude 3 Haiku</td>
+              <td>90–140</td>
+              <td>~400ms</td>
+              <td>$0.25 / $1.25</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>The numbers above represent typical ranges from public benchmark tools (Artificial Analysis, NotDiamond benchmarks) and are subject to change as providers update infrastructure. The key takeaway: <strong>GroqCloud's output token throughput is consistently 6–10× faster than any GPU-based inference provider</strong> running the same open-source model.</p>
+
+      <p>Where does this speed advantage compound? Real-time applications — voice AI where inference must keep pace with speech, agentic loops where an AI runs dozens of calls per task, and coding copilots where multi-second waits per suggestion destroy developer flow.</p>
+
+      <!-- CTA INLINE -->
+      <div class="cta-inline">
+        <h3>Stay Sharp on AI Every Week</h3>
+        <p>Join 4,200+ readers getting the most important AI insights, guide updates, and tool breakdowns — every Tuesday. Free forever.</p>
+        <a href="../contact.html" class="cta-btn">Subscribe Free →</a>
+      </div>
+
+      <!-- CHAPTER 5 -->
+      <h2 id="ch5">Chapter 5 — How to Use the Groq API (Step by Step)</h2>
+
+      <p>GroqCloud has a free tier that gives you access to Llama 3, Mixtral, and Gemma models at full LPU speed. Here is how to get started in under five minutes.</p>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">01</span>
+          <div class="step-body">
+            <div class="step-title">Create a Free GroqCloud Account</div>
+            <p class="step-desc">Go to <strong>console.groq.com</strong> and sign up with Google, GitHub, or email. No credit card required for the free tier. You get rate-limited access to all available open-source models immediately after verification.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">02</span>
+          <div class="step-body">
+            <div class="step-title">Generate an API Key</div>
+            <p class="step-desc">In the GroqCloud dashboard, navigate to <strong>API Keys → Create API Key</strong>. Copy and store it securely — it will not be shown again. Set it as an environment variable in your project.</p>
+            <span class="step-code">export GROQ_API_KEY="gsk_your_key_here"</span>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">03</span>
+          <div class="step-body">
+            <div class="step-title">Install the Groq Python SDK</div>
+            <p class="step-desc">Groq's SDK is a thin wrapper around their OpenAI-compatible REST API. If you already use the OpenAI SDK, you can switch by changing the base URL alone.</p>
+            <span class="step-code">pip install groq</span>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">04</span>
+          <div class="step-body">
+            <div class="step-title">Make Your First Inference Call</div>
+            <p class="step-desc">The following Python snippet calls Llama 3 70B at full LPU speed. You should see tokens streaming back in under 300 milliseconds.</p>
+            <span class="step-code">from groq import Groq; client = Groq(); chat = client.chat.completions.create(model="llama3-70b-8192", messages=[{"role":"user","content":"Explain the LPU in one paragraph"}])</span>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">05</span>
+          <div class="step-body">
+            <div class="step-title">Choose the Right Model for Your Use Case</div>
+            <p class="step-desc">GroqCloud hosts multiple models. <strong>Llama 3 70B</strong> for maximum capability. <strong>Llama 3 8B</strong> for maximum speed (1,200+ tokens/sec). <strong>Mixtral 8x7B</strong> for strong multilingual tasks. <strong>Gemma 7B</strong> for lightweight, fast prototyping.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">06</span>
+          <div class="step-body">
+            <div class="step-title">Enable Streaming for Real-Time Apps</div>
+            <p class="step-desc">For chatbots and voice interfaces, enable streaming by setting <strong>stream=True</strong> in your API call. GroqCloud begins streaming tokens within 200–300ms of request receipt — fast enough to feel instantaneous to end users.</p>
+            <span class="step-code">stream=True</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAPTER 6 -->
+      <h2 id="ch6">Chapter 6 — Groq's Limitations and When to Use a GPU Instead</h2>
+
+      <p>Groq's LPU is the right tool for many inference workloads, but not all of them. Understanding the constraints helps you make the right architecture decision for your specific application.</p>
+
+      <h3>Current Limitations</h3>
+      <ul>
+        <li><strong>Context window size:</strong> LPU on-chip SRAM is finite. GroqCloud currently supports context windows up to 8,192 tokens for most models — significantly less than the 128K–1M windows available on GPU-based APIs. Long-document processing workflows are not the right fit.</li>
+        <li><strong>Model selection:</strong> GroqCloud only hosts open-source models. GPT-4o, Claude 3.5 Sonnet, and Gemini Ultra are not available. If your workflow requires a frontier proprietary model, you need the corresponding provider's API regardless of speed.</li>
+        <li><strong>Training workloads:</strong> Groq LPUs are inference-only. You cannot fine-tune or train models on GroqCloud. Training remains a GPU workload.</li>
+        <li><strong>Multimodal inputs:</strong> As of mid-2026, GroqCloud's vision and audio model support is limited compared to GPU-based competitors. Image-heavy workflows (document understanding, visual QA at scale) may require alternatives.</li>
+        <li><strong>Rate limits on free tier:</strong> The free tier applies strict rate limits (requests per minute and tokens per day). Production applications that need guaranteed throughput require a paid plan.</li>
+      </ul>
+
+      <h3>When to Choose GPU-Based Inference Instead</h3>
+      <ul>
+        <li>Your workflow requires <strong>GPT-4o, Claude, or Gemini</strong> specifically</li>
+        <li>You need <strong>long context windows</strong> (&gt;32K tokens) for RAG or document analysis</li>
+        <li>You need <strong>multimodal inputs</strong> at scale (images, audio, video)</li>
+        <li>You are running <strong>fine-tuned proprietary models</strong> that cannot be hosted publicly</li>
+      </ul>
+
+      <h3>When Groq Is Clearly the Best Choice</h3>
+      <ul>
+        <li><strong>Real-time voice AI</strong> — inference must keep pace with speech (150–250 WPM human speech = ~200–350 tokens/min; Groq delivers 12,000+ tokens/min)</li>
+        <li><strong>Agentic AI workflows</strong> — when an AI runs 10–50 LLM calls per task, 10× speed means 10× faster task completion</li>
+        <li><strong>Coding copilots</strong> — sub-second suggestion latency is the difference between helpful and annoying</li>
+        <li><strong>High-throughput batch inference</strong> on short-to-medium context documents where speed = cost efficiency</li>
+        <li><strong>Prototyping and evaluation</strong> — Groq's free tier is the fastest free inference available anywhere in 2026</li>
+      </ul>
+
+      <hr />
+
+      <!-- FAQ -->
+      <h2 id="faq">Frequently Asked Questions</h2>
+
+      <div class="faq">
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">Is Groq the same as Google's Grok AI?<span class="faq-icon">+</span></div>
+          <div class="faq-a">No. Groq (no 'e') is a hardware company that makes LPU chips and runs GroqCloud. Grok is xAI's (Elon Musk's company) large language model. Grok can actually be accessed through GroqCloud, which adds a layer of confusion — but the companies are entirely separate.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">How much does the Groq API cost?<span class="faq-icon">+</span></div>
+          <div class="faq-a">GroqCloud has a free tier with rate limits (suitable for development and experimentation). Paid plans start from approximately $0.59 per million input tokens and $0.79 per million output tokens for Llama 3 70B — competitive with or cheaper than major GPU-based providers running the same model.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">Can I run Groq on my own hardware?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Not currently through a consumer product. Groq sells LPU hardware to enterprise customers and data centers, but the chip is not available as a standalone product for personal purchase. GroqCloud is the primary access method for developers in 2026.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">Is GroqCloud's speed real or marketing?<span class="faq-icon">+</span></div>
+          <div class="faq-a">It is real and independently verifiable. Artificial Analysis, a neutral AI benchmark organization, consistently ranks GroqCloud as the fastest inference API by output token throughput. You can test it yourself in minutes with the free tier — the speed difference vs GPU APIs is immediately obvious.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">Does the LPU work for models other than language models?<span class="faq-icon">+</span></div>
+          <div class="faq-a">The LPU architecture is optimized for sequential, autoregressive token generation — the operation at the heart of every transformer-based language model. Other deep learning workloads (CNNs for image classification, diffusion models for image generation) have different computational structures and would not benefit as dramatically from the LPU design.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">What is the difference between LPU and TPU?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Google's TPU (Tensor Processing Unit) is designed for both training and inference across a broad range of deep learning workloads. The Groq LPU is narrower — inference-only, with the architecture specifically tuned for autoregressive token generation. TPUs are not publicly available as an inference API in the same way GroqCloud is.</div>
+        </div>
+      </div>
+
+      <!-- CLOSING -->
+      <h2 id="conclusion">The Bottom Line</h2>
+      <p>The Groq chip is not a faster GPU. It is a completely different solution to a different problem — one that rejects the generalist design philosophy of GPU computing in favor of a chip that does one thing with extraordinary precision: run large language model inference as fast as physics allows.</p>
+
+      <p>The LPU's three architectural bets — on-chip SRAM, deterministic execution, and SIMD parallelism — work together to eliminate the memory bandwidth bottleneck that limits every GPU-based inference system. The result is not a marginal improvement. It is a categorical shift in what real-time AI feels like.</p>
+
+      <p>For developers building voice AI, agentic systems, coding tools, or any application where inference speed directly impacts user experience, <strong>GroqCloud is the clearest performance advantage available in 2026 at any price point, let alone free</strong>.</p>
+
+      <p>Start with the free tier at <strong>console.groq.com</strong>, run a comparison against your current inference provider, and let the tokens speak for themselves.</p>
+
+      <div class="callout">
+        <span class="callout-label">🔗 Continue Reading</span>
+        <p>This is the foundational guide. For a jargon-free beginner explanation, read <a href="https://neuraplus-ai.github.io/blog/groq-ai-explained-in-simple-terms.html">Groq AI Explained in Simple Terms</a>. For a detailed technical walkthrough of exactly how the chip executes each inference step, read <a href="https://neuraplus-ai.github.io/blog/how-the-groq-chip-works-step-by-step.html">How the Groq Chip Works Step by Step</a>. Together, all three guides give you the complete picture — from zero to expert.</p>
+      </div>
+
+    </article>
+    <!-- ═══════════════════════════════ END PROSE ═══════════════════════════════ -->
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" aria-label="Article sidebar">
+    <!-- TOC -->
+    <div class="scard">
+      <div class="scard-title">Table of Contents</div>
+      <ul class="toc-list" id="toc">
+        <li><a href="#ch1">1. What Is Groq?</a></li>
+        <li><a href="#ch2">2. The GPU Bottleneck</a></li>
+        <li><a href="#ch3">3. LPU Architecture</a></li>
+        <li><a href="#ch4">4. Real-World Benchmarks</a></li>
+        <li><a href="#ch5">5. Using the Groq API</a></li>
+        <li><a href="#ch6">6. Limitations &amp; When to Use</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#conclusion">The Bottom Line</a></li>
+      </ul>
+    </div>
+
+    <!-- RELATED -->
+    <div class="scard">
+      <div class="scard-title">Related Guides</div>
+      <div class="related-list">
+        <a href="https://neuraplus-ai.github.io/blog/groq-ai-explained-in-simple-terms.html" class="related-item">
+          <span class="related-icon">📘</span>
+          <div>
+            <span class="related-cat">Beginner</span>
+            <div class="related-title">Groq AI Explained in Simple Terms</div>
+          </div>
+        </a>
+        <a href="https://neuraplus-ai.github.io/blog/how-the-groq-chip-works-step-by-step.html" class="related-item">
+          <span class="related-icon">⚙️</span>
+          <div>
+            <span class="related-cat">Technical</span>
+            <div class="related-title">How the Groq Chip Works Step by Step</div>
+          </div>
+        </a>
+        <a href="https://neuraplus-ai.github.io/blog/anthropic-claude-api-tutorial.html" class="related-item">
+          <span class="related-icon">🤖</span>
+          <div>
+            <span class="related-cat">AI Models</span>
+            <div class="related-title">Anthropic Claude: Complete Guide 2026</div>
+          </div>
+        </a>
+        <a href="https://neuraplus-ai.github.io/blog/claude-ai-vs-gemini-which-is-better-2026.html" class="related-item">
+          <span class="related-icon">⚔️</span>
+          <div>
+            <span class="related-cat">Comparison</span>
+            <div class="related-title">Claude vs ChatGPT vs Gemini 2026</div>
+          </div>
+        </a>
+        <a href="https://neuraplus-ai.github.io/blog/best-ai-automation-tools-2026.html" class="related-item">
+          <span class="related-icon">🛠️</span>
+          <div>
+            <span class="related-cat">AI Tools</span>
+            <div class="related-title">Best AI Tools 2026: Master Guide</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- BACK TO GUIDE -->
+    <div class="scard" style="text-align:center;">
+      <div class="scard-title">This Guide Is Part Of</div>
+      <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:14px;font-weight:300;">The NeuraPulse AI Pillar Guide collection — deep dives into every major AI topic.</p>
+      <a href="../guide.html" class="cta-btn" style="display:inline-block;font-size:0.72rem;">View All Guides →</a>
+    </div>
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">Neura<span>Pulse</span></span>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="../index.html">Home</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../guide.html">Guide</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../sitemap.html">Sitemap</a>
+    </nav>
+    <p class="footer-copy">© 2026 NeuraPulse · Prashant Lalwani</p>
+  </div>
+</footer>
+
+<button id="np-top" aria-label="Scroll to top">↑</button>
+
+<script>
+  // Mobile nav
+  const ham = document.getElementById('np-ham');
+  const mob = document.getElementById('np-mob');
+  ham.addEventListener('click', () => {
+    const open = mob.classList.toggle('open');
+    ham.classList.toggle('open', open);
+    ham.setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('click', e => {
+    if (!ham.contains(e.target) && !mob.contains(e.target)) {
+      mob.classList.remove('open'); ham.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Scroll to top
+  const topBtn = document.getElementById('np-top');
+  window.addEventListener('scroll', () => topBtn.classList.toggle('show', scrollY > 400), { passive: true });
+  topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Active TOC on scroll
+  const tocLinks = document.querySelectorAll('.toc-list a');
+  const sections = Array.from(tocLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = '#' + s.id; });
+    tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === current));
+  }, { passive: true });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    function toggle() { q.closest('.faq-item').classList.toggle('open'); }
+    q.addEventListener('click', toggle);
+    q.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  });
+</script>
+</body>
+</html>

@@ -119,9 +119,15 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
   "url": "https://neuraplus-ai.github.io/about.html"
 }</script>
 
-<!-- NP:UNIVERSAL-FIX-V2 -->
-<style id="np-universal-fix">
-/* ── FIX 1: BLACK SCREEN (.fade AND .reveal both fixed) ── */
+
+<!-- NP:UNIVERSAL-FIX-V3 -->
+<style id="np-universal-fix-v3">
+/* ════════════════════════════════════════════════════
+   FIX 1 — BLACK SCREEN
+   Covers .fi  .fade  .reveal  .fade-up  .animate
+   and any data-animate / data-reveal attribute
+   ════════════════════════════════════════════════════ */
+.fi,
 .fade,
 .reveal,
 .fade-up,
@@ -131,14 +137,21 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
   opacity: 1 !important;
   transform: translateY(0) !important;
   transition: opacity 0.55s ease, transform 0.55s ease !important;
+  visibility: visible !important;
 }
+
+/* Activated states — keep visible once class is added */
+.fi.v, .fi.in, .fi.vis,
 .fade.vis, .fade.in,
 .reveal.vis, .reveal.in {
   opacity: 1 !important;
   transform: translateY(0) !important;
+  visibility: visible !important;
 }
 
-/* ── FIX 2: IMAGE LAYOUT SHIFT / JUMPING ── */
+/* ════════════════════════════════════════════════════
+   FIX 2 — IMAGE LAYOUT SHIFT / JUMPING
+   ════════════════════════════════════════════════════ */
 .blog-hero-image,
 img[loading="lazy"] {
   display: block;
@@ -152,7 +165,9 @@ img[loading="lazy"] {
   max-width: 1200px;
 }
 
-/* ── FIX 3: BENCHMARK BARS FALLBACK (show at full width) ── */
+/* ════════════════════════════════════════════════════
+   FIX 3 — BENCHMARK BARS STUCK AT 0%
+   ════════════════════════════════════════════════════ */
 .bfill {
   width: var(--w, 80%) !important;
   transition: width 1.2s ease !important;
@@ -161,78 +176,96 @@ img[loading="lazy"] {
   width: var(--w, 80%) !important;
 }
 
-/* ── FIX 4: SCROLL PADDING (content not hidden behind sticky nav) ── */
+/* ════════════════════════════════════════════════════
+   FIX 4 — SCROLL PADDING (content behind sticky nav)
+   ════════════════════════════════════════════════════ */
 html {
   scroll-padding-top: 80px;
 }
 
-/* ── FIX 5: NAV Z-INDEX ── */
+/* ════════════════════════════════════════════════════
+   FIX 5 — NAV Z-INDEX
+   ════════════════════════════════════════════════════ */
 #np-nav { z-index: 500 !important; }
 #np-mob { z-index: 499 !important; }
 </style>
 <script>
-/* NeuraPulse Universal Fix JS v2 */
+/* NeuraPulse Universal Fix JS v3 — fixes .fi + all animation classes */
 (function(){
-  function npFix(){
-    /* 1. Reveal all hidden elements */
-    var sel = '.reveal,.fade,.fade-up,.animate';
-    var els = document.querySelectorAll(sel);
+  /* ALL selectors that can cause black screens */
+  var SEL = '.fi,.reveal,.fade,.fade-up,.animate,[data-animate],[data-reveal]';
+
+  function showEl(el) {
+    el.style.opacity    = '1';
+    el.style.transform  = 'translateY(0)';
+    el.style.visibility = 'visible';
+    el.classList.add('v','in','vis');
+  }
+
+  function npFix() {
+    var els = document.querySelectorAll(SEL);
+
+    /* ── IntersectionObserver path (modern browsers) ── */
     if ('IntersectionObserver' in window) {
-      var obs = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){
-            e.target.classList.add('in','vis');
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            showEl(e.target);
             obs.unobserve(e.target);
           }
         });
-      },{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
-      els.forEach(function(el){obs.observe(el);});
-      /* Emergency fallback: show ALL content after 800ms */
-      setTimeout(function(){
-        document.querySelectorAll(sel).forEach(function(el){
-          el.classList.add('in','vis');
-        });
-      },800);
+      }, { threshold: 0.01, rootMargin: '0px 0px 60px 0px' });
+
+      els.forEach(function(el) { obs.observe(el); });
+
+      /* ── Emergency fallback: force-show ALL after 300ms ──
+         This fires even if observer works, ensuring nothing
+         stays hidden due to off-screen elements or timing  */
+      setTimeout(function() {
+        document.querySelectorAll(SEL).forEach(showEl);
+      }, 300);
+
     } else {
-      els.forEach(function(el){el.classList.add('in','vis');});
+      /* No IntersectionObserver — show everything immediately */
+      els.forEach(showEl);
     }
 
-    /* 2. Fix broken images — replace with placeholder */
-    document.querySelectorAll('img').forEach(function(img){
-      img.addEventListener('error',function(){
-        if(!this.dataset.errFixed){
+    /* ── Fix broken images ── */
+    document.querySelectorAll('img').forEach(function(img) {
+      img.addEventListener('error', function() {
+        if (!this.dataset.errFixed) {
           this.dataset.errFixed = '1';
           this.src = 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&h=630&fit=crop';
         }
       });
     });
 
-    /* 3. Fix benchmark bars */
-    setTimeout(function(){
-      document.querySelectorAll('.bfill[data-w]').forEach(function(b){
+    /* ── Fix benchmark bars ── */
+    setTimeout(function() {
+      document.querySelectorAll('.bfill[data-w]').forEach(function(b) {
         b.style.width = b.getAttribute('data-w') + '%';
       });
-    },600);
+    }, 600);
 
-    /* 4. Fix stat counters showing 0 */
-    setTimeout(function(){
-      document.querySelectorAll('[data-target]').forEach(function(el){
-        if(el.textContent === '0' || el.textContent.trim() === ''){
+    /* ── Fix stat counters stuck at 0 ── */
+    setTimeout(function() {
+      document.querySelectorAll('[data-target]').forEach(function(el) {
+        if (el.textContent === '0' || el.textContent.trim() === '') {
           el.textContent = el.getAttribute('data-target');
         }
       });
-    },1000);
+    }, 1000);
   }
 
-  /* Run on DOM ready */
-  if(document.readyState === 'loading'){
+  /* Run immediately if DOM ready, otherwise wait */
+  if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', npFix);
   } else {
     npFix();
   }
 })();
 </script>
-<!-- /NP:UNIVERSAL-FIX-V2 -->
+<!-- /NP:UNIVERSAL-FIX-V3 -->
 </head><body><noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-TH2D2WBW" style="display:none;visibility:hidden" width="0"></iframe></noscript><nav><a class="logo" href="index.html"><span class="logo-dot"></span>NeuraPulse</a><ul class="nav-links" id="navLinks"><li><a href="index.html">Home</a></li><li><a href="blog.html">Blog</a></li><li><a href="guide.html">Guide</a></li><li><a class="active" href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul><a class="nav-cta" href="contact.html">Subscribe</a><div class="hamburger" id="ham"><span></span><span></span><span></span></div></nav><main><div class="wrap"><div class="page-hero fade-in"><div class="page-tag">About Us</div><h1>Making <em>AI</em><br/>Understandable<br/>For Everyone</h1><div class="hero-text"><p>NeuraPulse was born from a simple frustration: AI research was advancing at a breathtaking pace, but accessible, honest writing about it was rare. We set out to fix that — writing deep, accurate, jargon-free articles about the technologies shaping the future.</p><div class="hero-visual"><svg viewbox="0 0 300 220" width="100%" xmlns="http://www.w3.org/2000/svg"><rect fill="transparent" height="220" width="300"></rect><circle cx="150" cy="110" fill="none" r="80" stroke="rgba(0,229,255,0.15)" stroke-width="1"></circle><circle cx="150" cy="110" fill="none" r="55" stroke="rgba(124,58,237,0.2)" stroke-width="1"></circle><circle cx="150" cy="110" fill="rgba(0,229,255,0.05)" r="30" stroke="rgba(0,229,255,0.3)" stroke-width="1.5"></circle><circle cx="150" cy="110" fill="var(--accent)" r="8"></circle><g fill="none" stroke="rgba(0,229,255,0.25)" stroke-width="1"><line x1="150" x2="90" y1="110" y2="60"></line><line x1="150" x2="210" y1="110" y2="60"></line><line x1="150" x2="70" y1="110" y2="120"></line><line x1="150" x2="230" y1="110" y2="120"></line><line x1="150" x2="100" y1="110" y2="165"></line><line x1="150" x2="200" y1="110" y2="165"></line></g><circle cx="90" cy="60" fill="none" r="5" stroke="rgba(124,58,237,0.6)" stroke-width="1.5"></circle><circle cx="210" cy="60" fill="none" r="5" stroke="rgba(124,58,237,0.6)" stroke-width="1.5"></circle><circle cx="70" cy="120" fill="none" r="5" stroke="rgba(0,229,255,0.6)" stroke-width="1.5"></circle><circle cx="230" cy="120" fill="none" r="5" stroke="rgba(0,229,255,0.6)" stroke-width="1.5"></circle><circle cx="100" cy="165" fill="none" r="5" stroke="rgba(124,58,237,0.6)" stroke-width="1.5"></circle><circle cx="200" cy="165" fill="none" r="5" stroke="rgba(124,58,237,0.6)" stroke-width="1.5"></circle><text fill="rgba(100,116,139,0.7)" font-family="monospace" font-size="9" letter-spacing="3" text-anchor="middle" x="150" y="205">NEURAPLUS NETWORK</text></svg></div></div></div><div class="mission fade-in"><div class="page-tag">Our Mission</div><h2>Why NeuraPulse Exists</h2><div class="mission-grid"><div class="mission-card"><span class="mission-icon">🎯</span><h3>Accuracy First</h3><p>Every article is thoroughly researched and fact-checked. We cite sources, acknowledge uncertainty, and never sensationalize AI capabilities or risks.</p></div><div class="mission-card"><span class="mission-icon">💡</span><h3>Clarity Always</h3><p>Complex ideas deserve clear explanations. We translate cutting-edge research into writing that engineers, students, and curious non-experts can all engage with.</p></div><div class="mission-card"><span class="mission-icon">🌏</span><h3>Global Perspective</h3><p>AI is a global story. We cover developments from labs worldwide, with a particular focus on the growing AI ecosystem in India and Southeast Asia.</p></div></div></div><div class="stats-row fade-in"><div><span class="snum">148+</span><span class="slbl">Articles Published</span></div><div><span class="snum">32K</span><span class="slbl">Monthly Readers</span></div><div><span class="snum">4.2K</span><span class="slbl">Newsletter Subscribers</span></div><div><span class="snum">12</span><span class="slbl">Expert Writers</span></div></div><div class="team fade-in"><div class="page-tag">The Team</div><h2>Written by AI Enthusiasts</h2><p class="team-sub">Our writers combine technical expertise with a passion for clear communication.</p><div class="team-grid"><div class="member"><div class="member-av">PL</div><h3>Prashant Lalwani</h3><span class="member-role">Lead Writer · LLMs</span><p>Former ML engineer. Writes about language models, transformers, and the frontier of AI research.</p></div><div class="member"><div class="member-av" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">PL</div><h3>Prashant Lalwani</h3><span class="member-role">Writer · Computer Vision</span><p>PhD student in computer vision. Covers image generation, object detection, and multimodal AI.</p></div><div class="member"><div class="member-av" style="background:linear-gradient(135deg,#34d399,#059669)">PL</div><h3>Prashant Lalwani</h3><span class="member-role">Writer · AI Ethics</span><p>Policy researcher and ethicist. Focuses on AI safety, alignment, bias, and the societal impact of AI.</p></div><div class="member"><div class="member-av" style="background:linear-gradient(135deg,#f472b6,#9333ea)">PL</div><h3>Varun Lalwani</h3><span class="member-role">Writer · Robotics</span><p>Robotics engineer turned writer. Covers embodied AI, autonomous systems, and physical AI hardware.</p></div></div></div><div class="cta-section fade-in"><h2>Join the NeuraPulse Community</h2><p>Get the most important AI developments delivered to your inbox every Tuesday.</p><div class="cta-btns"><a class="btn btn-p" href="contact.html">Subscribe to Newsletter</a><a class="btn btn-g" href="blog.html">Read Our Articles</a></div></div></div></main>
 
 <style id="np-footer-css">

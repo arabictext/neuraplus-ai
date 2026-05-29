@@ -159,9 +159,15 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
 <meta content="NeuraPulse" property="og:site_name"/><meta content="@neuraplus_ai" name="twitter:site"/>
 
 
-<!-- NP:UNIVERSAL-FIX-V2 -->
-<style id="np-universal-fix">
-/* ── FIX 1: BLACK SCREEN (.fade AND .reveal both fixed) ── */
+
+<!-- NP:UNIVERSAL-FIX-V3 -->
+<style id="np-universal-fix-v3">
+/* ════════════════════════════════════════════════════
+   FIX 1 — BLACK SCREEN
+   Covers .fi  .fade  .reveal  .fade-up  .animate
+   and any data-animate / data-reveal attribute
+   ════════════════════════════════════════════════════ */
+.fi,
 .fade,
 .reveal,
 .fade-up,
@@ -171,14 +177,21 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1280px;mar
   opacity: 1 !important;
   transform: translateY(0) !important;
   transition: opacity 0.55s ease, transform 0.55s ease !important;
+  visibility: visible !important;
 }
+
+/* Activated states — keep visible once class is added */
+.fi.v, .fi.in, .fi.vis,
 .fade.vis, .fade.in,
 .reveal.vis, .reveal.in {
   opacity: 1 !important;
   transform: translateY(0) !important;
+  visibility: visible !important;
 }
 
-/* ── FIX 2: IMAGE LAYOUT SHIFT / JUMPING ── */
+/* ════════════════════════════════════════════════════
+   FIX 2 — IMAGE LAYOUT SHIFT / JUMPING
+   ════════════════════════════════════════════════════ */
 .blog-hero-image,
 img[loading="lazy"] {
   display: block;
@@ -192,7 +205,9 @@ img[loading="lazy"] {
   max-width: 1200px;
 }
 
-/* ── FIX 3: BENCHMARK BARS FALLBACK (show at full width) ── */
+/* ════════════════════════════════════════════════════
+   FIX 3 — BENCHMARK BARS STUCK AT 0%
+   ════════════════════════════════════════════════════ */
 .bfill {
   width: var(--w, 80%) !important;
   transition: width 1.2s ease !important;
@@ -201,78 +216,96 @@ img[loading="lazy"] {
   width: var(--w, 80%) !important;
 }
 
-/* ── FIX 4: SCROLL PADDING (content not hidden behind sticky nav) ── */
+/* ════════════════════════════════════════════════════
+   FIX 4 — SCROLL PADDING (content behind sticky nav)
+   ════════════════════════════════════════════════════ */
 html {
   scroll-padding-top: 80px;
 }
 
-/* ── FIX 5: NAV Z-INDEX ── */
+/* ════════════════════════════════════════════════════
+   FIX 5 — NAV Z-INDEX
+   ════════════════════════════════════════════════════ */
 #np-nav { z-index: 500 !important; }
 #np-mob { z-index: 499 !important; }
 </style>
 <script>
-/* NeuraPulse Universal Fix JS v2 */
+/* NeuraPulse Universal Fix JS v3 — fixes .fi + all animation classes */
 (function(){
-  function npFix(){
-    /* 1. Reveal all hidden elements */
-    var sel = '.reveal,.fade,.fade-up,.animate';
-    var els = document.querySelectorAll(sel);
+  /* ALL selectors that can cause black screens */
+  var SEL = '.fi,.reveal,.fade,.fade-up,.animate,[data-animate],[data-reveal]';
+
+  function showEl(el) {
+    el.style.opacity    = '1';
+    el.style.transform  = 'translateY(0)';
+    el.style.visibility = 'visible';
+    el.classList.add('v','in','vis');
+  }
+
+  function npFix() {
+    var els = document.querySelectorAll(SEL);
+
+    /* ── IntersectionObserver path (modern browsers) ── */
     if ('IntersectionObserver' in window) {
-      var obs = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){
-            e.target.classList.add('in','vis');
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            showEl(e.target);
             obs.unobserve(e.target);
           }
         });
-      },{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
-      els.forEach(function(el){obs.observe(el);});
-      /* Emergency fallback: show ALL content after 800ms */
-      setTimeout(function(){
-        document.querySelectorAll(sel).forEach(function(el){
-          el.classList.add('in','vis');
-        });
-      },800);
+      }, { threshold: 0.01, rootMargin: '0px 0px 60px 0px' });
+
+      els.forEach(function(el) { obs.observe(el); });
+
+      /* ── Emergency fallback: force-show ALL after 300ms ──
+         This fires even if observer works, ensuring nothing
+         stays hidden due to off-screen elements or timing  */
+      setTimeout(function() {
+        document.querySelectorAll(SEL).forEach(showEl);
+      }, 300);
+
     } else {
-      els.forEach(function(el){el.classList.add('in','vis');});
+      /* No IntersectionObserver — show everything immediately */
+      els.forEach(showEl);
     }
 
-    /* 2. Fix broken images — replace with placeholder */
-    document.querySelectorAll('img').forEach(function(img){
-      img.addEventListener('error',function(){
-        if(!this.dataset.errFixed){
+    /* ── Fix broken images ── */
+    document.querySelectorAll('img').forEach(function(img) {
+      img.addEventListener('error', function() {
+        if (!this.dataset.errFixed) {
           this.dataset.errFixed = '1';
           this.src = 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&h=630&fit=crop';
         }
       });
     });
 
-    /* 3. Fix benchmark bars */
-    setTimeout(function(){
-      document.querySelectorAll('.bfill[data-w]').forEach(function(b){
+    /* ── Fix benchmark bars ── */
+    setTimeout(function() {
+      document.querySelectorAll('.bfill[data-w]').forEach(function(b) {
         b.style.width = b.getAttribute('data-w') + '%';
       });
-    },600);
+    }, 600);
 
-    /* 4. Fix stat counters showing 0 */
-    setTimeout(function(){
-      document.querySelectorAll('[data-target]').forEach(function(el){
-        if(el.textContent === '0' || el.textContent.trim() === ''){
+    /* ── Fix stat counters stuck at 0 ── */
+    setTimeout(function() {
+      document.querySelectorAll('[data-target]').forEach(function(el) {
+        if (el.textContent === '0' || el.textContent.trim() === '') {
           el.textContent = el.getAttribute('data-target');
         }
       });
-    },1000);
+    }, 1000);
   }
 
-  /* Run on DOM ready */
-  if(document.readyState === 'loading'){
+  /* Run immediately if DOM ready, otherwise wait */
+  if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', npFix);
   } else {
     npFix();
   }
 })();
 </script>
-<!-- /NP:UNIVERSAL-FIX-V2 -->
+<!-- /NP:UNIVERSAL-FIX-V3 -->
 </head>
 <body>
 <!-- NP:NAV -->

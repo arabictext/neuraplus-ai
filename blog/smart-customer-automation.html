@@ -160,9 +160,15 @@ aside{position:sticky;top:84px;height:fit-content;display:flex;flex-direction:co
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is smart customer automation and how does it differ from traditional chatbots?","acceptedAnswer":{"@type":"Answer","text":"Smart customer automation uses AI to understand intent, context, and emotion — not just keyword matching. Unlike rule-based chatbots that follow rigid scripts, smart automation systems learn from interactions, escalate appropriately to human agents, and personalize responses based on customer history. They integrate with CRM, order management, and knowledge bases to resolve complex queries autonomously while maintaining brand voice and compliance standards."}},{"@type":"Question","name":"How do I measure ROI from customer automation investments?","acceptedAnswer":{"@type":"Answer","text":"Measure smart automation ROI across four dimensions: deflection rate (percentage of queries resolved without human intervention), resolution time (average time to solve customer issues), CSAT/NPS impact (customer satisfaction with automated vs. human interactions), and agent productivity (time freed for complex, high-value work). Track baseline metrics before implementation, then measure incremental lift at 30, 60, and 90-day intervals. Most teams see positive ROI within 60 days when focusing on high-volume, low-complexity use cases first."}},{"@type":"Question","name":"Can smart automation handle complex or sensitive customer issues?","acceptedAnswer":{"@type":"Answer","text":"Yes — when designed with intelligent escalation protocols. Smart automation systems use confidence scoring to determine when a query exceeds their capability threshold, then seamlessly transfer to human agents with full context preservation. The key is training models on your specific domain, implementing clear escalation triggers (sentiment drops, regulatory keywords, high-value accounts), and maintaining human oversight for edge cases. Teams that implement thoughtful escalation logic report 94% customer satisfaction even when automation initiates the interaction."}}]}
 ]
 </script>
-<!-- NP:UNIVERSAL-FIX-V2 -->
-<style id="np-universal-fix">
-/* ── FIX 1: BLACK SCREEN (.fade AND .reveal both fixed) ── */
+
+<!-- NP:UNIVERSAL-FIX-V3 -->
+<style id="np-universal-fix-v3">
+/* ════════════════════════════════════════════════════
+   FIX 1 — BLACK SCREEN
+   Covers .fi  .fade  .reveal  .fade-up  .animate
+   and any data-animate / data-reveal attribute
+   ════════════════════════════════════════════════════ */
+.fi,
 .fade,
 .reveal,
 .fade-up,
@@ -172,14 +178,21 @@ aside{position:sticky;top:84px;height:fit-content;display:flex;flex-direction:co
   opacity: 1 !important;
   transform: translateY(0) !important;
   transition: opacity 0.55s ease, transform 0.55s ease !important;
+  visibility: visible !important;
 }
+
+/* Activated states — keep visible once class is added */
+.fi.v, .fi.in, .fi.vis,
 .fade.vis, .fade.in,
 .reveal.vis, .reveal.in {
   opacity: 1 !important;
   transform: translateY(0) !important;
+  visibility: visible !important;
 }
 
-/* ── FIX 2: IMAGE LAYOUT SHIFT / JUMPING ── */
+/* ════════════════════════════════════════════════════
+   FIX 2 — IMAGE LAYOUT SHIFT / JUMPING
+   ════════════════════════════════════════════════════ */
 .blog-hero-image,
 img[loading="lazy"] {
   display: block;
@@ -193,7 +206,9 @@ img[loading="lazy"] {
   max-width: 1200px;
 }
 
-/* ── FIX 3: BENCHMARK BARS FALLBACK (show at full width) ── */
+/* ════════════════════════════════════════════════════
+   FIX 3 — BENCHMARK BARS STUCK AT 0%
+   ════════════════════════════════════════════════════ */
 .bfill {
   width: var(--w, 80%) !important;
   transition: width 1.2s ease !important;
@@ -202,78 +217,96 @@ img[loading="lazy"] {
   width: var(--w, 80%) !important;
 }
 
-/* ── FIX 4: SCROLL PADDING (content not hidden behind sticky nav) ── */
+/* ════════════════════════════════════════════════════
+   FIX 4 — SCROLL PADDING (content behind sticky nav)
+   ════════════════════════════════════════════════════ */
 html {
   scroll-padding-top: 80px;
 }
 
-/* ── FIX 5: NAV Z-INDEX ── */
+/* ════════════════════════════════════════════════════
+   FIX 5 — NAV Z-INDEX
+   ════════════════════════════════════════════════════ */
 #np-nav { z-index: 500 !important; }
 #np-mob { z-index: 499 !important; }
 </style>
 <script>
-/* NeuraPulse Universal Fix JS v2 */
+/* NeuraPulse Universal Fix JS v3 — fixes .fi + all animation classes */
 (function(){
-  function npFix(){
-    /* 1. Reveal all hidden elements */
-    var sel = '.reveal,.fade,.fade-up,.animate';
-    var els = document.querySelectorAll(sel);
+  /* ALL selectors that can cause black screens */
+  var SEL = '.fi,.reveal,.fade,.fade-up,.animate,[data-animate],[data-reveal]';
+
+  function showEl(el) {
+    el.style.opacity    = '1';
+    el.style.transform  = 'translateY(0)';
+    el.style.visibility = 'visible';
+    el.classList.add('v','in','vis');
+  }
+
+  function npFix() {
+    var els = document.querySelectorAll(SEL);
+
+    /* ── IntersectionObserver path (modern browsers) ── */
     if ('IntersectionObserver' in window) {
-      var obs = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){
-            e.target.classList.add('in','vis');
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            showEl(e.target);
             obs.unobserve(e.target);
           }
         });
-      },{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
-      els.forEach(function(el){obs.observe(el);});
-      /* Emergency fallback: show ALL content after 800ms */
-      setTimeout(function(){
-        document.querySelectorAll(sel).forEach(function(el){
-          el.classList.add('in','vis');
-        });
-      },800);
+      }, { threshold: 0.01, rootMargin: '0px 0px 60px 0px' });
+
+      els.forEach(function(el) { obs.observe(el); });
+
+      /* ── Emergency fallback: force-show ALL after 300ms ──
+         This fires even if observer works, ensuring nothing
+         stays hidden due to off-screen elements or timing  */
+      setTimeout(function() {
+        document.querySelectorAll(SEL).forEach(showEl);
+      }, 300);
+
     } else {
-      els.forEach(function(el){el.classList.add('in','vis');});
+      /* No IntersectionObserver — show everything immediately */
+      els.forEach(showEl);
     }
 
-    /* 2. Fix broken images — replace with placeholder */
-    document.querySelectorAll('img').forEach(function(img){
-      img.addEventListener('error',function(){
-        if(!this.dataset.errFixed){
+    /* ── Fix broken images ── */
+    document.querySelectorAll('img').forEach(function(img) {
+      img.addEventListener('error', function() {
+        if (!this.dataset.errFixed) {
           this.dataset.errFixed = '1';
           this.src = 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&h=630&fit=crop';
         }
       });
     });
 
-    /* 3. Fix benchmark bars */
-    setTimeout(function(){
-      document.querySelectorAll('.bfill[data-w]').forEach(function(b){
+    /* ── Fix benchmark bars ── */
+    setTimeout(function() {
+      document.querySelectorAll('.bfill[data-w]').forEach(function(b) {
         b.style.width = b.getAttribute('data-w') + '%';
       });
-    },600);
+    }, 600);
 
-    /* 4. Fix stat counters showing 0 */
-    setTimeout(function(){
-      document.querySelectorAll('[data-target]').forEach(function(el){
-        if(el.textContent === '0' || el.textContent.trim() === ''){
+    /* ── Fix stat counters stuck at 0 ── */
+    setTimeout(function() {
+      document.querySelectorAll('[data-target]').forEach(function(el) {
+        if (el.textContent === '0' || el.textContent.trim() === '') {
           el.textContent = el.getAttribute('data-target');
         }
       });
-    },1000);
+    }, 1000);
   }
 
-  /* Run on DOM ready */
-  if(document.readyState === 'loading'){
+  /* Run immediately if DOM ready, otherwise wait */
+  if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', npFix);
   } else {
     npFix();
   }
 })();
 </script>
-<!-- /NP:UNIVERSAL-FIX-V2 -->
+<!-- /NP:UNIVERSAL-FIX-V3 -->
 </head>
 <body>
 

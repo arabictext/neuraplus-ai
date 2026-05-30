@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="author" content="Prashant Lalwani"/>
+<meta name="publisher" content="NeuraPulse"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
+<meta name="googlebot" content="index, follow"/>
+<meta name="language" content="English"/>
+<meta name="category" content="Artificial Intelligence, Technology, AI Tools"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Groq AI Platform Tutorial for Beginners 2026: Build Fast AI Apps & Chatbots – NeuraPulse</title>
+<meta name="description" content="The complete Groq AI platform tutorial for beginners 2026 — how to use the Groq API for fast AI apps, step-by-step chatbot development, code examples, and a working chatbot in under 30 minutes." />
+<meta name="author" content="Prashant Lalwani" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="NeuraPulse" />
+<meta property="og:title" content="Groq AI Platform Tutorial for Beginners 2026: Build Fast AI Apps & Chatbots" />
+<meta property="og:description" content="Learn how to use the Groq API for fast AI apps and chatbot development — zero to working product in under 30 minutes." />
+<meta property="og:url" content="https://neuraplus-ai.github.io/blog/groq-ai-platform-tutorial-beginners.html" />
+<meta property="og:image" content="https://neuraplus-ai.github.io/assets/logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@neuraplus_ai" />
+<link rel="canonical" href="https://neuraplus-ai.github.io/blog/groq-ai-platform-tutorial-beginners.html" />
+<link rel="icon" href="https://neuraplus-ai.github.io/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  :root {
+    --bg:        #070a12;
+    --bg2:       #0b0f1c;
+    --surface:   #0f1525;
+    --surface2:  #141c30;
+    --surface3:  #1a2340;
+    --border:    rgba(0,229,255,0.09);
+    --border-h:  rgba(0,229,255,0.28);
+    --cyan:      #00e5ff;
+    --cyan-dim:  rgba(0,229,255,0.10);
+    --cyan-soft: rgba(0,229,255,0.06);
+    --cyan-glow: rgba(0,229,255,0.15);
+    --green:     #00ff9d;
+    --green-dim: rgba(0,255,157,0.08);
+    --orange:    #ff9d00;
+    --orange-dim:rgba(255,157,0,0.08);
+    --purple:    #b06dff;
+    --purple-dim:rgba(176,109,255,0.10);
+    --text:      #dde3f0;
+    --text-mid:  #7a85a0;
+    --text-dim:  #3a4260;
+    --font-h:    'Syne', sans-serif;
+    --font-b:    'DM Sans', sans-serif;
+    --font-code: 'JetBrains Mono', monospace;
+    --r:         10px;
+    --r-sm:      6px;
+    --ease:      cubic-bezier(.4,0,.2,1);
+  }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: var(--font-b); font-size: 16px;
+    line-height: 1.65; min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: var(--font-b); cursor: pointer; }
+  body::after {
+    content: ''; position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.016) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.016) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── NAV ── */
+  .np-nav { position: sticky; top: 0; z-index: 200; background: rgba(7,10,18,0.93); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid var(--border); }
+  .np-nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .np-logo { font-family: var(--font-h); font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text); flex-shrink: 0; }
+  .np-logo span { color: var(--cyan); }
+  .np-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+  .np-links a { padding: 6px 13px; border-radius: var(--r-sm); font-size: 0.83rem; font-weight: 500; color: var(--text-mid); transition: color .2s, background .2s; }
+  .np-links a:hover { color: var(--text); background: var(--surface2); }
+  .np-links a.active { color: var(--cyan); }
+  .np-sub { background: transparent; border: 1px solid var(--cyan); color: var(--cyan) !important; font-size: 0.78rem !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; letter-spacing: 0.04em; transition: background .2s !important; flex-shrink: 0; }
+  .np-sub:hover { background: var(--cyan-dim) !important; }
+  .np-ham { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
+  .np-ham span { display: block; width: 22px; height: 2px; background: var(--text-mid); border-radius: 2px; transition: .2s; }
+  .np-ham.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .np-ham.open span:nth-child(2) { opacity: 0; }
+  .np-ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .np-mob { display: none; flex-direction: column; background: var(--bg2); border-bottom: 1px solid var(--border); padding: 12px 24px 20px; gap: 2px; }
+  .np-mob.open { display: flex; }
+  .np-mob a { padding: 10px 12px; border-radius: 8px; font-size: 0.88rem; color: var(--text-mid); font-weight: 500; transition: color .2s, background .2s; }
+  .np-mob a:hover { color: var(--text); background: var(--surface2); }
+  @media (max-width: 768px) { .np-links, .np-sub { display: none; } .np-ham { display: flex; } }
+
+  /* ── LAYOUT ── */
+  .blog-wrap { max-width: 1200px; margin: 0 auto; padding: 64px 32px 80px; display: grid; grid-template-columns: 1fr 280px; gap: 56px; align-items: start; }
+  @media (max-width: 960px) { .blog-wrap { grid-template-columns: 1fr; } .sidebar { display: none; } }
+  @media (max-width: 700px) { .blog-wrap { padding: 40px 20px 56px; } }
+
+  /* ── HERO ── */
+  .art-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 24px; }
+  .art-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--text-dim); }
+  .art-cat { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,229,255,0.22); background: var(--cyan-dim); border-radius: 4px; padding: 3px 9px; }
+  .art-cat-green { color: var(--green); border-color: rgba(0,255,157,0.22); background: var(--green-dim); }
+  .art-live { display: flex; align-items: center; gap: 5px; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); }
+  .art-live .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 6px var(--cyan); animation: blink 2s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.35} }
+  .art-h1 { font-family: var(--font-h); font-size: clamp(1.85rem, 4vw, 2.85rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--text); margin: 18px 0 22px; }
+  .art-h1 .hl  { color: var(--cyan); }
+  .art-h1 .hl2 { color: var(--green); }
+  .art-deck { font-size: 1rem; font-weight: 300; color: var(--text-mid); line-height: 1.75; margin-bottom: 28px; max-width: 720px; }
+  .art-meta-bar { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; padding: 16px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+  .art-meta-item { font-size: 0.73rem; color: var(--text-dim); }
+  .art-meta-item strong { color: var(--text-mid); font-weight: 500; }
+
+  /* ── STAT BAR ── */
+  .stat-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1px; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin-bottom: 48px; }
+  .stat-cell { background: var(--surface); padding: 18px 20px; text-align: center; }
+  .stat-val { font-family: var(--font-h); font-size: 1.6rem; font-weight: 800; color: var(--cyan); display: block; line-height: 1; letter-spacing: -0.03em; }
+  .stat-val.green { color: var(--green); }
+  .stat-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-top: 5px; display: block; }
+
+  /* ── PROSE ── */
+  .prose { max-width: 100%; }
+  .prose h2 { font-family: var(--font-h); font-size: 1.45rem; font-weight: 800; letter-spacing: -0.025em; color: var(--text); line-height: 1.2; margin: 52px 0 18px; padding-top: 8px; border-top: 1px solid var(--border); }
+  .prose h3 { font-family: var(--font-h); font-size: 1.08rem; font-weight: 700; letter-spacing: -0.015em; color: var(--text); line-height: 1.3; margin: 32px 0 12px; }
+  .prose p { margin-bottom: 20px; font-size: 0.95rem; font-weight: 300; color: var(--text-mid); line-height: 1.78; }
+  .prose p strong { color: var(--text); font-weight: 600; }
+  .prose a { color: var(--cyan); border-bottom: 1px solid rgba(0,229,255,0.25); transition: border-color .2s; }
+  .prose a:hover { border-color: var(--cyan); }
+  .prose ul, .prose ol { margin: 0 0 22px 0; padding-left: 24px; }
+  .prose li { font-size: 0.93rem; font-weight: 300; color: var(--text-mid); line-height: 1.72; margin-bottom: 8px; }
+  .prose li strong { color: var(--text); font-weight: 600; }
+  .prose hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  /* ── CALLOUT ── */
+  .callout { background: var(--surface); border: 1px solid var(--border-h); border-left: 3px solid var(--cyan); border-radius: var(--r); padding: 22px 24px; margin: 28px 0; position: relative; overflow: hidden; }
+  .callout::before { content: ''; position: absolute; top: 0; right: 0; width: 120px; height: 100%; background: radial-gradient(ellipse at right, rgba(0,229,255,0.04), transparent); pointer-events: none; }
+  .callout-label { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; display: block; }
+  .callout p { margin: 0; font-size: 0.9rem; color: var(--text-mid); }
+  .callout.green { border-left-color: var(--green); }
+  .callout.green .callout-label { color: var(--green); }
+  .callout.orange { border-left-color: var(--orange); }
+  .callout.orange .callout-label { color: var(--orange); }
+  .callout.purple { border-left-color: var(--purple); }
+  .callout.purple .callout-label { color: var(--purple); }
+
+  /* ── CODE BLOCK ── */
+  .code-block { background: #050810; border: 1px solid var(--border); border-radius: var(--r); margin: 24px 0; overflow: hidden; }
+  .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; background: var(--surface2); border-bottom: 1px solid var(--border); }
+  .code-lang { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); }
+  .code-file { font-size: 0.72rem; color: var(--text-dim); font-family: var(--font-code); }
+  .code-copy { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); background: none; border: 1px solid var(--border); border-radius: 4px; padding: 4px 10px; cursor: pointer; transition: color .2s, border-color .2s; }
+  .code-copy:hover { color: var(--cyan); border-color: var(--border-h); }
+  .code-copy.copied { color: var(--green); border-color: rgba(0,255,157,0.3); }
+  .code-body { padding: 20px 22px; overflow-x: auto; }
+  .code-body pre { font-family: var(--font-code); font-size: 0.82rem; line-height: 1.7; color: #c9d1e0; white-space: pre; tab-size: 2; }
+  /* syntax colors */
+  .kw  { color: #b06dff; }  /* keywords: import, from, def, class, return, if, for */
+  .fn  { color: #00e5ff; }  /* function/method names */
+  .st  { color: #00ff9d; }  /* strings */
+  .cm  { color: #3a4260; font-style: italic; }  /* comments */
+  .nm  { color: #ff9d00; }  /* numbers, constants */
+  .op  { color: #7a85a0; }  /* operators, punctuation */
+  .cl  { color: #f9c843; }  /* class names */
+  .bi  { color: #ff7eb3; }  /* built-ins: print, len, etc */
+
+  /* ── STEP CARDS ── */
+  .steps { display: flex; flex-direction: column; gap: 16px; margin: 28px 0; }
+  .step { display: flex; gap: 18px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 22px; transition: background .2s, border-color .2s; position: relative; overflow: hidden; }
+  .step::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--cyan); border-radius: 0; opacity: 0; transition: opacity .2s; }
+  .step:hover { background: var(--surface2); border-color: var(--border-h); }
+  .step:hover::before { opacity: 1; }
+  .step-num { font-family: var(--font-h); font-size: 1.5rem; font-weight: 800; color: var(--cyan); line-height: 1; flex-shrink: 0; min-width: 36px; opacity: 0.6; }
+  .step-body { flex: 1; }
+  .step-title { font-family: var(--font-h); font-size: 0.97rem; font-weight: 700; color: var(--text); margin-bottom: 7px; }
+  .step-desc { font-size: 0.85rem; color: var(--text-mid); font-weight: 300; line-height: 1.65; margin: 0; }
+  .step-tag { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--cyan-dim); color: var(--cyan); border: 1px solid rgba(0,229,255,0.2); border-radius: 3px; padding: 2px 8px; margin-bottom: 8px; }
+  .step-tag.green { background: var(--green-dim); color: var(--green); border-color: rgba(0,255,157,0.2); }
+
+  /* ── INTERNAL LINK CARD ── */
+  .ilink { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r); padding: 20px 22px; margin: 28px 0; display: flex; align-items: center; gap: 18px; transition: border-color .2s, background .2s; position: relative; overflow: hidden; }
+  .ilink::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, var(--cyan), transparent); opacity: 0; transition: opacity .2s; }
+  .ilink:hover { border-color: var(--border-h); background: var(--surface); }
+  .ilink:hover::before { opacity: 1; }
+  .ilink-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .ilink-body { flex: 1; }
+  .ilink-tag { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); margin-bottom: 5px; display: block; }
+  .ilink-title { font-family: var(--font-h); font-size: 0.92rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+  .ilink-desc { font-size: 0.78rem; color: var(--text-dim); margin-top: 4px; }
+  .ilink-arrow { font-size: 0.8rem; font-weight: 700; color: var(--cyan); flex-shrink: 0; }
+
+  /* ── GUIDE LINK CARD (styled differently from ilink) ── */
+  .glink { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 18px 20px; margin: 12px 0; display: flex; align-items: center; gap: 16px; transition: border-color .2s, background .2s; position: relative; overflow: hidden; }
+  .glink::after { content: '→'; position: absolute; right: 18px; font-size: 0.85rem; color: var(--cyan); opacity: 0; transition: opacity .2s, right .2s; }
+  .glink:hover { border-color: var(--border-h); background: var(--surface2); }
+  .glink:hover::after { opacity: 1; right: 14px; }
+  .glink-badge { font-size: 0.58rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(176,109,255,0.2); border-radius: 3px; padding: 2px 7px; flex-shrink: 0; }
+  .glink-title { font-family: var(--font-h); font-size: 0.87rem; font-weight: 700; color: var(--text); }
+  .glink-sub   { font-size: 0.72rem; color: var(--text-dim); margin-top: 2px; }
+
+  /* ── MODEL CARDS GRID ── */
+  .model-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+  .model-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 18px 18px; transition: border-color .2s; }
+  .model-card:hover { border-color: var(--border-h); }
+  .model-name { font-family: var(--font-h); font-size: 0.9rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .model-speed { font-family: var(--font-h); font-size: 1.2rem; font-weight: 800; color: var(--cyan); line-height: 1; margin-bottom: 8px; }
+  .model-speed span { font-size: 0.62rem; font-weight: 600; color: var(--text-dim); letter-spacing: 0.08em; }
+  .model-tag { display: inline-block; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; margin-bottom: 8px; }
+  .model-tag.best  { background: var(--cyan-dim);   color: var(--cyan);   border: 1px solid rgba(0,229,255,0.2); }
+  .model-tag.fast  { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(0,255,157,0.2); }
+  .model-tag.light { background: var(--orange-dim); color: var(--orange); border: 1px solid rgba(255,157,0,0.2); }
+  .model-desc { font-size: 0.78rem; color: var(--text-mid); font-weight: 300; line-height: 1.5; }
+
+  /* ── BENCH TABLE ── */
+  .bench-wrap { overflow-x: auto; margin: 28px 0; border-radius: var(--r); border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); }
+  thead { background: var(--surface2); }
+  th { font-family: var(--font-h); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-mid); padding: 14px 20px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  td { font-size: 0.85rem; color: var(--text-mid); padding: 13px 20px; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--surface2); }
+  .td-hl  { color: var(--cyan);   font-weight: 600; font-family: var(--font-h); }
+  .td-g   { color: var(--green);  font-weight: 600; }
+  .td-o   { color: var(--orange); font-weight: 600; }
+
+  /* ── FAQ ── */
+  .faq { margin: 28px 0; }
+  .faq-item { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin-bottom: 10px; }
+  .faq-q { background: var(--surface); padding: 18px 22px; font-family: var(--font-h); font-size: 0.93rem; font-weight: 700; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .faq-q:hover { background: var(--surface2); }
+  .faq-icon { font-size: 1rem; color: var(--cyan); transition: transform .25s; flex-shrink: 0; }
+  .faq-a { display: none; padding: 0 22px 18px; background: var(--surface); font-size: 0.88rem; color: var(--text-mid); font-weight: 300; line-height: 1.7; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-item.open .faq-a { display: block; }
+
+  /* ── CTA INLINE ── */
+  .cta-inline { background: var(--surface); border: 1px solid var(--border-h); border-radius: var(--r); padding: 32px 28px; margin: 44px 0; position: relative; overflow: hidden; text-align: center; }
+  .cta-inline::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
+  .cta-inline h3 { font-family: var(--font-h); font-size: 1.2rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+  .cta-inline p { font-size: 0.85rem; color: var(--text-mid); margin-bottom: 18px; font-weight: 300; }
+  .cta-btn { display: inline-block; background: transparent; border: 1px solid var(--cyan); color: var(--cyan); font-family: var(--font-b); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 11px 28px; border-radius: 20px; transition: background .2s, color .2s; }
+  .cta-btn:hover { background: var(--cyan); color: var(--bg); }
+
+  /* ── SIDEBAR ── */
+  .sidebar { position: sticky; top: 78px; display: flex; flex-direction: column; gap: 20px; }
+  .scard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 22px 20px; }
+  .scard-title { font-family: var(--font-h); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .toc-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .toc-list a { font-size: 0.8rem; color: var(--text-dim); padding: 5px 8px; border-radius: 5px; display: block; transition: color .2s, background .2s; }
+  .toc-list a:hover, .toc-list a.active { color: var(--cyan); background: var(--cyan-soft); }
+  .progress-bar { height: 3px; background: var(--surface2); border-radius: 2px; margin-bottom: 14px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--cyan), var(--green)); border-radius: 2px; width: 0%; transition: width .3s; }
+  .related-list { display: flex; flex-direction: column; gap: 12px; }
+  .related-item { display: flex; gap: 10px; align-items: flex-start; }
+  .related-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+  .related-title { font-size: 0.78rem; color: var(--text-mid); font-weight: 500; line-height: 1.4; transition: color .2s; }
+  .related-item:hover .related-title { color: var(--cyan); }
+  .related-cat { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); display: block; margin-bottom: 3px; }
+
+  /* ── FOOTER ── */
+  footer { border-top: 1px solid var(--border); padding: 36px 32px; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+  .footer-logo { font-family: var(--font-h); font-size: 1rem; font-weight: 800; color: var(--text); }
+  .footer-logo span { color: var(--cyan); }
+  .footer-nav { display: flex; gap: 20px; flex-wrap: wrap; }
+  .footer-nav a { font-size: 0.78rem; color: var(--text-dim); transition: color .2s; }
+  .footer-nav a:hover { color: var(--text-mid); }
+  .footer-copy { font-size: 0.73rem; color: var(--text-dim); }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb { max-width: 1200px; margin: 0 auto; padding: 18px 32px 0; display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--text-dim); flex-wrap: wrap; }
+  .breadcrumb a { color: var(--text-dim); transition: color .2s; }
+  .breadcrumb a:hover { color: var(--cyan); }
+  .breadcrumb span { color: var(--text-mid); }
+  @media (max-width: 700px) { .breadcrumb { padding: 14px 20px 0; } }
+
+  #np-top { position: fixed; bottom: 24px; right: 24px; width: 38px; height: 38px; background: var(--surface2); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--text-mid); opacity: 0; transition: opacity .2s; z-index: 999; cursor: pointer; }
+  #np-top.show { opacity: 1; }
+  #np-top:hover { color: var(--cyan); border-color: var(--border-h); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .art-eyebrow { animation: fadeUp .4s ease both; }
+  .art-h1      { animation: fadeUp .4s .07s ease both; }
+  .art-deck    { animation: fadeUp .4s .13s ease both; }
+  .art-meta-bar{ animation: fadeUp .4s .17s ease both; }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Groq AI Platform Tutorial for Beginners 2026: Build Fast AI Apps & Chatbots",
+  "description": "The complete Groq AI platform tutorial for beginners — how to use the Groq API for fast AI apps, step-by-step chatbot development, full code examples, and a working chatbot in under 30 minutes.",
+  "url": "https://neuraplus-ai.github.io/blog/groq-ai-platform-tutorial-beginners.html",
+  "datePublished": "2026-05-29",
+  "dateModified": "2026-05-29",
+  "author": { "@type": "Person", "name": "Prashant Lalwani", "url": "https://neuraplus-ai.github.io/about.html" },
+  "publisher": { "@type": "Organization", "name": "NeuraPulse", "url": "https://neuraplus-ai.github.io" },
+  "about": [
+    { "@type": "Thing", "name": "Groq AI Platform Tutorial" },
+    { "@type": "Thing", "name": "Groq API for Fast AI Apps" },
+    { "@type": "Thing", "name": "Groq AI Chatbot Development" }
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="np-nav" id="np-nav" role="navigation" aria-label="Main navigation">
+  <div class="np-nav-inner">
+    <a href="../index.html" class="np-logo">Neura<span>Pulse</span></a>
+    <ul class="np-links" role="list">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../blog.html" class="active">Blog</a></li>
+      <li><a href="../guide.html">Guide</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <a href="../contact.html" class="np-sub">Subscribe Free →</a>
+    <button class="np-ham" id="np-ham" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="np-mob" id="np-mob">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../guide.html">Guide</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../contact.html" style="color:var(--cyan);margin-top:8px;font-weight:600;">Subscribe Free →</a>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>›</span>
+  <a href="../blog.html">Blog</a>
+  <span>›</span>
+  <span style="color:var(--text-mid);">Groq AI Platform Tutorial for Beginners 2026</span>
+</nav>
+
+<!-- MAIN -->
+<div class="blog-wrap">
+  <main>
+    <div class="art-eyebrow">
+      <span class="art-cat art-cat-green">Beginner Tutorial</span>
+      <span class="art-live"><span class="dot"></span>Updated May 2026</span>
+    </div>
+
+    <h1 class="art-h1"><span class="hl">Groq AI Platform</span> Tutorial<br>for Beginners <span class="hl2">2026</span></h1>
+    <p class="art-deck">The complete hands-on guide — what the Groq platform is, how to use the Groq API to build fast AI apps from scratch, and a full step-by-step walkthrough for Groq AI chatbot development. You will have a working, streaming chatbot running at 750+ tokens per second in under 30 minutes.</p>
+
+    <div class="art-meta-bar" role="list">
+      <span class="art-meta-item" role="listitem">✍️ <strong>Prashant Lalwani</strong></span>
+      <span class="art-meta-item" role="listitem">⏱ <strong>20 min read</strong></span>
+      <span class="art-meta-item" role="listitem">🔖 <strong>6 Chapters</strong></span>
+      <span class="art-meta-item" role="listitem">📅 <strong>May 2026</strong></span>
+      <span class="art-meta-item" role="listitem">🏷️ Tutorial · API · Chatbot · Python</span>
+    </div>
+
+    <div class="stat-bar" role="list">
+      <div class="stat-cell" role="listitem"><span class="stat-val green">30</span><span class="stat-label">Min to First App</span></div>
+      <div class="stat-cell" role="listitem"><span class="stat-val">750+</span><span class="stat-label">Tokens / Second</span></div>
+      <div class="stat-cell" role="listitem"><span class="stat-val green">Free</span><span class="stat-label">API Tier</span></div>
+      <div class="stat-cell" role="listitem"><span class="stat-val">6</span><span class="stat-label">Code Examples</span></div>
+    </div>
+
+    <article class="prose" id="article-body">
+
+      <p>If you have heard about Groq's remarkable inference speed and want to actually build something with it — not just read about benchmarks — this is the guide for you. We start from zero: no account, no code, no prior Groq experience required. By the end, you will understand the platform, have live API calls working, and have a complete streaming chatbot you built yourself.</p>
+
+      <p>Before diving into the tutorial, one quick framing note: Groq's speed advantage comes from its LPU hardware architecture. If you want to understand the engineering behind why Groq is 10× faster than a GPU before writing your first line of code, read the <a href="../guide/what-is-groq-chip-how-it-works.html"><strong>complete Groq chip architecture guide</strong></a> — it will make every API design decision in this tutorial make more sense.</p>
+
+      <div class="callout green">
+        <span class="callout-label">✅ What You Will Build</span>
+        <p>Chapter 5 walks through a complete streaming chatbot with conversation history, system prompts, model switching, and a clean terminal interface — fully production-ready structure, zero bloat. All code is copy-paste ready.</p>
+      </div>
+
+      <!-- ═══ CH1 ═══ -->
+      <h2 id="ch1">Chapter 1 — What Is the Groq AI Platform?</h2>
+
+      <p>The <a href="groq-ai-platform-tutorial-beginners.html"><strong>Groq AI platform</strong></a> has two components that beginners sometimes conflate. The first is Groq's hardware — the Language Processing Unit (LPU), a custom chip designed from scratch for AI inference. The second is <strong>GroqCloud</strong>, the developer platform that exposes that hardware over a REST API. As a developer, you interact almost entirely with GroqCloud. You never need to touch the hardware directly.</p>
+
+      <p>GroqCloud is structured as a standard AI inference API. You send a message, you get a response — exactly like OpenAI, Anthropic, or Google. In fact, Groq deliberately built their API to be <strong>OpenAI-compatible</strong>: if you already have code that calls <code>openai.ChatCompletion.create()</code>, you can switch to Groq by changing one URL and one model string. No other changes required.</p>
+
+      <h3>What Makes It Different From Every Other AI API</h3>
+      <p>The difference is entirely in the response speed. Where OpenAI's GPT-4o produces 80–120 tokens per second and Claude 3 Haiku produces 90–140 tokens per second, GroqCloud running Llama 3 70B produces <strong>750–800 tokens per second</strong>. For streaming chatbots, this means the model finishes a typical response in 1–2 seconds rather than 8–15 seconds. For agentic applications making 20 sequential API calls, it means a 4-minute workflow completes in 25 seconds.</p>
+
+      <p>For a thorough breakdown of the speed numbers against every major competitor, the <a href="../guide/groq-speed-performance-guide.html"><strong>Groq speed and performance guide</strong></a> covers every comparison with benchmark data.</p>
+
+      <h3>Models Available on GroqCloud (May 2026)</h3>
+      <div class="model-grid">
+        <div class="model-card">
+          <div class="model-name">Llama 3 70B</div>
+          <div class="model-speed">750–800 <span>tok/sec</span></div>
+          <span class="model-tag best">Best Quality</span>
+          <div class="model-desc">Best capability on GroqCloud. Ideal for chatbots, reasoning, coding, and content. Model string: <code>llama3-70b-8192</code></div>
+        </div>
+        <div class="model-card">
+          <div class="model-name">Llama 3 8B</div>
+          <div class="model-speed">1,200+ <span>tok/sec</span></div>
+          <span class="model-tag fast">Fastest</span>
+          <div class="model-desc">Maximum speed, lower capability. Best for classification, routing, structured extraction. Model string: <code>llama3-8b-8192</code></div>
+        </div>
+        <div class="model-card">
+          <div class="model-name">Mixtral 8×7B</div>
+          <div class="model-speed">~600 <span>tok/sec</span></div>
+          <span class="model-tag best">Multilingual</span>
+          <div class="model-desc">Strong multilingual performance. Good for non-English chatbots and translation tasks. Model string: <code>mixtral-8x7b-32768</code></div>
+        </div>
+        <div class="model-card">
+          <div class="model-name">Gemma 7B</div>
+          <div class="model-speed">~900 <span>tok/sec</span></div>
+          <span class="model-tag light">Lightweight</span>
+          <div class="model-desc">Google's lightweight model. Fast and efficient for simple generation tasks. Model string: <code>gemma-7b-it</code></div>
+        </div>
+      </div>
+
+      <!-- ═══ CH2 ═══ -->
+      <h2 id="ch2">Chapter 2 — Setting Up Your Groq Account and API Key</h2>
+
+      <p>Getting started with the <a href="groq-ai-platform-tutorial-beginners.html"><strong>Groq AI platform tutorial</strong></a> takes less than five minutes. There is no waitlist, no credit card required for the free tier, and no approval process. Here is exactly what to do.</p>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">01</span>
+          <div class="step-body">
+            <span class="step-tag green">Free · No Card Required</span>
+            <div class="step-title">Create Your GroqCloud Account</div>
+            <p class="step-desc">Go to <strong>console.groq.com</strong> and click Sign Up. You can register with Google, GitHub, or email. After verifying your email, you land in the GroqCloud dashboard. The free tier activates immediately — no approval needed.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">02</span>
+          <div class="step-body">
+            <span class="step-tag">Dashboard → API Keys</span>
+            <div class="step-title">Generate Your API Key</div>
+            <p class="step-desc">In the left sidebar, click <strong>API Keys</strong>, then <strong>Create API Key</strong>. Give it a name (e.g., "tutorial-key"). Copy the key immediately — it starts with <code>gsk_</code> and will not be shown again after you close the dialog.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">03</span>
+          <div class="step-body">
+            <span class="step-tag">Terminal</span>
+            <div class="step-title">Set the Key as an Environment Variable</div>
+            <p class="step-desc">Never hardcode API keys in source files. Set it as an environment variable in your terminal session, or add it to a <code>.env</code> file for your project. Use the command shown below.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">Bash</span>
+          <span class="code-file"># terminal / .env</span>
+          <button class="code-copy" data-code="env">Copy</button>
+        </div>
+        <div class="code-body"><pre><span class="cm"># Add to your shell profile (~/.zshrc or ~/.bashrc) for persistence</span>
+<span class="kw">export</span> GROQ_API_KEY<span class="op">=</span><span class="st">"gsk_your_key_here"</span>
+
+<span class="cm"># Or create a .env file in your project root</span>
+<span class="nm">GROQ_API_KEY</span><span class="op">=</span>gsk_your_key_here</pre></div>
+      </div>
+
+      <div class="step" style="margin-top:0">
+        <span class="step-num">04</span>
+        <div class="step-body">
+          <span class="step-tag">Python 3.8+</span>
+          <div class="step-title">Install the Groq Python SDK</div>
+          <p class="step-desc">The Groq SDK is a thin, well-maintained package. It wraps the REST API and handles streaming, retries, and error handling. Install it with pip.</p>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">Bash</span>
+          <span class="code-file"># install</span>
+          <button class="code-copy" data-code="install">Copy</button>
+        </div>
+        <div class="code-body"><pre>pip install groq python-dotenv</pre></div>
+      </div>
+
+      <div class="callout orange">
+        <span class="callout-label">⚠️ Free Tier Rate Limits</span>
+        <p>GroqCloud's free tier enforces rate limits: approximately 30 requests per minute and 14,400 requests per day for Llama 3 70B. For development and prototyping this is generous. For production traffic, upgrade to a paid plan before going live.</p>
+      </div>
+
+      <!-- ═══ CH3 ═══ -->
+      <h2 id="ch3">Chapter 3 — How to Use the Groq API for Fast AI Apps</h2>
+
+      <p>Learning <a href="how-to-use-groq-api-for-fast-ai-apps.html"><strong>how to use the Groq API for fast AI apps</strong></a> starts with the simplest possible call and builds toward production-ready patterns. Every example in this chapter is runnable as-is after setting your API key.</p>
+
+      <h3>Your First API Call</h3>
+      <p>The following is the minimum viable Groq API call. It sends a user message, waits for the complete response, and prints it. Notice the structure — <code>client</code>, <code>chat.completions.create()</code>, <code>model</code>, <code>messages</code> — this is identical to the OpenAI SDK pattern intentionally.</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">Python</span>
+          <span class="code-file">first_call.py</span>
+          <button class="code-copy" data-code="first">Copy</button>
+        </div>
+        <div class="code-body"><pre><span class="kw">from</span> groq <span class="kw">import</span> <span class="cl">Groq</span>
+<span class="kw">import</span> os
+
+<span class="cm"># Initialise client — picks up GROQ_API_KEY from environment</span>
+client <span class="op">=</span> <span class="cl">Groq</span>()
+
+<span class="cm"># Single non-streaming completion</span>
+response <span class="op">=</span> client.chat.completions.<span class="fn">create</span>(
+    model<span class="op">=</span><span class="st">"llama3-70b-8192"</span>,
+    messages<span class="op">=</span>[
+        {<span class="st">"role"</span><span class="op">:</span> <span class="st">"user"</span><span class="op">,</span> <span class="st">"content"</span><span class="op">:</span> <span class="st">"Explain what the Groq LPU is in two sentences."</span>}
+    ],
+    max_tokens<span class="op">=</span><span class="nm">200</span>
+)
+
+<span class="bi">print</span>(response.choices[<span class="nm">0</span>].message.content)
+<span class="bi">print</span>(<span class="st">f"\nTokens used: {response.usage.total_tokens}"</span>)</pre></div>
+      </div>
+
+      <h3>Adding a System Prompt</h3>
+      <p>A system prompt is how you give your AI app a personality, scope, and behavioural constraints. It is passed as the first message in the <code>messages</code> list with <code>"role": "system"</code>. For fast AI apps — where you want consistent, focused outputs — a tight system prompt is one of the highest-leverage things you can do.</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">Python</span>
+          <span class="code-file">with_system_prompt.py</span>
+          <button class="code-copy" data-code="system">Copy</button>
+        </div>
+        <div class="code-body"><pre><span class="kw">from</span> groq <span class="kw">import</span> <span class="cl">Groq</span>
+
+client <span class="op">=</span> <span class="cl">Groq</span>()
+
+SYSTEM_PROMPT <span class="op">=</span> <span class="st">"""You are a concise technical assistant specialising in AI infrastructure.
+Answer questions in plain English. Use bullet points for lists.
+Never exceed 150 words per response unless explicitly asked."""</span>
+
+response <span class="op">=</span> client.chat.completions.<span class="fn">create</span>(
+    model<span class="op">=</span><span class="st">"llama3-70b-8192"</span>,
+    messages<span class="op">=</span>[
+        {<span class="st">"role"</span><span class="op">:</span> <span class="st">"system"</span><span class="op">,</span> <span class="st">"content"</span><span class="op">:</span> SYSTEM_PROMPT},
+        {<span class="st">"role"</span><span class="op">:</span> <span class="st">"user"</span><span class="op">,</span>   <span class="st">"content"</span><span class="op">:</span> <span class="st">"What are the main use cases for Groq?"</span>}
+    ],
+    temperature<span class="op">=</span><span class="nm">0.7</span>,
+    max_tokens<span class="op">=</span><span class="nm">300</span>
+)
+
+<span class="bi">print</span>(response.choices[<span class="nm">0</span>].message.content)</pre></div>
+      </div>
+
+      <h3>Streaming Responses in Real Time</h3>
+      <p>Streaming is where Groq's speed advantage becomes viscerally apparent. Instead of waiting for the full response, you receive tokens as they are generated and print them immediately. At 750 tokens/sec, a 200-token response streams in under 300ms — fast enough to feel instant. This is the pattern every fast AI app should use for user-facing output.</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">Python</span>
+          <span class="code-file">streaming.py</span>
+          <button class="code-copy" data-code="stream">Copy</button>
+        </div>
+        <div class="code-body"><pre><span class="kw">from</span> groq <span class="kw">import</span> <span class="cl">Groq</span>
+
+client <span class="op">=</span> <span class="cl">Groq</span>()
+
+<span class="cm"># stream=True returns a generator of delta chunks</span>
+stream <span class="op">=</span> client.chat.completions.<span class="fn">create</span>(
+    model<span class="op">=</span><span class="st">"llama3-70b-8192"</span>,
+    messages<span class="op">=</span>[{<span class="st">"role"</span><span class="op">:</span> <span class="st">"user"</span><span class="op">,</span> <span class="st">"content"</span><span class="op">:</span> <span class="st">"Write a short poem about fast AI."</span>}],
+    stream<span class="op">=</span><span class="nm">True</span>,
+    max_tokens<span class="op">=</span><span class="nm">200</span>
+)
+
+<span class="bi">print</span>(<span class="st">"Groq response: "</span>, end<span class="op">=</span><span class="st">""</span>, flush<span class="op">=</span><span class="nm">True</span>)
+<span class="kw">for</span> chunk <span class="kw">in</span> stream:
+    delta <span class="op">=</span> chunk.choices[<span class="nm">0</span>].delta.content
+    <span class="kw">if</span> delta:
+        <span class="bi">print</span>(delta, end<span class="op">=</span><span class="st">""</span>, flush<span class="op">=</span><span class="nm">True</span>)
+<span class="bi">print</span>()  <span class="cm"># newline after stream ends</span></pre></div>
+      </div>
+
+      <!-- ILINK to API guide -->
+      <a href="how-to-use-groq-api-for-fast-ai-apps.html" class="ilink" aria-label="Deep dive: How to Use Groq API for Fast AI Apps">
+        <span class="ilink-icon">⚡</span>
+        <div class="ilink-body">
+          <span class="ilink-tag">Deep Dive · API Patterns</span>
+          <div class="ilink-title">How to Use the Groq API for Fast AI Apps</div>
+          <div class="ilink-desc">Advanced patterns for production: async calls, retry logic, token counting, cost management, error handling, and building multi-step AI pipelines with Groq at scale.</div>
+        </div>
+        <span class="ilink-arrow">Read →</span>
+      </a>
+
+      <!-- ═══ CH4 ═══ -->
+      <h2 id="ch4">Chapter 4 — Groq API Key Concepts Every Beginner Must Know</h2>
+
+      <p>Before building the full chatbot, there are four API concepts that will save you hours of debugging and help you write better AI apps from the start. These are specific to how <strong>how to use the Groq API for fast AI apps</strong> correctly — not just how to make it work.</p>
+
+      <h3>1. The Messages Array Is Your State</h3>
+      <p>The Groq API (like all LLM APIs) is <strong>stateless</strong>. Each request is independent. The model has no memory of your previous call unless you explicitly include the conversation history in the <code>messages</code> array. For a chatbot, this means you must append every user message and every assistant response to the array before sending the next request. This is the single most important concept in building any conversational AI app.</p>
+
+      <h3>2. Temperature Controls Creativity vs Consistency</h3>
+      <p>The <code>temperature</code> parameter (0.0 to 2.0) controls how random the model's outputs are. <code>temperature=0.0</code> gives you the most consistent, deterministic outputs — best for structured tasks like JSON extraction, classification, or code generation. <code>temperature=0.7–1.0</code> gives more creative, varied outputs — best for writing, brainstorming, and conversational chatbots. Start at <code>0.7</code> for most chatbot use cases.</p>
+
+      <h3>3. Max Tokens vs Context Window</h3>
+      <p><code>max_tokens</code> limits the length of the model's response. The context window (8,192 tokens for most GroqCloud models) limits the total size of the input + output combined. If your messages array grows too large and exceeds 8,192 tokens, the API will return an error. For long chatbots, implement a <strong>sliding window</strong> that drops the oldest messages when the context approaches the limit.</p>
+
+      <h3>4. The Stop Parameter for Structured Output</h3>
+      <p>For fast AI apps that need structured outputs (JSON, CSV, specific formats), the <code>stop</code> parameter tells the model to stop generating at a specific string. Combined with a well-crafted system prompt, this reliably produces machine-parseable outputs without complex post-processing.</p>
+
+      <div class="bench-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Recommended Value</th>
+              <th>Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>temperature</code></td><td class="td-hl">0.0</td><td>Code gen, extraction, classification</td></tr>
+            <tr><td><code>temperature</code></td><td class="td-hl">0.7</td><td>Chatbots, content generation</td></tr>
+            <tr><td><code>temperature</code></td><td class="td-hl">1.0–1.2</td><td>Creative writing, brainstorming</td></tr>
+            <tr><td><code>max_tokens</code></td><td class="td-g">512–1024</td><td>Chatbot responses (most cases)</td></tr>
+            <tr><td><code>max_tokens</code></td><td class="td-g">50–100</td><td>Classification / routing tasks</td></tr>
+            <tr><td><code>stream</code></td><td class="td-hl">True</td><td>Any user-facing output</td></tr>
+            <tr><td><code>stream</code></td><td class="td-o">False</td><td>Batch processing, structured extraction</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>For a deeper look at how these parameters affect speed and cost at scale — including async batching, pipeline optimisation, and production error handling — the <a href="how-to-use-groq-api-for-fast-ai-apps.html"><strong>complete Groq API guide for fast AI apps</strong></a> covers every advanced pattern.</p>
+
+      <!-- CTA -->
+      <div class="cta-inline">
+        <h3>Get AI Dev Tutorials Every Week</h3>
+        <p>Join 4,200+ developers getting practical AI tutorials, API updates, and tool breakdowns — every Tuesday. Free forever.</p>
+        <a href="../contact.html" class="cta-btn">Subscribe Free →</a>
+      </div>
+
+      <!-- ═══ CH5 ═══ -->
+      <h2 id="ch5">Chapter 5 — Groq AI Chatbot Development: Build a Full Streaming Chatbot</h2>
+
+      <p>This chapter is the practical core of the tutorial. We are building a complete <a href="groq-ai-for-chatbot-development.html"><strong>Groq AI chatbot</strong></a> from scratch — a terminal-based streaming chatbot with conversation memory, a customisable system prompt, graceful error handling, and a context window manager. Every pattern here transfers directly to a web or voice application.</p>
+
+      <h3>What the Chatbot Does</h3>
+      <ul>
+        <li><strong>Streams responses</strong> in real time at full LPU speed</li>
+        <li><strong>Maintains conversation history</strong> across the entire session</li>
+        <li><strong>Handles context overflow</strong> by trimming old messages automatically</li>
+        <li><strong>Counts tokens used</strong> per turn and displays them</li>
+        <li><strong>Supports graceful exit</strong> with Ctrl+C or typing "exit"</li>
+      </ul>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">Python</span>
+          <span class="code-file">groq_chatbot.py</span>
+          <button class="code-copy" data-code="chatbot">Copy</button>
+        </div>
+        <div class="code-body"><pre><span class="kw">from</span> groq <span class="kw">import</span> <span class="cl">Groq</span>
+<span class="kw">import</span> os
+<span class="kw">import</span> sys
+
+<span class="cm"># ── Configuration ──────────────────────────────────────────────</span>
+MODEL           <span class="op">=</span> <span class="st">"llama3-70b-8192"</span>
+MAX_TOKENS      <span class="op">=</span> <span class="nm">1024</span>        <span class="cm"># max response length</span>
+CONTEXT_LIMIT   <span class="op">=</span> <span class="nm">7000</span>        <span class="cm"># trim history before hitting 8192 window</span>
+TEMPERATURE     <span class="op">=</span> <span class="nm">0.7</span>
+
+SYSTEM_PROMPT <span class="op">=</span> <span class="st">"""You are a helpful, concise AI assistant powered by Groq.
+You answer questions clearly and directly. When writing code, use code blocks.
+Keep responses focused and under 300 words unless the user asks for more."""</span>
+
+<span class="cm"># ── Context Window Manager ─────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">estimate_tokens</span>(messages<span class="op">:</span> list) <span class="op">-></span> <span class="cl">int</span>:
+    <span class="st">"""Rough estimate: 1 token ≈ 4 characters."""</span>
+    total <span class="op">=</span> <span class="nm">0</span>
+    <span class="kw">for</span> msg <span class="kw">in</span> messages:
+        total <span class="op">+=</span> <span class="bi">len</span>(msg[<span class="st">"content"</span>]) <span class="op">//</span> <span class="nm">4</span>
+    <span class="kw">return</span> total
+
+<span class="kw">def</span> <span class="fn">trim_history</span>(messages<span class="op">:</span> list, limit<span class="op">:</span> <span class="cl">int</span>) <span class="op">-></span> list:
+    <span class="st">"""Remove oldest user/assistant pairs when context exceeds limit."""</span>
+    <span class="kw">while</span> <span class="fn">estimate_tokens</span>(messages) <span class="op">></span> limit <span class="kw">and</span> <span class="bi">len</span>(messages) <span class="op">></span> <span class="nm">2</span>:
+        messages.<span class="fn">pop</span>(<span class="nm">0</span>)  <span class="cm"># remove oldest message</span>
+    <span class="kw">return</span> messages
+
+<span class="cm"># ── Single Chat Turn ───────────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">chat_turn</span>(client<span class="op">:</span> <span class="cl">Groq</span>, history<span class="op">:</span> list, user_input<span class="op">:</span> <span class="cl">str</span>) <span class="op">-></span> <span class="cl">str</span>:
+    history.<span class="fn">append</span>({<span class="st">"role"</span><span class="op">:</span> <span class="st">"user"</span><span class="op">,</span> <span class="st">"content"</span><span class="op">:</span> user_input})
+    history <span class="op">=</span> <span class="fn">trim_history</span>(history, CONTEXT_LIMIT)
+
+    full_messages <span class="op">=</span> [{<span class="st">"role"</span><span class="op">:</span> <span class="st">"system"</span><span class="op">,</span> <span class="st">"content"</span><span class="op">:</span> SYSTEM_PROMPT}] <span class="op">+</span> history
+
+    stream <span class="op">=</span> client.chat.completions.<span class="fn">create</span>(
+        model<span class="op">=</span>MODEL,
+        messages<span class="op">=</span>full_messages,
+        temperature<span class="op">=</span>TEMPERATURE,
+        max_tokens<span class="op">=</span>MAX_TOKENS,
+        stream<span class="op">=</span><span class="nm">True</span>
+    )
+
+    <span class="bi">print</span>(<span class="st">"\n\033[96mAssistant:\033[0m "</span>, end<span class="op">=</span><span class="st">""</span>, flush<span class="op">=</span><span class="nm">True</span>)
+    full_response <span class="op">=</span> <span class="st">""</span>
+
+    <span class="kw">for</span> chunk <span class="kw">in</span> stream:
+        delta <span class="op">=</span> chunk.choices[<span class="nm">0</span>].delta.content
+        <span class="kw">if</span> delta:
+            <span class="bi">print</span>(delta, end<span class="op">=</span><span class="st">""</span>, flush<span class="op">=</span><span class="nm">True</span>)
+            full_response <span class="op">+=</span> delta
+
+    <span class="bi">print</span>(<span class="st">"\n"</span>)
+    history.<span class="fn">append</span>({<span class="st">"role"</span><span class="op">:</span> <span class="st">"assistant"</span><span class="op">,</span> <span class="st">"content"</span><span class="op">:</span> full_response})
+    <span class="kw">return</span> full_response
+
+<span class="cm"># ── Main Loop ──────────────────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">main</span>():
+    client  <span class="op">=</span> <span class="cl">Groq</span>()
+    history <span class="op">=</span> []
+
+    <span class="bi">print</span>(<span class="st">"\033[96m╔══════════════════════════════════════╗\033[0m"</span>)
+    <span class="bi">print</span>(<span class="st">"\033[96m║     Groq AI Chatbot  •  LPU Speed    ║\033[0m"</span>)
+    <span class="bi">print</span>(<span class="st">"\033[96m║     Model: llama3-70b-8192           ║\033[0m"</span>)
+    <span class="bi">print</span>(<span class="st">"\033[96m║     Type 'exit' to quit              ║\033[0m"</span>)
+    <span class="bi">print</span>(<span class="st">"\033[96m╚══════════════════════════════════════╝\033[0m\n"</span>)
+
+    <span class="kw">while</span> <span class="nm">True</span>:
+        <span class="kw">try</span>:
+            user_input <span class="op">=</span> <span class="bi">input</span>(<span class="st">"\033[93mYou:\033[0m "</span>).<span class="fn">strip</span>()
+            <span class="kw">if not</span> user_input:
+                <span class="kw">continue</span>
+            <span class="kw">if</span> user_input.<span class="fn">lower</span>() <span class="kw">in</span> (<span class="st">"exit"</span><span class="op">,</span> <span class="st">"quit"</span><span class="op">,</span> <span class="st">"bye"</span>):
+                <span class="bi">print</span>(<span class="st">"Goodbye!"</span>)
+                <span class="kw">break</span>
+            <span class="fn">chat_turn</span>(client, history, user_input)
+        <span class="kw">except</span> <span class="cl">KeyboardInterrupt</span>:
+            <span class="bi">print</span>(<span class="st">"\n\nExiting."</span>)
+            sys.<span class="fn">exit</span>(<span class="nm">0</span>)
+
+<span class="kw">if</span> __name__ <span class="op">==</span> <span class="st">"__main__"</span>:
+    <span class="fn">main</span>()</pre></div>
+      </div>
+
+      <p>Run this with <code>python groq_chatbot.py</code>. You will see the Groq LPU speed firsthand — responses stream back within 200–300ms of pressing Enter, noticeably faster than any other inference API.</p>
+
+      <h3>Adding Web Interface with FastAPI + SSE</h3>
+      <p>Extending this to a web application takes roughly 30 additional lines. The key pattern is <strong>Server-Sent Events (SSE)</strong>: your FastAPI backend streams Groq's token chunks directly to the browser as they arrive, giving users the same real-time streaming experience in a web UI.</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">Python</span>
+          <span class="code-file">web_chatbot.py — FastAPI + SSE</span>
+          <button class="code-copy" data-code="fastapi">Copy</button>
+        </div>
+        <div class="code-body"><pre><span class="kw">from</span> fastapi <span class="kw">import</span> <span class="cl">FastAPI</span>
+<span class="kw">from</span> fastapi.responses <span class="kw">import</span> <span class="cl">StreamingResponse</span>
+<span class="kw">from</span> pydantic <span class="kw">import</span> <span class="cl">BaseModel</span>
+<span class="kw">from</span> groq <span class="kw">import</span> <span class="cl">Groq</span>
+<span class="kw">from</span> typing <span class="kw">import</span> <span class="cl">List</span>
+
+app    <span class="op">=</span> <span class="cl">FastAPI</span>()
+client <span class="op">=</span> <span class="cl">Groq</span>()
+
+<span class="kw">class</span> <span class="cl">Message</span>(<span class="cl">BaseModel</span>):
+    role<span class="op">:</span>    <span class="cl">str</span>
+    content<span class="op">:</span> <span class="cl">str</span>
+
+<span class="kw">class</span> <span class="cl">ChatRequest</span>(<span class="cl">BaseModel</span>):
+    messages<span class="op">:</span> <span class="cl">List</span>[<span class="cl">Message</span>]
+    model<span class="op">:</span>    <span class="cl">str</span> <span class="op">=</span> <span class="st">"llama3-70b-8192"</span>
+
+<span class="kw">def</span> <span class="fn">token_stream</span>(messages, model):
+    stream <span class="op">=</span> client.chat.completions.<span class="fn">create</span>(
+        model<span class="op">=</span>model,
+        messages<span class="op">=</span>[m.<span class="fn">dict</span>() <span class="kw">for</span> m <span class="kw">in</span> messages],
+        stream<span class="op">=</span><span class="nm">True</span>,
+        max_tokens<span class="op">=</span><span class="nm">1024</span>
+    )
+    <span class="kw">for</span> chunk <span class="kw">in</span> stream:
+        delta <span class="op">=</span> chunk.choices[<span class="nm">0</span>].delta.content
+        <span class="kw">if</span> delta:
+            <span class="kw">yield</span> <span class="st">f"data: {delta}\n\n"</span>  <span class="cm"># SSE format</span>
+
+<span class="op">@</span>app.<span class="fn">post</span>(<span class="st">"/chat"</span>)
+<span class="kw">async def</span> <span class="fn">chat</span>(req<span class="op">:</span> <span class="cl">ChatRequest</span>):
+    <span class="kw">return</span> <span class="cl">StreamingResponse</span>(
+        <span class="fn">token_stream</span>(req.messages, req.model),
+        media_type<span class="op">=</span><span class="st">"text/event-stream"</span>
+    )</pre></div>
+      </div>
+
+      <!-- ILINK to chatbot guide -->
+      <a href="groq-ai-for-chatbot-development.html" class="ilink" aria-label="Deep dive: Groq AI for Chatbot Development">
+        <span class="ilink-icon">🤖</span>
+        <div class="ilink-body">
+          <span class="ilink-tag">Deep Dive · Chatbot Development</span>
+          <div class="ilink-title">Groq AI for Chatbot Development</div>
+          <div class="ilink-desc">The complete chatbot guide — multi-turn memory architectures, RAG integration, voice chatbot patterns, production deployment, and handling edge cases at scale.</div>
+        </div>
+        <span class="ilink-arrow">Read →</span>
+      </a>
+
+      <!-- ═══ CH6 ═══ -->
+      <h2 id="ch6">Chapter 6 — Next Steps: Where to Go From Here</h2>
+
+      <p>You have the foundations of <a href="groq-ai-for-chatbot-development.html"><strong>Groq AI chatbot development</strong></a> working. Here is the clearest path to level up from beginner to production-ready developer on the platform.</p>
+
+      <h3>Immediate Next Steps</h3>
+      <ul>
+        <li><strong>Experiment with model switching:</strong> Try the same chatbot with <code>llama3-8b-8192</code> for a speed demonstration — over 1,200 tokens/sec is even more dramatically fast.</li>
+        <li><strong>Add a web frontend:</strong> Connect the FastAPI SSE endpoint to a simple HTML/JS frontend. The browser's <code>EventSource</code> API handles SSE streaming natively with 5 lines of JavaScript.</li>
+        <li><strong>Implement function calling:</strong> GroqCloud supports tool/function calling — the pattern that lets your AI app call external APIs, query databases, and take real-world actions mid-conversation.</li>
+        <li><strong>Build a RAG pipeline:</strong> Combine Groq with a vector database (Pinecone, Qdrant, or Chroma) to give your chatbot access to private documents at LPU inference speed.</li>
+      </ul>
+
+      <h3>Deeper Learning: NeuraPulse Guide Library</h3>
+      <p>The following three guides form the complete knowledge foundation for building serious AI applications with Groq. Each goes deeper than this tutorial into its specific domain.</p>
+
+      <div style="margin: 20px 0;">
+        <a href="../guide/what-is-groq-chip-how-it-works.html" class="glink" aria-label="Read: What Is the Groq Chip and How Does It Work?">
+          <span class="glink-badge">Architecture</span>
+          <div>
+            <div class="glink-title">What Is the Groq Chip and How Does It Work?</div>
+            <div class="glink-sub">LPU architecture, on-chip SRAM, deterministic execution — why the hardware is this fast</div>
+          </div>
+        </a>
+        <a href="../guide/groq-speed-performance-guide.html" class="glink" aria-label="Read: Groq Speed and Performance Guide">
+          <span class="glink-badge">Performance</span>
+          <div>
+            <div class="glink-title">Groq Speed &amp; Performance Guide</div>
+            <div class="glink-sub">Benchmarks, throughput analysis, latency data, and how to maximise performance in production</div>
+          </div>
+        </a>
+        <a href="../guide/groq-vs-nvidia-ai-inference-2026.html" class="glink" aria-label="Read: Groq vs NVIDIA AI Inference 2026">
+          <span class="glink-badge">Comparison</span>
+          <div>
+            <div class="glink-title">Groq vs NVIDIA — AI Inference 2026</div>
+            <div class="glink-sub">Complete platform comparison: NVIDIA, OpenAI, Gemini, Claude — when to use each</div>
+          </div>
+        </a>
+      </div>
+
+      <hr />
+
+      <!-- FAQ -->
+      <h2 id="faq">Frequently Asked Questions</h2>
+
+      <div class="faq">
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">Do I need to know machine learning to use the Groq API?<span class="faq-icon">+</span></div>
+          <div class="faq-a">No. The Groq API is a standard HTTP REST API. If you know how to make function calls in Python (or JavaScript, Go, Rust — any language), you can use it. You are calling a finished AI model as a service, not training or building one. Basic Python knowledge — variables, loops, functions — is all you need to follow this tutorial.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">Is the Groq free tier good enough to build a real product?<span class="faq-icon">+</span></div>
+          <div class="faq-a">For development, prototyping, and small-scale demos, yes. The free tier gives you ~30 requests per minute, which is enough to build and test any application. For a publicly deployed product with real user traffic, you will need a paid plan to get guaranteed throughput and higher rate limits. Groq's paid pricing is among the most competitive in the industry — roughly $0.59 per million input tokens for Llama 3 70B.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">Can I use the Groq API with JavaScript or Node.js instead of Python?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Yes. Groq has an official JavaScript/TypeScript SDK (npm: groq-sdk) with the same API structure as the Python SDK. The patterns in this tutorial — system prompts, streaming, conversation history — translate directly. You can also call the REST API directly with fetch() in any language, since GroqCloud is OpenAI-compatible. If you have the openai npm package, you can use GroqCloud by changing the baseURL to https://api.groq.com/openai/v1 and your API key.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">What happens when a conversation gets too long for the context window?<span class="faq-icon">+</span></div>
+          <div class="faq-a">GroqCloud will return a context length error if your messages array exceeds 8,192 tokens (for most models). The chatbot in Chapter 5 handles this with the trim_history() function, which removes the oldest messages when the estimated token count approaches the limit. For production chatbots, a more sophisticated approach is to summarise old conversation segments using a fast Groq call (Llama 3 8B works well for this) and replace the raw history with the summary.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">How does Groq chatbot development compare to building with OpenAI or Claude?<span class="faq-icon">+</span></div>
+          <div class="faq-a">The development experience is nearly identical — Groq is OpenAI-compatible, so if you have built with OpenAI before, the code migration takes minutes. The main differences are: Groq is 6–10× faster (visible immediately in streaming), Groq has a smaller context window (8K vs 128K for GPT-4o), and Groq only hosts open-source models. For most chatbot use cases — customer support, Q&A, general assistants — Llama 3 70B on Groq delivers excellent quality at dramatically better speed.</div>
+        </div>
+      </div>
+
+      <!-- CONCLUSION -->
+      <h2 id="conclusion">The Bottom Line</h2>
+      <p>The <strong>Groq AI platform</strong> is the fastest way to get a working AI application into your hands in 2026. The free tier requires no credit card. The SDK takes 30 seconds to install. The API is OpenAI-compatible, so existing knowledge transfers directly. And the speed — 750+ tokens per second on a 70B model — makes every streaming interface feel genuinely different from anything you have built on slower infrastructure.</p>
+
+      <p>The chatbot in Chapter 5 is production-structured, not a toy. The streaming FastAPI server in the web extension is the same pattern powering real applications. Take it, extend it, and if you hit the rate limits fast — that is a good problem to have.</p>
+
+      <div class="callout">
+        <span class="callout-label">🔗 Continue the Series</span>
+        <p>This tutorial is the starting point for three deeper guides. For advanced API patterns and production best practices, read <a href="how-to-use-groq-api-for-fast-ai-apps.html">How to Use the Groq API for Fast AI Apps</a>. For the complete chatbot architecture guide — multi-turn memory, RAG, voice, deployment — read <a href="groq-ai-for-chatbot-development.html">Groq AI for Chatbot Development</a>. And to understand the hardware making all of this fast, the <a href="../guide/what-is-groq-chip-how-it-works.html">Groq chip architecture guide</a> is the essential foundation.</p>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" aria-label="Article sidebar">
+    <div class="scard">
+      <div class="scard-title">Reading Progress</div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <ul class="toc-list" id="toc">
+        <li><a href="#ch1">1. What Is Groq Platform?</a></li>
+        <li><a href="#ch2">2. Account &amp; API Key Setup</a></li>
+        <li><a href="#ch3">3. Using the Groq API</a></li>
+        <li><a href="#ch4">4. Key API Concepts</a></li>
+        <li><a href="#ch5">5. Build a Chatbot</a></li>
+        <li><a href="#ch6">6. Next Steps</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#conclusion">Bottom Line</a></li>
+      </ul>
+    </div>
+
+    <div class="scard">
+      <div class="scard-title">Tutorial Series</div>
+      <div class="related-list">
+        <a href="groq-ai-platform-tutorial-beginners.html" class="related-item">
+          <span class="related-icon">📗</span>
+          <div>
+            <span class="related-cat" style="color:var(--green)">You Are Here</span>
+            <div class="related-title">Groq AI Platform Tutorial for Beginners</div>
+          </div>
+        </a>
+        <a href="how-to-use-groq-api-for-fast-ai-apps.html" class="related-item">
+          <span class="related-icon">⚡</span>
+          <div>
+            <span class="related-cat">API Deep Dive</span>
+            <div class="related-title">How to Use Groq API for Fast AI Apps</div>
+          </div>
+        </a>
+        <a href="groq-ai-for-chatbot-development.html" class="related-item">
+          <span class="related-icon">🤖</span>
+          <div>
+            <span class="related-cat">Chatbot Guide</span>
+            <div class="related-title">Groq AI for Chatbot Development</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="scard">
+      <div class="scard-title">NeuraPulse Guides</div>
+      <div class="related-list">
+        <a href="../guide/what-is-groq-chip-how-it-works.html" class="related-item">
+          <span class="related-icon">🔬</span>
+          <div>
+            <span class="related-cat">Architecture</span>
+            <div class="related-title">What Is the Groq Chip? Complete Guide</div>
+          </div>
+        </a>
+        <a href="../guide/groq-speed-performance-guide.html" class="related-item">
+          <span class="related-icon">📊</span>
+          <div>
+            <span class="related-cat">Performance</span>
+            <div class="related-title">Groq Speed &amp; Performance Guide</div>
+          </div>
+        </a>
+        <a href="../guide/groq-vs-nvidia-ai-inference-2026.html" class="related-item">
+          <span class="related-icon">⚔️</span>
+          <div>
+            <span class="related-cat">Comparison</span>
+            <div class="related-title">Groq vs NVIDIA AI Inference 2026</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="scard" style="text-align:center;">
+      <div class="scard-title">Part of NeuraPulse Guides</div>
+      <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:14px;font-weight:300;">Deep-dive tutorials, benchmarks, and guides on every major AI topic.</p>
+      <a href="../guide.html" class="cta-btn" style="display:inline-block;font-size:0.72rem;">View All Guides →</a>
+    </div>
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">Neura<span>Pulse</span></span>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="../index.html">Home</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../guide.html">Guide</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../sitemap.html">Sitemap</a>
+    </nav>
+    <p class="footer-copy">© 2026 NeuraPulse · Prashant Lalwani</p>
+  </div>
+</footer>
+
+<button id="np-top" aria-label="Scroll to top">↑</button>
+
+<script>
+  // Mobile nav
+  const ham = document.getElementById('np-ham');
+  const mob = document.getElementById('np-mob');
+  ham.addEventListener('click', () => {
+    const open = mob.classList.toggle('open');
+    ham.classList.toggle('open', open);
+    ham.setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('click', e => {
+    if (!ham.contains(e.target) && !mob.contains(e.target)) {
+      mob.classList.remove('open'); ham.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Scroll to top
+  const topBtn = document.getElementById('np-top');
+  window.addEventListener('scroll', () => topBtn.classList.toggle('show', scrollY > 400), { passive: true });
+  topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Active TOC + reading progress
+  const tocLinks = document.querySelectorAll('.toc-list a');
+  const sections = Array.from(tocLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const progressFill = document.getElementById('progress-fill');
+  const articleBody = document.getElementById('article-body');
+
+  window.addEventListener('scroll', () => {
+    // Active section
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = '#' + s.id; });
+    tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === current));
+    // Reading progress
+    if (articleBody && progressFill) {
+      const rect = articleBody.getBoundingClientRect();
+      const total = articleBody.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const pct = Math.min(100, (scrolled / total) * 100);
+      progressFill.style.width = pct + '%';
+    }
+  }, { passive: true });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    function toggle() { q.closest('.faq-item').classList.toggle('open'); }
+    q.addEventListener('click', toggle);
+    q.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  });
+
+  // Copy code buttons
+  document.querySelectorAll('.code-copy').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const block = btn.closest('.code-block').querySelector('pre');
+      navigator.clipboard.writeText(block.innerText).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    });
+  });
+</script>
+</body>
+</html>

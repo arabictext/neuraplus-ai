@@ -1,10 +1,10 @@
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   NeuraPlusAI · Auto Logo Watermark
-  2026-05-30  13:04:47
+  2026-06-01  08:41:33
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  Found 304 image(s)
+  Found 306 image(s)
 
   assets/images/blog/3d-animated-website-tutorial-2026.jpg⏭  done
   assets/images/blog/50-best-claude-prompts-for-developers.jpg⏭  done
@@ -166,11 +166,13 @@
   assets/images/blog/how-to-build-automation-using-openclaw-ai.jpg⏭  done
   assets/images/blog/how-to-connect-google-sheets-to-zapier.jpg⏭  done
   assets/images/blog/how-to-create-ai-art.jpg            ⏭  done
-  assets/images/blog/how-to-create-ai-thumbnails.jpg     ✅
+  assets/images/blog/how-to-create-ai-characters.jpg     ✅
+  assets/images/blog/how-to-create-ai-thumbnails.jpg     ⏭  done
   assets/images/blog/how-to-create-faceless-youtube-videos-with-elevenlabs-2027.jpg⏭  done
   assets/images/blog/how-to-create-realistic-voice-using-elevenlabs-ai-tool-2026.jpg⏭  done
   assets/images/blog/how-to-deploy-ai-models-on-coreweave.jpg⏭  done
   assets/images/blog/how-to-find-viral-content-ideas-from-reddit-for-blog.jpg⏭  done
+  assets/images/blog/how-to-generate-ai-headshots.jpg    ✅
   assets/images/blog/how-to-generate-ai-images.jpg       ⏭  done
   assets/images/blog/how-to-generate-backlinks-ai-automation.jpg⏭  done
   assets/images/blog/how-to-get-best-results-from-perplexity-ai.jpg⏭  done
@@ -181,9 +183,9 @@
   assets/images/blog/how-to-host-n8n-on-server-free-step-by-step-guide.jpg⏭  done
   assets/images/blog/how-to-increase-ai-answer-traffic.jpg⏭  done
   assets/images/blog/how-to-make-ai-photos.jpg           ⏭  done
-  assets/images/blog/how-to-make-ai-product-photos.jpg   ✅
+  assets/images/blog/how-to-make-ai-product-photos.jpg   ⏭  done
   assets/images/blog/how-to-make-money-using-elevenlabs-ai-voice-tool-2026.jpg⏭  done
-  assets/images/blog/how-to-make-realistic-ai-images.jpg ✅
+  assets/images/blog/how-to-make-realistic-ai-images.jpg ⏭  done
   assets/images/blog/how-to-optimize-blogs-for-ai-search.jpg⏭  done
   assets/images/blog/how-to-optimize-content-for-geo.jpg ⏭  done
   assets/images/blog/how-to-play-google-gravity-game-controls.jpg⏭  done
@@ -312,10 +314,10 @@
   assets/images/blog/zapier-workflow-ideas-to-save-time-in-business.jpg⏭  done
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  ✅  Processed : 3
-  ⏭   Skipped   : 301  (already done)
+  ✅  Processed : 2
+  ⏭   Skipped   : 304  (already done)
   ❌  Errors    : 0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  git add . && git commit -m '🖼 Logo on 3 images' && git push
+  git add . && git commit -m '🖼 Logo on 2 images' && git push
 

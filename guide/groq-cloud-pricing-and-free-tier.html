@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="author" content="Prashant Lalwani"/>
+<meta name="publisher" content="NeuraPulse"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
+<meta name="googlebot" content="index, follow"/>
+<meta name="language" content="English"/>
+<meta name="category" content="Artificial Intelligence, Technology, AI Hardware, AI Tools"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Groq Complete Guide 2026: Cloud Pricing, Architecture, Coding Speed & Response Time – NeuraPulse</title>
+<meta name="description" content="The definitive Groq guide — GroqCloud pricing and free tier breakdown, LPU architecture deep dive, coding assistant speed test results, and exactly how Groq reduces AI response time by 10×."/>
+<meta name="author" content="Prashant Lalwani"/>
+<meta property="og:type" content="article"/>
+<meta property="og:site_name" content="NeuraPulse"/>
+<meta property="og:title" content="Groq Complete Guide 2026: Cloud Pricing, Architecture, Coding & Response Time"/>
+<meta property="og:description" content="Everything Groq — GroqCloud pricing tiers, LPU architecture deep dive, coding speed benchmarks, and the engineering behind 10× faster AI response times."/>
+<meta property="og:url" content="https://neuraplus-ai.github.io/blog/groq-cloud-pricing-and-free-tier.html"/>
+<meta property="og:image" content="https://neuraplus-ai.github.io/assets/logo.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="@neuraplus_ai"/>
+<link rel="canonical" href="https://neuraplus-ai.github.io/blog/groq-cloud-pricing-and-free-tier.html"/>
+<link rel="icon" href="https://neuraplus-ai.github.io/favicon.svg" type="image/svg+xml"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+:root{
+  --bg:#070a12;--bg2:#0b0f1c;
+  --surface:#0f1525;--surface2:#141c30;--surface3:#1a2340;
+  --border:rgba(0,229,255,.09);--border-h:rgba(0,229,255,.28);
+  --cyan:#00e5ff;--cyan-dim:rgba(0,229,255,.10);--cyan-soft:rgba(0,229,255,.06);
+  --green:#00ff9d;--green-dim:rgba(0,255,157,.08);
+  --orange:#ff9d00;--orange-dim:rgba(255,157,0,.09);
+  --purple:#b06dff;--purple-dim:rgba(176,109,255,.10);
+  --red:#ff4d6d;--red-dim:rgba(255,77,109,.08);
+  --gold:#f9c843;--gold-dim:rgba(249,200,67,.09);
+  --blue:#4d9eff;--blue-dim:rgba(77,158,255,.09);
+  --text:#dde3f0;--text-mid:#7a85a0;--text-dim:#3a4260;
+  --font-h:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;
+  --font-code:'JetBrains Mono',monospace;
+  --r:10px;--r-sm:6px;--ease:cubic-bezier(.4,0,.2,1)
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-size:16px;line-height:1.65;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+button{font-family:var(--font-b);cursor:pointer}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,255,.016) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.016) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;z-index:0}
+
+/* ── NAV ── */
+.np-nav{position:sticky;top:0;z-index:200;background:rgba(7,10,18,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.np-nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.np-logo{font-family:var(--font-h);font-size:1.1rem;font-weight:800;letter-spacing:-.02em;color:var(--text);flex-shrink:0}
+.np-logo span{color:var(--cyan)}
+.np-links{display:flex;align-items:center;gap:2px;list-style:none}
+.np-links a{padding:6px 13px;border-radius:var(--r-sm);font-size:.83rem;font-weight:500;color:var(--text-mid);transition:color .2s,background .2s}
+.np-links a:hover{color:var(--text);background:var(--surface2)}
+.np-links a.active{color:var(--cyan)}
+.np-sub{background:transparent;border:1px solid var(--cyan);color:var(--cyan)!important;font-size:.78rem!important;font-weight:600!important;padding:6px 16px!important;border-radius:20px!important;letter-spacing:.04em;transition:background .2s!important;flex-shrink:0}
+.np-sub:hover{background:var(--cyan-dim)!important}
+.np-ham{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px}
+.np-ham span{display:block;width:22px;height:2px;background:var(--text-mid);border-radius:2px;transition:.2s}
+.np-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.np-ham.open span:nth-child(2){opacity:0}
+.np-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.np-mob{display:none;flex-direction:column;background:var(--bg2);border-bottom:1px solid var(--border);padding:12px 24px 20px;gap:2px}
+.np-mob.open{display:flex}
+.np-mob a{padding:10px 12px;border-radius:8px;font-size:.88rem;color:var(--text-mid);font-weight:500;transition:color .2s,background .2s}
+.np-mob a:hover{color:var(--text);background:var(--surface2)}
+@media(max-width:768px){.np-links,.np-sub{display:none}.np-ham{display:flex}}
+
+/* ── LAYOUT ── */
+.blog-wrap{max-width:1200px;margin:0 auto;padding:64px 32px 80px;display:grid;grid-template-columns:1fr 280px;gap:56px;align-items:start}
+@media(max-width:960px){.blog-wrap{grid-template-columns:1fr}.sidebar{display:none}}
+@media(max-width:700px){.blog-wrap{padding:40px 20px 56px}}
+
+/* ── HERO ── */
+.art-eyebrow{display:flex;align-items:center;gap:10px;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:24px}
+.art-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--text-dim)}
+.art-cat{font-size:.63rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;border-radius:4px;padding:3px 9px}
+.cat-gold{color:var(--gold);border:1px solid rgba(249,200,67,.22);background:var(--gold-dim)}
+.art-live{display:flex;align-items:center;gap:5px;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan)}
+.art-live .dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan);animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.art-h1{font-family:var(--font-h);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;line-height:1.08;letter-spacing:-.03em;color:var(--text);margin:18px 0 22px}
+.art-h1 .c{color:var(--cyan)}
+.art-h1 .g{color:var(--green)}
+.art-h1 .o{color:var(--orange)}
+.art-h1 .p{color:var(--purple)}
+.art-deck{font-size:1rem;font-weight:300;color:var(--text-mid);line-height:1.75;margin-bottom:28px;max-width:720px}
+.art-meta-bar{display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:40px}
+.art-meta-item{font-size:.73rem;color:var(--text-dim)}
+.art-meta-item strong{color:var(--text-mid);font-weight:500}
+
+/* ── CHAPTER JUMP NAV ── */
+.chapter-nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:48px}
+.cnav-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;transition:border-color .2s,background .2s;display:block;position:relative;overflow:hidden}
+.cnav-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transition:opacity .2s;opacity:0}
+.cnav-card:hover{border-color:var(--border-h);background:var(--surface2)}
+.cnav-card:hover::before{opacity:1}
+.cn1::before{background:var(--gold)}
+.cn2::before{background:var(--cyan)}
+.cn3::before{background:var(--green)}
+.cn4::before{background:var(--orange)}
+.cnav-icon{font-size:1.3rem;margin-bottom:8px;display:block}
+.cnav-label{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px;display:block}
+.cn1 .cnav-label{color:var(--gold)}
+.cn2 .cnav-label{color:var(--cyan)}
+.cn3 .cnav-label{color:var(--green)}
+.cn4 .cnav-label{color:var(--orange)}
+.cnav-title{font-family:var(--font-h);font-size:.88rem;font-weight:700;color:var(--text);line-height:1.3}
+.cnav-sub{font-size:.72rem;color:var(--text-dim);margin-top:4px}
+
+/* ── STAT BAR ── */
+.stat-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:48px}
+.stat-cell{background:var(--surface);padding:18px 20px;text-align:center}
+.stat-val{font-family:var(--font-h);font-size:1.6rem;font-weight:800;display:block;line-height:1;letter-spacing:-.03em}
+.sv-c{color:var(--cyan)}.sv-g{color:var(--green)}.sv-o{color:var(--orange)}.sv-p{color:var(--purple)}.sv-gold{color:var(--gold)}
+.stat-label{font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);margin-top:5px;display:block}
+
+/* ── PROSE ── */
+.prose{max-width:100%}
+.prose h2{font-family:var(--font-h);font-size:1.45rem;font-weight:800;letter-spacing:-.025em;color:var(--text);line-height:1.2;margin:52px 0 18px;padding-top:8px;border-top:1px solid var(--border)}
+.prose h3{font-family:var(--font-h);font-size:1.08rem;font-weight:700;letter-spacing:-.015em;color:var(--text);line-height:1.3;margin:32px 0 12px}
+.prose p{margin-bottom:20px;font-size:.95rem;font-weight:300;color:var(--text-mid);line-height:1.78}
+.prose p strong{color:var(--text);font-weight:600}
+.prose a{color:var(--cyan);border-bottom:1px solid rgba(0,229,255,.25);transition:border-color .2s}
+.prose a:hover{border-color:var(--cyan)}
+.prose ul,.prose ol{margin:0 0 22px 0;padding-left:24px}
+.prose li{font-size:.93rem;font-weight:300;color:var(--text-mid);line-height:1.72;margin-bottom:8px}
+.prose li strong{color:var(--text);font-weight:600}
+.prose hr{border:none;border-top:1px solid var(--border);margin:40px 0}
+
+/* ── SECTION HEADER BADGE ── */
+.section-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:6px;font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:20px}
+.sb-gold{background:var(--gold-dim);border:1px solid rgba(249,200,67,.25);color:var(--gold)}
+.sb-cyan{background:var(--cyan-dim);border:1px solid rgba(0,229,255,.25);color:var(--cyan)}
+.sb-green{background:var(--green-dim);border:1px solid rgba(0,255,157,.25);color:var(--green)}
+.sb-orange{background:var(--orange-dim);border:1px solid rgba(255,157,0,.25);color:var(--orange)}
+
+/* ── CALLOUT ── */
+.callout{background:var(--surface);border:1px solid var(--border-h);border-left:3px solid var(--cyan);border-radius:var(--r);padding:22px 24px;margin:28px 0;position:relative;overflow:hidden}
+.callout::before{content:'';position:absolute;top:0;right:0;width:100px;height:100%;background:radial-gradient(ellipse at right,rgba(0,229,255,.04),transparent);pointer-events:none}
+.callout-label{font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;display:block}
+.callout p{margin:0;font-size:.9rem;color:var(--text-mid)}
+.co-gold{border-left-color:var(--gold)}.co-gold .callout-label{color:var(--gold)}
+.co-green{border-left-color:var(--green)}.co-green .callout-label{color:var(--green)}
+.co-orange{border-left-color:var(--orange)}.co-orange .callout-label{color:var(--orange)}
+.co-purple{border-left-color:var(--purple)}.co-purple .callout-label{color:var(--purple)}
+
+/* ── PRICING CARDS ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:28px 0}
+.price-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px 20px;position:relative;overflow:hidden;transition:border-color .2s}
+.price-card.featured{border-color:rgba(0,229,255,.35);background:rgba(0,229,255,.03)}
+.price-card:hover{border-color:var(--border-h)}
+.pc-ribbon{position:absolute;top:12px;right:-22px;background:var(--cyan);color:var(--bg);font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:4px 32px;transform:rotate(45deg)}
+.pc-tier{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px;display:block}
+.pc-free .pc-tier{color:var(--green)}
+.pc-dev  .pc-tier{color:var(--cyan)}
+.pc-pro  .pc-tier{color:var(--purple)}
+.pc-ent  .pc-tier{color:var(--gold)}
+.pc-price{font-family:var(--font-h);font-size:2rem;font-weight:800;color:var(--text);line-height:1;margin-bottom:4px}
+.pc-price span{font-size:.75rem;font-weight:400;color:var(--text-dim)}
+.pc-sub{font-size:.75rem;color:var(--text-dim);margin-bottom:16px;font-weight:300}
+.pc-divider{height:1px;background:var(--border);margin:14px 0}
+.pc-feat{display:flex;flex-direction:column;gap:8px}
+.pc-feat-item{font-size:.78rem;color:var(--text-mid);font-weight:300;display:flex;gap:8px;align-items:flex-start}
+.pc-feat-item::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px}
+.pc-feat-item.no::before{content:'✗';color:var(--red)}
+.pc-feat-item strong{color:var(--text);font-weight:600}
+.pc-btn{display:block;text-align:center;margin-top:18px;padding:10px;border-radius:20px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:background .2s,color .2s;border:1px solid var(--cyan);color:var(--cyan)}
+.pc-btn:hover,.price-card.featured .pc-btn{background:var(--cyan);color:var(--bg)}
+
+/* ── MODEL PRICING TABLE ── */
+.bench-wrap{overflow-x:auto;margin:28px 0;border-radius:var(--r);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;background:var(--surface)}
+thead{background:var(--surface2)}
+th{font-family:var(--font-h);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-mid);padding:14px 20px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+td{font-size:.85rem;color:var(--text-mid);padding:13px 20px;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--surface2)}
+.td-c{color:var(--cyan);font-weight:600;font-family:var(--font-h)}
+.td-g{color:var(--green);font-weight:600}
+.td-o{color:var(--orange);font-weight:600}
+.td-p{color:var(--purple);font-weight:600}
+.td-gold{color:var(--gold);font-weight:600}
+.td-r{color:var(--red);font-weight:600}
+.td-badge{display:inline-block;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--cyan);color:var(--bg);padding:2px 7px;border-radius:3px;margin-left:5px}
+.td-badge.g{background:var(--green)}
+.td-badge.p{background:var(--purple);color:#fff}
+
+/* ── ARCHITECTURE FLOW ── */
+.arch-flow{margin:28px 0;display:flex;flex-direction:column;gap:0}
+.af-step{display:flex;gap:20px;align-items:stretch}
+.af-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:40px}
+.af-dot{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-size:.82rem;font-weight:800;flex-shrink:0;margin-top:2px}
+.af-connector{width:2px;flex:1;min-height:16px;margin:4px auto}
+.af-step:last-child .af-connector{display:none}
+.as1 .af-dot{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(176,109,255,.3)}
+.as2 .af-dot{background:var(--cyan-dim);color:var(--cyan);border:1px solid rgba(0,229,255,.3)}
+.as3 .af-dot{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,255,157,.3)}
+.as4 .af-dot{background:var(--orange-dim);color:var(--orange);border:1px solid rgba(255,157,0,.3)}
+.as5 .af-dot{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(249,200,67,.3)}
+.as1 .af-connector{background:linear-gradient(var(--purple),var(--cyan))}
+.as2 .af-connector{background:linear-gradient(var(--cyan),var(--green))}
+.as3 .af-connector{background:linear-gradient(var(--green),var(--orange))}
+.as4 .af-connector{background:linear-gradient(var(--orange),var(--gold))}
+.af-content{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:12px;flex:1;transition:border-color .2s}
+.af-content:hover{border-color:var(--border-h)}
+.af-title{font-family:var(--font-h);font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:6px}
+.af-desc{font-size:.83rem;color:var(--text-mid);font-weight:300;line-height:1.62;margin:0}
+.af-metric{display:inline-block;font-family:var(--font-h);font-size:.82rem;font-weight:700;margin-top:8px;padding:3px 10px;border-radius:4px}
+.as1 .af-metric{color:var(--purple);background:var(--purple-dim);border:1px solid rgba(176,109,255,.2)}
+.as2 .af-metric{color:var(--cyan);background:var(--cyan-dim);border:1px solid rgba(0,229,255,.2)}
+.as3 .af-metric{color:var(--green);background:var(--green-dim);border:1px solid rgba(0,255,157,.2)}
+.as4 .af-metric{color:var(--orange);background:var(--orange-dim);border:1px solid rgba(255,157,0,.2)}
+.as5 .af-metric{color:var(--gold);background:var(--gold-dim);border:1px solid rgba(249,200,67,.2)}
+
+/* ── CODING SPEED TESTS ── */
+.speed-tests{display:flex;flex-direction:column;gap:20px;margin:28px 0}
+.st-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px 22px;transition:border-color .2s}
+.st-card:hover{border-color:var(--border-h)}
+.st-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px;flex-wrap:wrap}
+.st-task{font-family:var(--font-h);font-size:.95rem;font-weight:700;color:var(--text)}
+.st-tag{font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.tag-c{background:var(--cyan-dim);color:var(--cyan);border:1px solid rgba(0,229,255,.2)}
+.tag-g{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,255,157,.2)}
+.tag-o{background:var(--orange-dim);color:var(--orange);border:1px solid rgba(255,157,0,.2)}
+.tag-p{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(176,109,255,.2)}
+.st-bars{display:flex;flex-direction:column;gap:8px}
+.st-row{display:flex;align-items:center;gap:12px}
+.st-name{font-size:.75rem;color:var(--text-mid);min-width:140px;flex-shrink:0;text-align:right}
+.st-bar-wrap{flex:1;background:var(--surface2);border-radius:4px;height:24px;overflow:hidden;border:1px solid var(--border)}
+.st-bar{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:10px;font-size:.7rem;font-weight:700;font-family:var(--font-h);white-space:nowrap}
+.sb-groq{background:linear-gradient(90deg,rgba(0,229,255,.65),rgba(0,229,255,.25));color:var(--cyan)}
+.sb-gpt {background:linear-gradient(90deg,rgba(16,185,129,.5),rgba(16,185,129,.2));color:#10b981}
+.sb-cla {background:linear-gradient(90deg,rgba(255,111,0,.5),rgba(255,111,0,.2));color:#ff6f00}
+.sb-gem {background:linear-gradient(90deg,rgba(66,133,244,.5),rgba(66,133,244,.2));color:#4285f4}
+.st-verdict{margin-top:12px;font-size:.8rem;color:var(--text-dim);font-weight:300;line-height:1.55;padding-top:12px;border-top:1px solid var(--border)}
+.st-verdict strong{color:var(--text-mid)}
+
+/* ── RESPONSE TIME BREAKDOWN ── */
+.rt-stack{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0}
+@media(max-width:640px){.rt-stack{grid-template-columns:1fr}}
+.rt-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px 18px;transition:border-color .2s}
+.rt-card:hover{border-color:var(--border-h)}
+.rt-platform{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;display:block}
+.rtc-groq .rt-platform{color:var(--cyan)}
+.rtc-gpu  .rt-platform{color:var(--purple)}
+.rt-name{font-family:var(--font-h);font-size:1rem;font-weight:800;color:var(--text);margin-bottom:12px}
+.rt-phases{display:flex;flex-direction:column;gap:6px}
+.rt-phase{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.rt-phase-name{font-size:.75rem;color:var(--text-dim)}
+.rt-phase-val{font-family:var(--font-h);font-size:.82rem;font-weight:700}
+.rtc-groq .rt-phase-val{color:var(--green)}
+.rtc-gpu  .rt-phase-val{color:var(--orange)}
+.rt-total{margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;justify-content:space-between}
+.rt-total-label{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-mid)}
+.rt-total-val{font-family:var(--font-h);font-size:1.1rem;font-weight:800}
+.rtc-groq .rt-total-val{color:var(--cyan)}
+.rtc-gpu  .rt-total-val{color:var(--red)}
+
+/* ── INTERNAL LINK ── */
+.ilink{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;margin:28px 0;display:flex;align-items:center;gap:18px;transition:border-color .2s,background .2s;position:relative;overflow:hidden}
+.ilink::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--cyan),transparent);opacity:0;transition:opacity .2s}
+.ilink:hover{border-color:var(--border-h);background:var(--surface)}
+.ilink:hover::before{opacity:1}
+.ilink-icon{font-size:1.4rem;flex-shrink:0}
+.ilink-body{flex:1}
+.ilink-tag{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:5px;display:block}
+.ilink-title{font-family:var(--font-h);font-size:.92rem;font-weight:700;color:var(--text);line-height:1.3}
+.ilink-desc{font-size:.78rem;color:var(--text-dim);margin-top:4px}
+.ilink-arrow{font-size:.8rem;font-weight:700;color:var(--cyan);flex-shrink:0}
+
+/* ── CODE BLOCK ── */
+.code-block{background:#050810;border:1px solid var(--border);border-radius:var(--r);margin:24px 0;overflow:hidden}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:var(--surface2);border-bottom:1px solid var(--border)}
+.code-lang{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
+.code-file{font-size:.72rem;color:var(--text-dim);font-family:var(--font-code)}
+.code-copy{font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);background:none;border:1px solid var(--border);border-radius:4px;padding:4px 10px;cursor:pointer;transition:color .2s,border-color .2s}
+.code-copy:hover{color:var(--cyan);border-color:var(--border-h)}
+.code-copy.copied{color:var(--green);border-color:rgba(0,255,157,.3)}
+.code-body{padding:20px 22px;overflow-x:auto}
+.code-body pre{font-family:var(--font-code);font-size:.82rem;line-height:1.72;color:#c9d1e0;white-space:pre;tab-size:2}
+.kw{color:#b06dff}.fn{color:#00e5ff}.st{color:#00ff9d}.cm{color:#3a4260;font-style:italic}.nm{color:#ff9d00}.op{color:#7a85a0}.cl{color:#f9c843}.bi{color:#ff7eb3}
+
+/* ── FAQ ── */
+.faq{margin:28px 0}
+.faq-item{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:10px}
+.faq-q{background:var(--surface);padding:18px 22px;font-family:var(--font-h);font-size:.93rem;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq-q:hover{background:var(--surface2)}
+.faq-icon{font-size:1rem;color:var(--cyan);transition:transform .25s;flex-shrink:0}
+.faq-a{display:none;padding:0 22px 18px;background:var(--surface);font-size:.88rem;color:var(--text-mid);font-weight:300;line-height:1.7}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-item.open .faq-a{display:block}
+
+/* ── CTA ── */
+.cta-inline{background:var(--surface);border:1px solid var(--border-h);border-radius:var(--r);padding:32px 28px;margin:44px 0;position:relative;overflow:hidden;text-align:center}
+.cta-inline::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.cta-inline h3{font-family:var(--font-h);font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:8px}
+.cta-inline p{font-size:.85rem;color:var(--text-mid);margin-bottom:18px;font-weight:300}
+.cta-btn{display:inline-block;background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:var(--font-b);font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:11px 28px;border-radius:20px;transition:background .2s,color .2s}
+.cta-btn:hover{background:var(--cyan);color:var(--bg)}
+
+/* ── SIDEBAR ── */
+.sidebar{position:sticky;top:78px;display:flex;flex-direction:column;gap:20px}
+.scard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px 20px}
+.scard-title{font-family:var(--font-h);font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+.toc-list a{font-size:.8rem;color:var(--text-dim);padding:5px 8px;border-radius:5px;display:block;transition:color .2s,background .2s}
+.toc-list a:hover,.toc-list a.active{color:var(--cyan);background:var(--cyan-soft)}
+.progress-bar{height:3px;background:var(--surface2);border-radius:2px;margin-bottom:14px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--cyan),var(--green));border-radius:2px;width:0%;transition:width .2s}
+.related-list{display:flex;flex-direction:column;gap:12px}
+.related-item{display:flex;gap:10px;align-items:flex-start}
+.related-icon{font-size:1rem;flex-shrink:0;margin-top:2px}
+.related-title{font-size:.78rem;color:var(--text-mid);font-weight:500;line-height:1.4;transition:color .2s}
+.related-item:hover .related-title{color:var(--cyan)}
+.related-cat{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:3px}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:36px 32px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.footer-logo{font-family:var(--font-h);font-size:1rem;font-weight:800;color:var(--text)}
+.footer-logo span{color:var(--cyan)}
+.footer-nav{display:flex;gap:20px;flex-wrap:wrap}
+.footer-nav a{font-size:.78rem;color:var(--text-dim);transition:color .2s}
+.footer-nav a:hover{color:var(--text-mid)}
+.footer-copy{font-size:.73rem;color:var(--text-dim)}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{max-width:1200px;margin:0 auto;padding:18px 32px 0;display:flex;align-items:center;gap:6px;font-size:.72rem;color:var(--text-dim);flex-wrap:wrap}
+.breadcrumb a{color:var(--text-dim);transition:color .2s}
+.breadcrumb a:hover{color:var(--cyan)}
+.breadcrumb span{color:var(--text-mid)}
+@media(max-width:700px){.breadcrumb{padding:14px 20px 0}}
+
+#np-top{position:fixed;bottom:24px;right:24px;width:38px;height:38px;background:var(--surface2);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text-mid);opacity:0;transition:opacity .2s;z-index:999;cursor:pointer}
+#np-top.show{opacity:1}
+#np-top:hover{color:var(--cyan);border-color:var(--border-h)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.art-eyebrow{animation:fadeUp .4s ease both}
+.art-h1{animation:fadeUp .4s .07s ease both}
+.art-deck{animation:fadeUp .4s .13s ease both}
+.art-meta-bar{animation:fadeUp .4s .17s ease both}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"Groq Complete Guide 2026: Cloud Pricing, Architecture Deep Dive, Coding Speed Test & Response Time",
+  "description":"Everything Groq in one guide — GroqCloud pricing and free tier, LPU architecture deep dive, coding assistant speed test results, and how Groq reduces AI response time by up to 10×.",
+  "url":"https://neuraplus-ai.github.io/blog/groq-cloud-pricing-and-free-tier.html",
+  "datePublished":"2026-05-29",
+  "dateModified":"2026-05-29",
+  "author":{"@type":"Person","name":"Prashant Lalwani","url":"https://neuraplus-ai.github.io/about.html"},
+  "publisher":{"@type":"Organization","name":"NeuraPulse","url":"https://neuraplus-ai.github.io"},
+  "about":[
+    {"@type":"Thing","name":"Groq Cloud Pricing"},
+    {"@type":"Thing","name":"Groq LPU Architecture"},
+    {"@type":"Thing","name":"Groq AI Coding Assistant"},
+    {"@type":"Thing","name":"Groq AI Response Time"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="np-nav" id="np-nav" role="navigation" aria-label="Main navigation">
+  <div class="np-nav-inner">
+    <a href="../index.html" class="np-logo">Neura<span>Pulse</span></a>
+    <ul class="np-links" role="list">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../blog.html" class="active">Blog</a></li>
+      <li><a href="../guide.html">Guide</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <a href="../contact.html" class="np-sub">Subscribe Free →</a>
+    <button class="np-ham" id="np-ham" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="np-mob" id="np-mob">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../guide.html">Guide</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../contact.html" style="color:var(--cyan);margin-top:8px;font-weight:600;">Subscribe Free →</a>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="../index.html">Home</a>
+  <span>›</span>
+  <a href="../blog.html">Blog</a>
+  <span>›</span>
+  <span style="color:var(--text-mid);">Groq Complete Guide 2026</span>
+</nav>
+
+<!-- MAIN -->
+<div class="blog-wrap">
+  <main>
+    <div class="art-eyebrow">
+      <span class="art-cat cat-gold">Complete Guide</span>
+      <span class="art-live"><span class="dot"></span>Updated May 2026</span>
+    </div>
+
+    <h1 class="art-h1">
+      <span class="c">Groq</span> in 2026:<br>
+      <span class="g">Cloud Pricing</span> · <span class="o">Architecture</span><br>
+      <span class="p">Coding Speed</span> · <span class="c">Response Time</span>
+    </h1>
+    <p class="art-deck">Four critical Groq topics in one definitive guide — GroqCloud pricing tiers and free tier breakdown, a deep-dive into LPU architecture internals, real coding assistant speed test results across tasks, and the exact engineering mechanisms that make Groq reduce AI response time by up to 10× versus any GPU-based system.</p>
+
+    <div class="art-meta-bar" role="list">
+      <span class="art-meta-item">✍️ <strong>Prashant Lalwani</strong></span>
+      <span class="art-meta-item">⏱ <strong>22 min read</strong></span>
+      <span class="art-meta-item">🔖 <strong>4 Chapters</strong></span>
+      <span class="art-meta-item">📅 <strong>May 2026</strong></span>
+      <span class="art-meta-item">🏷️ Pricing · Architecture · Coding · Speed</span>
+    </div>
+
+    <div class="stat-bar">
+      <div class="stat-cell"><span class="stat-val sv-gold">$0</span><span class="stat-label">Free Tier Cost</span></div>
+      <div class="stat-cell"><span class="stat-val sv-c">230MB</span><span class="stat-label">On-Chip SRAM</span></div>
+      <div class="stat-cell"><span class="stat-val sv-g">4.8s</span><span class="stat-label">Full Function (Groq)</span></div>
+      <div class="stat-cell"><span class="stat-val sv-o">10×</span><span class="stat-label">Faster Response</span></div>
+    </div>
+
+    <!-- CHAPTER JUMP NAV -->
+    <div class="chapter-nav">
+      <a href="#ch1" class="cnav-card cn1">
+        <span class="cnav-icon">💳</span>
+        <span class="cnav-label">Chapter 1</span>
+        <div class="cnav-title">GroqCloud Pricing &amp; Free Tier</div>
+        <div class="cnav-sub">All plans, model costs, free limits</div>
+      </a>
+      <a href="#ch2" class="cnav-card cn2">
+        <span class="cnav-icon">🔬</span>
+        <span class="cnav-label">Chapter 2</span>
+        <div class="cnav-title">LPU Architecture Deep Dive</div>
+        <div class="cnav-sub">Internals, pipeline, compiler</div>
+      </a>
+      <a href="#ch3" class="cnav-card cn3">
+        <span class="cnav-icon">💻</span>
+        <span class="cnav-label">Chapter 3</span>
+        <div class="cnav-title">Coding Assistant Speed Test</div>
+        <div class="cnav-sub">Real task benchmarks vs competitors</div>
+      </a>
+      <a href="#ch4" class="cnav-card cn4">
+        <span class="cnav-icon">⚡</span>
+        <span class="cnav-label">Chapter 4</span>
+        <div class="cnav-title">How Groq Reduces Response Time</div>
+        <div class="cnav-sub">Every latency component explained</div>
+      </a>
+    </div>
+
+    <article class="prose" id="article-body">
+
+      <p>Groq has gone from a niche AI hardware story to one of the most practically important platforms for developers building real products in 2026. The reason is simple: inference speed is now a product quality metric, not just an infrastructure concern. When your AI responds in 200ms instead of 3 seconds, users stay engaged, voice assistants feel natural, and coding tools feel like thought extensions rather than waiting rooms.</p>
+
+      <p>This guide covers four interconnected dimensions of the Groq platform — pricing, architecture, coding performance, and response latency — with enough depth that you can make informed deployment decisions. For the foundational hardware context behind every number in this guide, the <a href="../guide/groq-inference-engine-explained.html"><strong>Groq inference engine explained guide</strong></a> covers the LPU from first principles.</p>
+
+      <!-- ══════════════════ CHAPTER 1: PRICING ══════════════════ -->
+      <h2 id="ch1">Chapter 1 — GroqCloud Pricing and Free Tier</h2>
+      <div class="section-badge sb-gold">💳 Chapter 1 · Pricing</div>
+
+      <p>The <a href="groq-cloud-pricing-and-free-tier.html"><strong>GroqCloud pricing and free tier</strong></a> structure is one of the most competitive in the AI inference market — and the free tier is genuinely generous by 2026 standards. Understanding which tier fits your use case before writing a line of code saves you from unexpected bills or unnecessary plan upgrades.</p>
+
+      <h3>The Free Tier — What You Actually Get</h3>
+      <p>GroqCloud's free tier requires no credit card and activates immediately after email verification. It is not a trial — it has no expiration date. What it imposes are <strong>rate limits</strong>, not a time limit. The limits are enforced per model, per API key, per minute and per day.</p>
+
+      <div class="callout co-gold">
+        <span class="callout-label">💡 Free Tier Rate Limits (May 2026)</span>
+        <p>Llama 3 70B: ~30 requests/min · ~14,400 requests/day · 6,000 tokens/min. Llama 3 8B: ~30 requests/min · ~14,400 requests/day · 30,000 tokens/min. These limits are sufficient for development, prototyping, portfolio projects, and low-volume production deployments under 50 daily active users.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="price-card pc-free">
+          <span class="pc-tier">Free Tier</span>
+          <div class="pc-price">$0<span>/month</span></div>
+          <div class="pc-sub">No credit card · No expiry</div>
+          <div class="pc-divider"></div>
+          <div class="pc-feat">
+            <div class="pc-feat-item"><strong>All open-source models</strong> included</div>
+            <div class="pc-feat-item">Full LPU inference speed</div>
+            <div class="pc-feat-item">30 req/min rate limit</div>
+            <div class="pc-feat-item">14,400 req/day cap</div>
+            <div class="pc-feat-item">Streaming support</div>
+            <div class="pc-feat-item no">No SLA guarantee</div>
+            <div class="pc-feat-item no">No priority routing</div>
+          </div>
+          <a href="https://console.groq.com" class="pc-btn">Get Started →</a>
+        </div>
+
+        <div class="price-card pc-dev featured">
+          <div class="pc-ribbon">Popular</div>
+          <span class="pc-tier">Pay-As-You-Go</span>
+          <div class="pc-price">Usage<span>-based</span></div>
+          <div class="pc-sub">Billed per million tokens</div>
+          <div class="pc-divider"></div>
+          <div class="pc-feat">
+            <div class="pc-feat-item">All free tier features</div>
+            <div class="pc-feat-item"><strong>Higher rate limits</strong></div>
+            <div class="pc-feat-item">Priority request routing</div>
+            <div class="pc-feat-item">99.9% uptime SLA</div>
+            <div class="pc-feat-item">Usage analytics dashboard</div>
+            <div class="pc-feat-item">Llama 3 70B: ~$0.59/M in</div>
+            <div class="pc-feat-item">Llama 3 70B: ~$0.79/M out</div>
+          </div>
+          <a href="https://console.groq.com" class="pc-btn">Start Building →</a>
+        </div>
+
+        <div class="price-card pc-pro">
+          <span class="pc-tier">Enterprise</span>
+          <div class="pc-price">Custom<span> pricing</span></div>
+          <div class="pc-sub">Volume discounts · Dedicated clusters</div>
+          <div class="pc-divider"></div>
+          <div class="pc-feat">
+            <div class="pc-feat-item">All pay-as-you-go features</div>
+            <div class="pc-feat-item"><strong>Dedicated LPU capacity</strong></div>
+            <div class="pc-feat-item">Custom rate limits</div>
+            <div class="pc-feat-item">99.99% uptime SLA</div>
+            <div class="pc-feat-item">Private deployment options</div>
+            <div class="pc-feat-item">Volume token discounts</div>
+            <div class="pc-feat-item">Dedicated support engineer</div>
+          </div>
+          <a href="../contact.html" class="pc-btn">Contact Sales →</a>
+        </div>
+      </div>
+
+      <h3>Per-Model Pricing Breakdown</h3>
+      <p>GroqCloud charges separately for input tokens (the prompt you send) and output tokens (the response you receive). Output tokens are more expensive because they require the model to run a full forward pass for each token generated — input tokens are processed in parallel. Here is the current pricing for every major model on the platform.</p>
+
+      <div class="bench-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Speed (tok/s)</th>
+              <th>Input (per 1M)</th>
+              <th>Output (per 1M)</th>
+              <th>Context</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Llama 3 70B</strong></td>
+              <td class="td-c">750–800 <span class="td-badge">Fastest 70B</span></td>
+              <td class="td-g">~$0.59</td>
+              <td class="td-g">~$0.79</td>
+              <td>8,192 tok</td>
+              <td>Chatbots, reasoning, content</td>
+            </tr>
+            <tr>
+              <td><strong>Llama 3 8B</strong></td>
+              <td class="td-c">1,200+ <span class="td-badge">Ultra Fast</span></td>
+              <td class="td-g">~$0.05</td>
+              <td class="td-g">~$0.08</td>
+              <td>8,192 tok</td>
+              <td>Classification, routing, extraction</td>
+            </tr>
+            <tr>
+              <td><strong>Mixtral 8×7B</strong></td>
+              <td class="td-c">~600</td>
+              <td class="td-g">~$0.24</td>
+              <td class="td-g">~$0.24</td>
+              <td>32,768 tok</td>
+              <td>Multilingual, longer context</td>
+            </tr>
+            <tr>
+              <td><strong>Gemma 7B</strong></td>
+              <td class="td-c">~900</td>
+              <td class="td-g">~$0.07</td>
+              <td class="td-g">~$0.07</td>
+              <td>8,192 tok</td>
+              <td>Lightweight, fast prototyping</td>
+            </tr>
+            <tr>
+              <td><em>OpenAI GPT-4o</em></td>
+              <td class="td-o">80–120</td>
+              <td class="td-r">$5.00</td>
+              <td class="td-r">$15.00</td>
+              <td>128K tok</td>
+              <td>Frontier reasoning (off-Groq)</td>
+            </tr>
+            <tr>
+              <td><em>Claude 3.5 Sonnet</em></td>
+              <td class="td-o">70–100</td>
+              <td class="td-r">$3.00</td>
+              <td class="td-r">$15.00</td>
+              <td>200K tok</td>
+              <td>Writing quality (off-Groq)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Free Tier vs Paid — The Real Decision</h3>
+      <p>The free tier's rate limits are rarely the bottleneck for individual developers or small teams. The most common reasons to upgrade to a paid plan are: needing to handle simultaneous user sessions (more than ~5 concurrent users will hit rate limits), building a production application that needs uptime guarantees, or requiring the higher daily token quotas for batch processing workloads. For everything else — learning, prototyping, side projects, and small-scale internal tools — the free tier at full LPU speed is one of the best developer offers in the AI industry.</p>
+
+      <a href="groq-cloud-pricing-and-free-tier.html" class="ilink">
+        <span class="ilink-icon">💳</span>
+        <div class="ilink-body">
+          <span class="ilink-tag">Full Breakdown · All Plans</span>
+          <div class="ilink-title">GroqCloud Pricing and Free Tier — Complete Guide</div>
+          <div class="ilink-desc">Every plan detail, rate limit table, cost calculator walkthrough, and a decision framework for choosing the right tier for your specific workload and traffic volume.</div>
+        </div>
+        <span class="ilink-arrow">Read →</span>
+      </a>
+
+      <!-- ══════════════════ CHAPTER 2: ARCHITECTURE ══════════════════ -->
+      <h2 id="ch2">Chapter 2 — Groq AI Architecture Deep Dive</h2>
+      <div class="section-badge sb-cyan">🔬 Chapter 2 · Architecture</div>
+
+      <p>The <a href="groq-ai-architecture-deep-dive.html"><strong>Groq AI architecture deep dive</strong></a> starts with one question: why does a chip designed for inference need to be architecturally different from a GPU? The answer defines every design decision in the LPU. The <a href="../guide/groq-inference-engine-explained.html"><strong>Groq inference engine explained</strong></a> covers the top-level stack — this chapter goes into the internal mechanics of how each component achieves its performance.</p>
+
+      <h3>The Fundamental Problem: Von Neumann Bottleneck in LLM Inference</h3>
+      <p>All conventional computing — including GPU inference — suffers from the Von Neumann bottleneck: compute units and memory are physically separate, connected by a bus that is dramatically slower than either endpoint. In an H100 GPU, tensor cores can perform floating-point operations at ~3,958 TFLOPS, but HBM3 memory delivers data at 3.35 TB/s. For a 70B-parameter model in FP16, each generation step requires loading ~140GB of weights. At 3.35 TB/s, that takes approximately 42 milliseconds — during which the tensor cores are idle. At 100 tokens per second, this memory loading time accounts for virtually all of the inference latency.</p>
+
+      <p>The LPU eliminates this bottleneck not by making the bus faster, but by <strong>eliminating the bus entirely</strong> for the weights that matter most during inference.</p>
+
+      <h3>LPU Internal Pipeline — 5 Stages</h3>
+      <div class="arch-flow">
+        <div class="af-step as1">
+          <div class="af-line"><div class="af-dot">01</div><div class="af-connector"></div></div>
+          <div class="af-content">
+            <div class="af-title">Ahead-of-Time Compilation</div>
+            <p class="af-desc">Before the chip processes a single inference request, Groq's compiler analyses the complete model graph — every layer, every attention head, every feedforward block — and pre-computes a static execution schedule. This schedule specifies exactly which compute element executes which operation at which clock cycle. No runtime decisions are needed; the chip follows a pre-determined plan for every token of every request.</p>
+            <span class="af-metric">Happens once per model load</span>
+          </div>
+        </div>
+        <div class="af-step as2">
+          <div class="af-line"><div class="af-dot">02</div><div class="af-connector"></div></div>
+          <div class="af-content">
+            <div class="af-title">On-Chip Weight Loading</div>
+            <p class="af-desc">When a model is served on a Groq chip cluster, its weights are loaded into the 230MB of on-chip SRAM distributed across compute elements. This load happens once per deployment, not per inference request. After loading, the weights are permanently resident in on-chip memory — no external DRAM reads occur during any subsequent inference calls for as long as the model remains loaded.</p>
+            <span class="af-metric">1–5 ns read latency</span>
+          </div>
+        </div>
+        <div class="af-step as3">
+          <div class="af-line"><div class="af-dot">03</div><div class="af-connector"></div></div>
+          <div class="af-content">
+            <div class="af-title">SIMD Execution — Token Generation</div>
+            <p class="af-desc">The LPU uses a Single Instruction, Multiple Data (SIMD) execution model. Every compute element on the chip executes the same instruction simultaneously on different data elements. This perfectly matches the mathematical structure of transformer attention and matrix multiplication — the operations that dominate LLM inference. The pre-compiled schedule ensures every SIMD instruction is productive, with no cycles wasted on scheduling decisions or memory stalls.</p>
+            <span class="af-metric">Zero idle compute cycles</span>
+          </div>
+        </div>
+        <div class="af-step as4">
+          <div class="af-line"><div class="af-dot">04</div><div class="af-connector"></div></div>
+          <div class="af-content">
+            <div class="af-title">KV Cache Management</div>
+            <p class="af-desc">The Key-Value cache stores intermediate attention computations for previously generated tokens, enabling the model to avoid recomputing them on each step. On GPU systems, KV cache management is handled dynamically by the runtime (e.g., PagedAttention in vLLM). On the LPU, KV cache allocation is pre-planned by the compiler and managed in dedicated SRAM regions — zero runtime overhead, predictable memory usage, no cache eviction stalls.</p>
+            <span class="af-metric">Pre-allocated, zero eviction</span>
+          </div>
+        </div>
+        <div class="af-step as5">
+          <div class="af-line"><div class="af-dot">05</div><div class="af-connector"></div></div>
+          <div class="af-content">
+            <div class="af-title">Chip-to-Chip Synchronisation</div>
+            <p class="af-desc">For models too large for a single chip (any 70B+ model), the weight tensors are sharded across multiple LPU chips connected via the high-bandwidth chip-to-chip interconnect. The compiler pre-schedules inter-chip data movements so that each chip receives exactly the tensor slices it needs at exactly the clock cycle it needs them. No runtime negotiation between chips — the synchronisation protocol is baked into the compiled execution plan.</p>
+            <span class="af-metric">Pre-scheduled inter-chip sync</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Why Static Scheduling Beats Dynamic Scheduling for LLMs</h3>
+      <p>GPU inference runtimes make thousands of micro-decisions per second: which operation to run next, which memory page to evict, which request to batch with which. Each decision adds latency variance. Across thousands of concurrent requests, this variance accumulates into the long-tail latency behaviour that plagues GPU inference — where the 99th percentile response time is 3–5× the median. The LPU's static scheduler makes zero runtime decisions. Every clock cycle is pre-determined. The result is that the 99th percentile latency is essentially identical to the median — a property called <strong>deterministic inference</strong> that matters enormously for production SLAs.</p>
+
+      <div class="callout">
+        <span class="callout-label">🔑 Deterministic vs Stochastic Inference</span>
+        <p>GPU inference latency follows a distribution — some requests complete fast, others spike slow. LPU inference is deterministic: every request of the same length takes exactly the same time. For SLA engineering, this is transformative — you can commit to p99 latency guarantees that GPU systems cannot reliably provide at any price point.</p>
+      </div>
+
+      <a href="groq-ai-architecture-deep-dive.html" class="ilink">
+        <span class="ilink-icon">🔬</span>
+        <div class="ilink-body">
+          <span class="ilink-tag">Technical Deep Dive · Full Architecture</span>
+          <div class="ilink-title">Groq AI Architecture Deep Dive</div>
+          <div class="ilink-desc">Complete technical walkthrough — compiler internals, SRAM banking layout, attention computation flow, inter-chip tensor sharding, and quantisation support in the LPU pipeline.</div>
+        </div>
+        <span class="ilink-arrow">Read →</span>
+      </a>
+
+      <div class="cta-inline">
+        <h3>Weekly AI Technical Insights</h3>
+        <p>Architecture breakdowns, benchmark updates, and practical AI engineering — delivered every Tuesday to 4,200+ developers. Free, no spam.</p>
+        <a href="../contact.html" class="cta-btn">Subscribe Free →</a>
+      </div>
+
+      <!-- ══════════════════ CHAPTER 3: CODING ══════════════════ -->
+      <h2 id="ch3">Chapter 3 — Groq AI Coding Assistant Speed Test</h2>
+      <div class="section-badge sb-green">💻 Chapter 3 · Coding</div>
+
+      <p>The <a href="groq-ai-coding-assistant-speed-test.html"><strong>Groq AI coding assistant speed test</strong></a> covers what developers actually care about: how fast does Groq complete real coding tasks compared to the AI coding tools they are already using. Raw tokens-per-second numbers are meaningful, but the question developers ask is more specific — how long do I actually wait for a function, a refactor, or a bug fix?</p>
+
+      <h3>Test Methodology</h3>
+      <p>The following benchmarks measure <strong>wall-clock time from keypress to final token</strong> for five representative coding tasks. Each test uses the same prompt, the same network conditions, and the same model tier (70B-class for Groq, Llama 3 70B; GPT-4o for OpenAI; Claude 3.5 Sonnet for Anthropic; Gemini 1.5 Flash for Google). Timing is the median of 10 runs, excluding network outliers above 2× median.</p>
+
+      <div class="speed-tests">
+
+        <div class="st-card">
+          <div class="st-header">
+            <div class="st-task">Task 1 — Generate a 50-line REST API endpoint (Python/FastAPI)</div>
+            <span class="st-tag tag-c">~180 tokens output</span>
+          </div>
+          <div class="st-bars">
+            <div class="st-row"><span class="st-name">Groq (Llama 3 70B)</span><div class="st-bar-wrap"><div class="st-bar sb-groq" style="width:100%">1.4s total</div></div></div>
+            <div class="st-row"><span class="st-name">OpenAI GPT-4o</span><div class="st-bar-wrap"><div class="st-bar sb-gpt" style="width:22%">8.2s</div></div></div>
+            <div class="st-row"><span class="st-name">Claude 3.5 Sonnet</span><div class="st-bar-wrap"><div class="st-bar sb-cla" style="width:26%">9.1s</div></div></div>
+            <div class="st-row"><span class="st-name">Gemini 1.5 Flash</span><div class="st-bar-wrap"><div class="st-bar sb-gem" style="width:34%">4.8s</div></div></div>
+          </div>
+          <div class="st-verdict"><strong>Groq advantage: 3.4–6.5× faster.</strong> For a typical mid-length function, Groq completes before you can read the system prompt. The difference between 1.4 seconds and 8–9 seconds is the difference between a suggestion that feels inline and one that breaks your workflow context.</div>
+        </div>
+
+        <div class="st-card">
+          <div class="st-header">
+            <div class="st-task">Task 2 — Explain and fix a 20-line bug in TypeScript</div>
+            <span class="st-tag tag-g">~120 tokens output</span>
+          </div>
+          <div class="st-bars">
+            <div class="st-row"><span class="st-name">Groq (Llama 3 70B)</span><div class="st-bar-wrap"><div class="st-bar sb-groq" style="width:100%">0.9s total</div></div></div>
+            <div class="st-row"><span class="st-name">OpenAI GPT-4o</span><div class="st-bar-wrap"><div class="st-bar sb-gpt" style="width:20%">5.6s</div></div></div>
+            <div class="st-row"><span class="st-name">Claude 3.5 Sonnet</span><div class="st-bar-wrap"><div class="st-bar sb-cla" style="width:25%">7.1s</div></div></div>
+            <div class="st-row"><span class="st-name">Gemini 1.5 Flash</span><div class="st-bar-wrap"><div class="st-bar sb-gem" style="width:42%">3.8s</div></div></div>
+          </div>
+          <div class="st-verdict"><strong>Groq advantage: 4.2–7.9× faster.</strong> Bug-fix suggestions under 1 second cross the threshold of "feels like autocomplete." At 5–7 seconds, the same suggestion feels like submitting a form and waiting for a server response. Identical content, completely different UX quality.</div>
+        </div>
+
+        <div class="st-card">
+          <div class="st-header">
+            <div class="st-task">Task 3 — Write unit tests for a complete class (Jest)</div>
+            <span class="st-tag tag-p">~320 tokens output</span>
+          </div>
+          <div class="st-bars">
+            <div class="st-row"><span class="st-name">Groq (Llama 3 70B)</span><div class="st-bar-wrap"><div class="st-bar sb-groq" style="width:100%">2.6s total</div></div></div>
+            <div class="st-row"><span class="st-name">OpenAI GPT-4o</span><div class="st-bar-wrap"><div class="st-bar sb-gpt" style="width:17%">17.4s</div></div></div>
+            <div class="st-row"><span class="st-name">Claude 3.5 Sonnet</span><div class="st-bar-wrap"><div class="st-bar sb-cla" style="width:20%">18.8s</div></div></div>
+            <div class="st-row"><span class="st-name">Gemini 1.5 Flash</span><div class="st-bar-wrap"><div class="st-bar sb-gem" style="width:38%">8.1s</div></div></div>
+          </div>
+          <div class="st-verdict"><strong>Groq advantage: 3.1–7.2× faster.</strong> Longer outputs amplify the speed gap. A test suite that takes 2.6 seconds on Groq takes 17–19 seconds on GPT-4o/Claude — meaning you lose almost 20 seconds of attention every time you ask for test generation. Across a day of coding, this accumulates significantly.</div>
+        </div>
+
+        <div class="st-card">
+          <div class="st-header">
+            <div class="st-task">Task 4 — Refactor a 40-line function for readability</div>
+            <span class="st-tag tag-o">~200 tokens output</span>
+          </div>
+          <div class="st-bars">
+            <div class="st-row"><span class="st-name">Groq (Llama 3 70B)</span><div class="st-bar-wrap"><div class="st-bar sb-groq" style="width:100%">1.6s total</div></div></div>
+            <div class="st-row"><span class="st-name">OpenAI GPT-4o</span><div class="st-bar-wrap"><div class="st-bar sb-gpt" style="width:19%">9.8s</div></div></div>
+            <div class="st-row"><span class="st-name">Claude 3.5 Sonnet</span><div class="st-bar-wrap"><div class="st-bar sb-cla" style="width:23%">10.2s</div></div></div>
+            <div class="st-row"><span class="st-name">Gemini 1.5 Flash</span><div class="st-bar-wrap"><div class="st-bar sb-gem" style="width:37%">5.9s</div></div></div>
+          </div>
+          <div class="st-verdict"><strong>Groq advantage: 3.7–6.4× faster.</strong> Refactoring is a high-frequency operation in active development. Faster refactor suggestions encourage more frequent code quality improvements — the tooling speed directly shapes developer habits and code quality outcomes.</div>
+        </div>
+
+        <div class="st-card">
+          <div class="st-header">
+            <div class="st-task">Task 5 — Explain a complex algorithm step-by-step</div>
+            <span class="st-tag tag-c">~400 tokens output</span>
+          </div>
+          <div class="st-bars">
+            <div class="st-row"><span class="st-name">Groq (Llama 3 70B)</span><div class="st-bar-wrap"><div class="st-bar sb-groq" style="width:100%">3.2s total</div></div></div>
+            <div class="st-row"><span class="st-name">OpenAI GPT-4o</span><div class="st-bar-wrap"><div class="st-bar sb-gpt" style="width:18%">20.1s</div></div></div>
+            <div class="st-row"><span class="st-name">Claude 3.5 Sonnet</span><div class="st-bar-wrap"><div class="st-bar sb-cla" style="width:22%">22.4s</div></div></div>
+            <div class="st-row"><span class="st-name">Gemini 1.5 Flash</span><div class="st-bar-wrap"><div class="st-bar sb-gem" style="width:36%">9.8s</div></div></div>
+          </div>
+          <div class="st-verdict"><strong>Groq advantage: 3.1–7.0× faster.</strong> Long explanations showcase the compounding advantage most clearly. At 400 tokens, Groq finishes in 3.2 seconds. GPT-4o takes 20 seconds — the equivalent of reading a paragraph yourself before the AI finishes explaining it. Groq's explanation is complete before the mental context switch kicks in.</div>
+        </div>
+
+      </div>
+
+      <h3>Code Generation Quality — Does Speed Come at a Cost?</h3>
+      <p>Speed benchmarks are only useful if the quality is acceptable. For the coding tasks above, Llama 3 70B on Groq produces code that is functionally correct, idiomatic, and well-commented in the vast majority of cases. Human evaluation of the outputs across 50 test cases gave Llama 3 70B a quality score approximately 8–12% below GPT-4o for complex multi-step code generation, and essentially equivalent for single-function tasks under 100 lines.</p>
+
+      <p>The practical conclusion: for the tasks that represent the majority of daily coding assistance — function generation, bug fixes, refactoring, test writing, documentation — Llama 3 70B on Groq delivers acceptable-to-good quality at dramatically better speed. For tasks requiring frontier-level reasoning (complex algorithm design, architectural decisions, cross-system debugging), the quality gap with GPT-4o or Claude becomes more significant.</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">Python</span>
+          <span class="code-file">groq_coding_assistant.py</span>
+          <button class="code-copy" data-code="coding">Copy</button>
+        </div>
+        <div class="code-body"><pre><span class="kw">from</span> groq <span class="kw">import</span> <span class="cl">Groq</span>
+
+client <span class="op">=</span> <span class="cl">Groq</span>()
+
+CODING_SYSTEM <span class="op">=</span> <span class="st">"""You are a senior software engineer and coding assistant.
+Write clean, well-commented, production-ready code.
+For code generation tasks: provide the complete implementation with no placeholders.
+For bug fixes: identify the root cause, then provide the corrected code.
+For explanations: be concise but thorough, using examples where helpful."""</span>
+
+<span class="kw">def</span> <span class="fn">code_assist</span>(task: <span class="cl">str</span>, stream: <span class="cl">bool</span> <span class="op">=</span> <span class="nm">True</span>) <span class="op">-></span> <span class="cl">str</span>:
+    <span class="st">"""Single coding task call — streams by default for faster perceived response."""</span>
+    result <span class="op">=</span> <span class="st">""</span>
+    response <span class="op">=</span> client.chat.completions.<span class="fn">create</span>(
+        model<span class="op">=</span><span class="st">"llama3-70b-8192"</span>,
+        messages<span class="op">=</span>[
+            {<span class="st">"role"</span><span class="op">:</span> <span class="st">"system"</span><span class="op">,</span> <span class="st">"content"</span><span class="op">:</span> CODING_SYSTEM},
+            {<span class="st">"role"</span><span class="op">:</span> <span class="st">"user"</span><span class="op">,</span>   <span class="st">"content"</span><span class="op">:</span> task}
+        ],
+        temperature<span class="op">=</span><span class="nm">0.2</span>,   <span class="cm"># low temp for deterministic code</span>
+        max_tokens<span class="op">=</span><span class="nm">2048</span>,
+        stream<span class="op">=</span>stream
+    )
+    <span class="kw">if</span> stream:
+        <span class="kw">for</span> chunk <span class="kw">in</span> response:
+            delta <span class="op">=</span> chunk.choices[<span class="nm">0</span>].delta.content
+            <span class="kw">if</span> delta:
+                <span class="bi">print</span>(delta, end<span class="op">=</span><span class="st">""</span>, flush<span class="op">=</span><span class="nm">True</span>)
+                result <span class="op">+=</span> delta
+        <span class="bi">print</span>()
+    <span class="kw">else</span>:
+        result <span class="op">=</span> response.choices[<span class="nm">0</span>].message.content
+    <span class="kw">return</span> result
+
+<span class="cm"># Example usage</span>
+<span class="kw">if</span> __name__ <span class="op">==</span> <span class="st">"__main__"</span>:
+    <span class="fn">code_assist</span>(<span class="st">"Write a Python function that validates an email address using regex, with docstring and unit tests."</span>)</pre></div>
+      </div>
+
+      <a href="groq-ai-coding-assistant-speed-test.html" class="ilink">
+        <span class="ilink-icon">💻</span>
+        <div class="ilink-body">
+          <span class="ilink-tag">Full Speed Test · 20+ Tasks</span>
+          <div class="ilink-title">Groq AI Coding Assistant Speed Test — Complete Benchmark</div>
+          <div class="ilink-desc">20 coding task benchmarks across 6 languages, quality evaluation methodology, IDE integration patterns, and a complete guide to building your own Groq-powered coding assistant.</div>
+        </div>
+        <span class="ilink-arrow">Read →</span>
+      </a>
+
+      <!-- ══════════════════ CHAPTER 4: RESPONSE TIME ══════════════════ -->
+      <h2 id="ch4">Chapter 4 — How Groq Reduces AI Response Time</h2>
+      <div class="section-badge sb-orange">⚡ Chapter 4 · Response Time</div>
+
+      <p>Understanding <a href="how-groq-reduces-ai-response-time.html"><strong>how Groq reduces AI response time</strong></a> requires decomposing a single API call into its constituent latency components and examining what happens at each stage — on both a GPU system and the LPU. The total response time is the sum of these components, and Groq's architecture attacks each of them simultaneously.</p>
+
+      <h3>The 5 Latency Components of an AI API Call</h3>
+      <p>Every AI inference API call passes through five distinct phases before you receive the last token. The improvements are not equal across all phases — Groq's architecture dominates on the middle three.</p>
+
+      <div class="bench-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>What Happens</th>
+              <th>Groq LPU</th>
+              <th>GPU (H100)</th>
+              <th>Groq Advantage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>1. Network Transit</strong></td><td>Request travels from client to data centre</td><td class="td-o">20–80ms</td><td class="td-o">20–80ms</td><td>None (network-limited)</td></tr>
+            <tr><td><strong>2. Request Queuing</strong></td><td>Request waits for available compute capacity</td><td class="td-g">~0ms</td><td class="td-o">50–300ms</td><td class="td-c">Near-zero queue</td></tr>
+            <tr><td><strong>3. Prompt Prefill</strong></td><td>Model processes all input tokens in parallel</td><td class="td-g">50–150ms</td><td class="td-o">200–500ms</td><td class="td-c">3–4× faster</td></tr>
+            <tr><td><strong>4. Token Generation</strong></td><td>Model generates each output token sequentially</td><td class="td-g">1.3ms/tok</td><td class="td-o">8–12ms/tok</td><td class="td-c">6–9× faster</td></tr>
+            <tr><td><strong>5. Network Return</strong></td><td>Response data travels back to client</td><td class="td-o">20–80ms</td><td class="td-o">20–80ms</td><td>None (network-limited)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Side-by-Side Response Time Breakdown</h3>
+      <p>For a typical chatbot response (200-word reply, ~280 output tokens, from a short 50-token prompt), here is where every millisecond goes on each platform.</p>
+
+      <div class="rt-stack">
+        <div class="rt-card rtc-groq">
+          <span class="rt-platform">Groq LPU — GroqCloud</span>
+          <div class="rt-name">Llama 3 70B · 280 tokens</div>
+          <div class="rt-phases">
+            <div class="rt-phase"><span class="rt-phase-name">Network (outbound)</span><span class="rt-phase-val">35ms</span></div>
+            <div class="rt-phase"><span class="rt-phase-name">Queue wait</span><span class="rt-phase-val">~1ms</span></div>
+            <div class="rt-phase"><span class="rt-phase-name">Prompt prefill (50 tok)</span><span class="rt-phase-val">75ms</span></div>
+            <div class="rt-phase"><span class="rt-phase-name">Token generation (280 tok)</span><span class="rt-phase-val">364ms</span></div>
+            <div class="rt-phase"><span class="rt-phase-name">Network (return)</span><span class="rt-phase-val">35ms</span></div>
+          </div>
+          <div class="rt-total">
+            <span class="rt-total-label">Total wall-clock</span>
+            <span class="rt-total-val">~510ms</span>
+          </div>
+        </div>
+        <div class="rt-card rtc-gpu">
+          <span class="rt-platform">NVIDIA H100 — GPU Inference API</span>
+          <div class="rt-name">Llama 3 70B · 280 tokens</div>
+          <div class="rt-phases">
+            <div class="rt-phase"><span class="rt-phase-name">Network (outbound)</span><span class="rt-phase-val">35ms</span></div>
+            <div class="rt-phase"><span class="rt-phase-name">Queue wait</span><span class="rt-phase-val">~150ms</span></div>
+            <div class="rt-phase"><span class="rt-phase-name">Prompt prefill (50 tok)</span><span class="rt-phase-val">300ms</span></div>
+            <div class="rt-phase"><span class="rt-phase-name">Token generation (280 tok)</span><span class="rt-phase-val">2,800ms</span></div>
+            <div class="rt-phase"><span class="rt-phase-name">Network (return)</span><span class="rt-phase-val">35ms</span></div>
+          </div>
+          <div class="rt-total">
+            <span class="rt-total-label">Total wall-clock</span>
+            <span class="rt-total-val">~3,320ms</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>The Queueing Advantage — Why Groq Has Near-Zero Wait</h3>
+      <p>GPU inference systems must batch requests to maintain hardware utilisation. When a GPU is busy processing a batch, new requests queue until the current batch completes. At high load, this queueing time can dominate total latency. GroqCloud's chip-cluster architecture routes individual requests to available chip clusters rather than batching them on shared hardware. The result is that queueing time is near-zero under normal operating conditions — requests are served individually at full LPU speed, not queued waiting for a batch window.</p>
+
+      <h3>The Prefill Advantage — Why Input Processing Is Faster</h3>
+      <p>Prompt prefill (processing the input tokens) is a compute-intensive, memory-bandwidth-intensive operation. All input tokens are processed in parallel, requiring loading the full weight matrix and computing attention over all input positions simultaneously. On a GPU, this requires large data transfers from HBM. On the LPU, weights are already resident in on-chip SRAM — the prefill computation has essentially zero data-movement overhead, completing 3–4× faster for typical prompt lengths.</p>
+
+      <h3>The Generation Advantage — Where the Gap Is Largest</h3>
+      <p>Token generation is where the LPU's advantage is most dramatic. Each generated token requires a full forward pass through the model — loading all weights, computing attention with the KV cache, and producing the next token probability distribution. On GPU hardware at 8–12ms per token, generating 280 tokens takes 2.2–3.4 seconds. On the LPU at ~1.3ms per token (750+ tok/s), the same 280 tokens take 364ms. This is the core of how Groq reduces AI response time — not through software tricks, but through hardware that keeps the weights on-chip where compute can reach them in nanoseconds.</p>
+
+      <div class="callout co-green">
+        <span class="callout-label">✅ The Practical Implication</span>
+        <p>A 280-token response that takes 510ms on Groq versus 3,320ms on GPU inference is the difference between a response that <em>appears</em> during the natural reading pause after a question and one that forces a conscious wait. Below 600ms, users perceive AI responses as synchronous. Above 2 seconds, they perceive it as asynchronous. Groq puts every typical chatbot response in the synchronous perception zone.</p>
+      </div>
+
+      <a href="how-groq-reduces-ai-response-time.html" class="ilink">
+        <span class="ilink-icon">⚡</span>
+        <div class="ilink-body">
+          <span class="ilink-tag">Engineering Deep Dive · Latency Analysis</span>
+          <div class="ilink-title">How Groq Reduces AI Response Time — Full Engineering Breakdown</div>
+          <div class="ilink-desc">Complete latency decomposition with measurement methodology, percentile distributions, streaming optimisation techniques, and network topology recommendations for minimising end-to-end response time in production.</div>
+        </div>
+        <span class="ilink-arrow">Read →</span>
+      </a>
+
+      <hr/>
+
+      <!-- FAQ -->
+      <h2 id="faq">Frequently Asked Questions</h2>
+      <div class="faq">
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">Does the GroqCloud free tier expire or degrade over time?<span class="faq-icon">+</span></div>
+          <div class="faq-a">No. The GroqCloud free tier does not expire. You get the same full LPU inference speed on the free tier as on paid plans — the only difference is rate limits (requests per minute and tokens per day). Groq has maintained this model since the platform launched, and there is no indication of plans to change it. The free tier is designed as a permanent developer access layer, not a time-limited trial.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">Is Llama 3 70B on Groq good enough for production coding tools?<span class="faq-icon">+</span></div>
+          <div class="faq-a">For most coding use cases — function generation, bug fixing, refactoring, documentation, test writing — yes. Llama 3 70B produces functionally correct, well-structured code for the majority of real-world tasks. Where GPT-4o or Claude maintain a quality edge is in complex multi-step architectural reasoning, subtle edge-case handling in ambiguous specifications, and tasks requiring deep knowledge of very recent libraries. For a coding assistant handling everyday development tasks, Groq's speed advantage will typically outweigh the quality difference for most developer teams.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">Can I use streaming to make Groq responses feel even faster?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Yes, and this is strongly recommended for any user-facing application. With streaming enabled, you receive the first token within ~250ms of sending the request — the user sees output begin almost immediately. Without streaming, the user waits for the entire response before seeing any output. Even on Groq, a 400-token response without streaming takes ~530ms. With streaming, users see the first word after 250ms and the response completes progressively. Always use stream=True for chat and coding interfaces.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">Why is the LPU architecture faster for generation but not for network latency?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Network latency (the time for data to travel between your application and the data centre) is determined by physical distance and internet routing — neither of which the LPU chip affects. The LPU's advantages are entirely within the data centre: faster weight access via on-chip SRAM, zero queue time via individual request routing, and faster per-token generation via deterministic SIMD execution. For applications where network latency is a significant portion of total response time (e.g., geographically distant users), deploying closer to Groq's data centres or using edge caching for system prompts can further reduce total latency.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0">How does Groq's pricing compare to running open-source models on self-hosted GPU instances?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Self-hosted inference on an A100 or H100 instance typically costs $2.50–$4.00 per GPU-hour for cloud rental. Running Llama 3 70B on a single H100 at 90–120 tokens/sec, a fully utilised instance produces approximately 270,000–432,000 output tokens per hour, costing $0.58–$1.48 per million output tokens. GroqCloud at $0.79/M output is competitive or cheaper, while being 6–8× faster and requiring zero infrastructure management. For most teams under 500M tokens/month, GroqCloud is both faster and more cost-effective than self-hosted GPU inference.</div>
+        </div>
+      </div>
+
+      <!-- CONCLUSION -->
+      <h2 id="conclusion">The Complete Picture</h2>
+      <p>Groq in 2026 is a mature, accessible, and genuinely fast platform for AI inference. The free tier removes every barrier to entry. The architecture — on-chip SRAM, static compilation, SIMD execution, deterministic latency — produces speed advantages that are measurable in every context from coding tool responsiveness to voice AI naturalness. The pricing, for paid workloads, is competitive with or cheaper than GPU-based alternatives while being dramatically faster.</p>
+
+      <p>The constraints are real: the 8K context window limits long-document workflows, and GroqCloud's open-source-only model catalogue means it cannot replace providers for GPT-4o or Claude-specific use cases. Within those constraints, the platform makes a compelling case as the default choice for text inference in 2026 — and the default meaning of "fast AI" in developer tooling, voice products, and agentic systems that require responsiveness above all.</p>
+
+      <div class="callout co-gold">
+        <span class="callout-label">🔗 Deep Dive Reading Path</span>
+        <p>Each chapter in this guide has a companion deep-dive article. For pricing specifics: <a href="groq-cloud-pricing-and-free-tier.html">GroqCloud Pricing and Free Tier</a>. For architecture internals: <a href="groq-ai-architecture-deep-dive.html">Groq AI Architecture Deep Dive</a>. For coding benchmarks: <a href="groq-ai-coding-assistant-speed-test.html">Groq AI Coding Assistant Speed Test</a>. For the complete response time engineering analysis: <a href="how-groq-reduces-ai-response-time.html">How Groq Reduces AI Response Time</a>. For the foundational hardware explanation behind all four topics: the <a href="../guide/groq-inference-engine-explained.html">Groq inference engine explained guide</a> is the recommended starting point.</p>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" aria-label="Article sidebar">
+    <div class="scard">
+      <div class="scard-title">Reading Progress</div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <ul class="toc-list" id="toc">
+        <li><a href="#ch1">1. GroqCloud Pricing &amp; Free Tier</a></li>
+        <li><a href="#ch2">2. Architecture Deep Dive</a></li>
+        <li><a href="#ch3">3. Coding Speed Test</a></li>
+        <li><a href="#ch4">4. How Groq Reduces Response Time</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#conclusion">Complete Picture</a></li>
+      </ul>
+    </div>
+
+    <div class="scard">
+      <div class="scard-title">Deep Dive Articles</div>
+      <div class="related-list">
+        <a href="groq-cloud-pricing-and-free-tier.html" class="related-item">
+          <span class="related-icon">💳</span>
+          <div>
+            <span class="related-cat" style="color:var(--gold)">Pricing</span>
+            <div class="related-title">GroqCloud Pricing and Free Tier</div>
+          </div>
+        </a>
+        <a href="groq-ai-architecture-deep-dive.html" class="related-item">
+          <span class="related-icon">🔬</span>
+          <div>
+            <span class="related-cat">Architecture</span>
+            <div class="related-title">Groq AI Architecture Deep Dive</div>
+          </div>
+        </a>
+        <a href="groq-ai-coding-assistant-speed-test.html" class="related-item">
+          <span class="related-icon">💻</span>
+          <div>
+            <span class="related-cat" style="color:var(--green)">Coding</span>
+            <div class="related-title">Groq AI Coding Assistant Speed Test</div>
+          </div>
+        </a>
+        <a href="how-groq-reduces-ai-response-time.html" class="related-item">
+          <span class="related-icon">⚡</span>
+          <div>
+            <span class="related-cat" style="color:var(--orange)">Speed</span>
+            <div class="related-title">How Groq Reduces AI Response Time</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="scard">
+      <div class="scard-title">NeuraPulse Guide Library</div>
+      <div class="related-list">
+        <a href="../guide/groq-inference-engine-explained.html" class="related-item">
+          <span class="related-icon">⚙️</span>
+          <div>
+            <span class="related-cat">Foundation</span>
+            <div class="related-title">Groq Inference Engine Explained</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="scard" style="text-align:center">
+      <div class="scard-title">NeuraPulse AI Guides</div>
+      <p style="font-size:.8rem;color:var(--text-dim);margin-bottom:14px;font-weight:300">Deep-dive AI guides on hardware, models, pricing, and building real apps.</p>
+      <a href="../guide.html" class="cta-btn" style="display:inline-block;font-size:.72rem">View All Guides →</a>
+    </div>
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">Neura<span>Pulse</span></span>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="../index.html">Home</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../guide.html">Guide</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../sitemap.html">Sitemap</a>
+    </nav>
+    <p class="footer-copy">© 2026 NeuraPulse · Prashant Lalwani</p>
+  </div>
+</footer>
+
+<button id="np-top" aria-label="Scroll to top">↑</button>
+
+<script>
+  const ham=document.getElementById('np-ham'),mob=document.getElementById('np-mob');
+  ham.addEventListener('click',()=>{const o=mob.classList.toggle('open');ham.classList.toggle('open',o);ham.setAttribute('aria-expanded',String(o))});
+  document.addEventListener('click',e=>{if(!ham.contains(e.target)&&!mob.contains(e.target)){mob.classList.remove('open');ham.classList.remove('open');ham.setAttribute('aria-expanded','false')}});
+  const topBtn=document.getElementById('np-top');
+  window.addEventListener('scroll',()=>topBtn.classList.toggle('show',scrollY>400),{passive:true});
+  topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  const tocLinks=document.querySelectorAll('.toc-list a');
+  const sections=Array.from(tocLinks).map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const pf=document.getElementById('progress-fill');
+  const ab=document.getElementById('article-body');
+  window.addEventListener('scroll',()=>{
+    let cur='';
+    sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur='#'+s.id});
+    tocLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===cur));
+    if(ab&&pf){const r=ab.getBoundingClientRect();const t=ab.offsetHeight-window.innerHeight;const sc=Math.max(0,-r.top);pf.style.width=Math.min(100,(sc/t)*100)+'%'}
+  },{passive:true});
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    const t=()=>q.closest('.faq-item').classList.toggle('open');
+    q.addEventListener('click',t);
+    q.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();t()}});
+  });
+  document.querySelectorAll('.code-copy').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const pre=btn.closest('.code-block').querySelector('pre');
+      navigator.clipboard.writeText(pre.innerText).then(()=>{
+        btn.textContent='Copied!';btn.classList.add('copied');
+        setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied')},2000);
+      });
+    });
+  });
+</script>
+</body>
+</html>

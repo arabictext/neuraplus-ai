@@ -1,0 +1,85 @@
+name: Fix Duplicate FAQ Schema
+
+on:
+  workflow_dispatch:  # Run manually from GitHub Actions tab
+
+jobs:
+  fix-schema:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fix duplicate FAQ microdata in all HTML files
+        run: |
+          echo "🔍 Scanning HTML files..."
+          fixed=0
+          clean=0
+          
+          for file in $(find . -name "*.html" -not -path "./.git/*"); do
+            original=$(cat "$file")
+            
+            # Fix 1: Remove FAQPage microdata from faq-section
+            sed -i 's/ itemscope itemtype="https:\/\/schema\.org\/FAQPage"//g' "$file"
+            
+            # Fix 2: Remove Question microdata from faq-item
+            sed -i 's/ itemprop="mainEntity" itemscope itemtype="https:\/\/schema\.org\/Question"//g' "$file"
+            
+            # Fix 3: Remove Answer microdata from faq-answer
+            sed -i 's/ itemprop="acceptedAnswer" itemscope itemtype="https:\/\/schema\.org\/Answer"//g' "$file"
+            
+            # Fix 4: Remove itemprop="name" from spans
+            sed -i 's/<span itemprop="name">/<span>/g' "$file"
+            
+            # Fix 5: Remove itemprop="text" from spans  
+            sed -i 's/<span itemprop="text">/<span>/g' "$file"
+            
+            # Fix 6: Remove Article microdata from article tag
+            sed -i 's/ itemscope itemtype="https:\/\/schema\.org\/Article"//g' "$file"
+            
+            # Fix 7: Remove Table microdata
+            sed -i 's/ itemprop="hasPart" itemscope itemtype="https:\/\/schema\.org\/Table"//g' "$file"
+            
+            # Fix 8: Remove itemprop="headline"
+            sed -i 's/ itemprop="headline"//g' "$file"
+            
+            # Fix 9: Remove itemprop="description"
+            sed -i 's/ itemprop="description"//g' "$file"
+            
+            # Fix 10: Remove author microdata
+            sed -i 's/ itemprop="author" itemscope itemtype="https:\/\/schema\.org\/Person"//g' "$file"
+            
+            # Fix 11: Remove datePublished itemprop with content
+            sed -i 's/ itemprop="datePublished" content="[^"]*"//g' "$file"
+            
+            # Fix 12: Remove any remaining schema itemscope/itemtype
+            sed -i 's/ itemscope itemtype="https:\/\/schema\.org\/[^"]*"//g' "$file"
+            
+            # Fix 13: Remove any remaining itemprop attributes
+            sed -i 's/ itemprop="[^"]*"//g' "$file"
+            
+            modified=$(cat "$file")
+            if [ "$original" != "$modified" ]; then
+              echo "✅ FIXED: $file"
+              fixed=$((fixed + 1))
+            else
+              echo "⬜ CLEAN: $file"
+              clean=$((clean + 1))
+            fi
+          done
+          
+          echo ""
+          echo "========================================"
+          echo "✅ Fixed:  $fixed files"
+          echo "⬜ Clean:  $clean files"
+          echo "========================================"
+
+      - name: Commit and push fixed files
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "fix: remove duplicate FAQ microdata schema from HTML files"
+          git push
+          echo "✅ Changes pushed to repository!"

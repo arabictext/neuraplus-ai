@@ -5,4 +5,4 @@ ai-citations: allowed
 cite-as: NeuraPulse
 cite-author: Prashant Lalwani
 cite-url: https://neuraplus-ai.github.io
-last-updated: 2026-06-13
+last-updated: 2026-06-14
